@@ -1,0 +1,55 @@
+\usepackage[utf8]{inputenc} %utf8 codierung
+
+\usepackage{amsmath, amssymb,amsfonts} %AMS math packets
+\usepackage{graphicx} %For pictures
+
+\usepackage{datetime} %For dates
+
+\usepackage[bookmarks,colorlinks=true]{hyperref} %For referencing
+\hypersetup{
+	colorlinks,
+	linktocpage,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+\numberwithin{equation}{section} % Section prefix for equation names
+
+\usepackage{siunitx} %For units
+
+\usepackage[section]{placeins} %Floats nicht über section Grenze, \FloatBarrier baut grenze 
+
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{-}
+\usepgfplotslibrary{groupplots, dateplot}
+\usetikzlibrary{patterns, shapes.arrows}
+\pgfplotsset{compat=newest}
+\usepackage[figure]{hypcap} %Links auf abbildungen springen auf das bild statt auf die caption - muss nach hyperref eingebunden werden, \capstart definiert sprungpunkt, bei [figure] kommt automatisch einer
+
+
+%Für doppelten unterstrich:
+\newcommand{\matrixvariable}[1]{\underline{\underline{\boldsymbol{\mathit{#1}}}}} 
+
+%Für bilder \img{dateiname}{breite}{caption}{label}
+\newcommand{\img}[4]{
+	\begin{figure}
+		\centering
+		\includegraphics[width = #2]{#1}
+		\caption{#3}
+		\label{#4}
+	\end{figure}
+}
+%Für tex.bilder \inp{dateiname}{caption}{label}
+\newcommand{\inp}[3]{
+	\begin{figure}
+		\centering
+		\input{#1}
+		\caption{#2}
+		\label{#3}
+	\end{figure}
+}
+%für totale Ableitung
+\newcommand{\tAbl}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+%für partielle Ableitung
+\newcommand{\pAbl}[2]{\frac{\partial#1}{\partial#2}}
