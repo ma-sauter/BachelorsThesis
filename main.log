@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.23)  14 AUG 2023 17:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.23)  18 AUG 2023 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -149,58 +149,27 @@ Class scrartcl Info: Using old \@makefntext due to compatibility level
 Class scrartcl Info: Redefining `\numberline' on input line 6145.
 \bibindent=\dimen102
 )
-! Undefined control sequence.
-<argument> \undefinedpagestyle 
-                               
-l.6 \pagestyle{scrheadings}
-                           %Kopf und FuÃŸzeilen
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+(c:/texlive/2019/texmf-dist/tex/latex/koma-script/scrlayer-scrpage.sty
+Package: scrlayer-scrpage 2019/10/12 v3.27 KOMA-Script package (end user interf
+ace for scrlayer)
 
-! Undefined control sequence.
-l.8 \ihead
-          {\AUTHOR} %Header oben rechts auf linker Seite und oben links auf ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.8 \ihead{\AUTHOR
-                  } %Header oben rechts auf linker Seite und oben links auf ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.9 \ofoot
-          {\thepage} %Footer unten links auf linker und unten rechts auf rec...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-! LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.9 \ofoot{\thepage
-                   } %Footer unten links auf linker und unten rechts auf rec...
-
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-) (./preliminaries/imports.tex
+(c:/texlive/2019/texmf-dist/tex/latex/koma-script/scrlayer.sty
+Package: scrlayer 2019/10/12 v3.27 KOMA-Script package (defining layers and pag
+e styles)
+Package scrlayer Info: Using already defined \footheight
+(scrlayer)             hoping, that this is a length and
+(scrlayer)             not only a macro on input line 109.
+Package scrlayer Info: patching LaTeX kernel macro \pagestyle on input line 208
+3.
+)
+Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
+(scrlayer-scrpage)             alias to `pageheadfoot' on input line 1244.
+Package scrlayer-scrpage Info: deactivating warning for font element
+(scrlayer-scrpage)             `pagefoot' on input line 1271.
+)
+Package scrlayer-scrpage Info: auto-selection of `pagestyleset=KOMA-Script'.
+)
+(./preliminaries/imports.tex
 (c:/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks15
@@ -501,8 +470,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip60
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 16.
-Package hyperref Info: Option `linktocpage' set `true' on input line 16.
+Package hyperref Info: Option `colorlinks' set `true' on input line 18.
+Package hyperref Info: Option `linktocpage' set `true' on input line 18.
 
 (c:/texlive/2019/texmf-dist/tex/latex/siunitx/siunitx.sty
 (c:/texlive/2019/texmf-dist/tex/latex/l3kernel/expl3.sty
@@ -1373,50 +1342,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (./text/titlepage.tex
 [1
 
-{c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-! LaTeX Error: \begin{document} ended by \end{titlepage}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.12 \end{titlepage}
-                    
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-! Extra \endgroup.
-<recently read> \endgroup 
-                          
-l.12 \end{titlepage}
-                    
-Things are pretty mixed up, but I think the worst is over.
-
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 12.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 12.
+{c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+(./text/MachineLearningBasics/introduction.tex) [2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 15.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 15.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 12.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 12.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 15.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 15.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 43546 strings out of 492164
- 1008151 string characters out of 6129087
- 1280205 words of memory out of 5000000
- 47297 multiletter control sequences out of 15000+600000
- 541596 words of font info for 61 fonts, out of 8000000 for 9000
+ 45085 strings out of 492164
+ 1062440 string characters out of 6129087
+ 1347138 words of memory out of 5000000
+ 48821 multiletter control sequences out of 15000+600000
+ 542830 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,5n,139p,10100b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 81i,20n,139p,10100b,725s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texl
-ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on main.pdf (1 page, 21789 bytes).
+ive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2019/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb><c:/texlive/2019/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
+Output written on main.pdf (2 pages, 41197 bytes).
 PDF statistics:
- 24 PDF objects out of 1000 (max. 8388607)
- 18 compressed objects within 1 object stream
- 2 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 45 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
+ 5 named destinations out of 1000 (max. 500000)
+ 29 words of extra memory for PDF output out of 10000 (max. 10000000)
 
