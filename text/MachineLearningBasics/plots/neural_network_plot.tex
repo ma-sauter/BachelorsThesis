@@ -1,0 +1,81 @@
+\begin{tikzpicture}
+	\Vertex[x=0,y=0]{A}
+	\Vertex[x=0,y=1]{B}
+	\Vertex[x=0,y=2]{C}
+	\Vertex[x=0,y=3]{D}
+	
+	\Vertex[x=2,y=0]{E}
+	\Vertex[x=2,y=1]{F}
+	\Vertex[x=2,y=2]{G}
+	\Vertex[x=2,y=3]{H}
+	
+	\Vertex[x=4,y=0]{I}
+	\Vertex[x=4,y=1]{J}
+	\Vertex[x=4,y=2]{K}
+	\Vertex[x=4,y=3]{L}
+	
+	\Edge[lw=1pt](A)(E)
+	\Edge[lw=1pt](A)(F)
+	\Edge[lw=1pt](A)(G)
+	\Edge[lw=1pt](A)(H)
+	
+	\Edge[lw=1pt](B)(E)
+	\Edge[lw=1pt](B)(F)
+	\Edge[lw=1pt](B)(G)
+	\Edge[lw=1pt](B)(H)
+	
+	\Edge[lw=1pt](C)(E)
+	\Edge[lw=1pt](C)(F)
+	\Edge[lw=1pt](C)(G)
+	\Edge[lw=1pt](C)(H)
+	
+	\Edge[lw=1pt](D)(E)
+	\Edge[lw=1pt](D)(F)
+	\Edge[lw=1pt](D)(G)
+	\Edge[lw=1pt](D)(H)
+	
+	\Edge[lw=1pt](E)(I)
+	\Edge[lw=1pt](E)(J)
+	\Edge[lw=1pt](E)(K)
+	\Edge[lw=1pt](E)(L)
+	
+	\Edge[lw=1pt](F)(I)
+	\Edge[lw=1pt](F)(J)
+	\Edge[lw=1pt](F)(K)
+	\Edge[lw=1pt](F)(L)
+	
+	\Edge[lw=1pt](G)(I)
+	\Edge[lw=1pt](G)(J)
+	\Edge[lw=1pt](G)(K)
+	\Edge[lw=1pt](G)(L)
+	
+	\Edge[lw=1pt](H)(I)
+	\Edge[lw=1pt](H)(J)
+	\Edge[lw=1pt](H)(K)
+	\Edge[lw=1pt](H)(L)
+	
+	\Vertex[x=-2,y=1, label=$x$, opacity = 0]{X}
+	\Vertex[x=-2,y=2, label=$y$, opacity = 0]{Y}
+	\Edge[lw=1pt](X)(A)
+	\Edge[lw=1pt](X)(B)
+	\Edge[lw=1pt](X)(C)
+	\Edge[lw=1pt](X)(D)
+	\Edge[lw=1pt](Y)(A)
+	\Edge[lw=1pt](Y)(B)
+	\Edge[lw=1pt](Y)(C)
+	\Edge[lw=1pt](Y)(D)
+	
+	\Vertex[x=6,y=1.5, label=$p$, opacity = 1]{P}
+	\Edge[lw=1pt](I)(P)
+	\Edge[lw=1pt](J)(P)
+	\Edge[lw=1pt](K)(P)
+	\Edge[lw=1pt](L)(P)
+	
+	\draw [decorate,
+	decoration = {brace, mirror, amplitude=10pt}] (-0.2,-0.5) --  (4.2,-0.5);
+	\node at (2,-1.2) {3 (hidden) layers};
+	\draw [decorate,
+	decoration = {brace, mirror, amplitude=10pt}] (6.5,-0.3) --  (6.5,3.3);
+	\node at (7.2,1.5) [rotate=-90] {width of 4 neurons};
+	
+\end{tikzpicture}

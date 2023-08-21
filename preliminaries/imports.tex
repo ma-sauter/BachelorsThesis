@@ -5,7 +5,7 @@
 
 \usepackage{datetime} %For dates
 
-
+\usepackage[usenames,dvipsnames]{xcolor} %For coloring text and equations
 
 \usepackage[bookmarks,colorlinks=true]{hyperref} %For referencing
 \hypersetup{
@@ -23,9 +23,9 @@
 \usepackage[section]{placeins} %Floats nicht über section Grenze, \FloatBarrier baut grenze 
 
 \usepackage{pgfplots}
-\DeclareUnicodeCharacter{2212}{-}
+%\DeclareUnicodeCharacter{2212}{-}
 \usepgfplotslibrary{groupplots, dateplot}
-\usetikzlibrary{patterns, shapes.arrows}
+\usetikzlibrary{external, patterns, shapes.arrows, decorations.pathreplacing,calligraphy}
 \pgfplotsset{compat=newest}
 \usepackage[figure]{hypcap} %Links auf abbildungen springen auf das bild statt auf die caption - muss nach hyperref eingebunden werden, \capstart definiert sprungpunkt, bei [figure] kommt automatisch einer
 
@@ -55,3 +55,8 @@
 \newcommand{\tAbl}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
 %für partielle Ableitung
 \newcommand{\pAbl}[2]{\frac{\partial#1}{\partial#2}}
+
+\usepackage{tikz-network} %for picturing neural networks
+
+\usepackage{hyperref}
+\usepackage{cleveref} %both for referencing
