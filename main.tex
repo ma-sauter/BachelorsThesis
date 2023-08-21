@@ -1,22 +1,115 @@
-\input{preliminaries/formatting.tex}
+% Author: Clara Eleonore Pavillet
+% Version: 1.0
+% This work is licensed under a Creative Commons Attribution 4.0 International License.
+
+\documentclass[12pt, a4paper]{report}
 \input{preliminaries/imports.tex}
-\input{preliminaries/variables.tex}
-\input{literaturesetup.tex}
+\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\rhead{Keble College}
+\chead{}
+\lhead{University of Oxford}
+\lfoot{\date{}}
+\cfoot{}
+\rfoot{\thepage}
+% Top and Bottom Line Rules
+\renewcommand{\headrulewidth}{0.4pt} %0.4pt
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyheadoffset{9pt}
+\fancyfootoffset{9pt}
+% Line spacing
+\renewcommand{\baselinestretch}{1.5} %1.5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\date{}
 
+\title{Random Title on Mathematical and Computational Modelling}
+\author{\\ \Large{Author Name}
+	\\ Keble College
+	\\
+	\\
+	\\
+	\\ University of Oxford
+	\\
+	A thesis presented for the degree of \\ \textit{Doctor of Philosophy}
+	\\ \\
+	Trinity 2019
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\input{text/titlepage.tex}
-
-\section{Machine Learning Basics}
-\subsection{Introduction to machine learning}
-\input{text/MachineLearningBasics/introduction.tex}
-\subsection{Neural networks}
-\input{text/MachineLearningBasics/NeuralNetworks.tex}
-\subsection{Training of neural networks}
-\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
-\subsection{Mathematical framework}
-\input{text/MachineLearningBasics/Definitions.tex}
-
-
-
-\printbibliography
+	% Adjust logo positions here
+	\AddToShipoutPicture*{\BackgroundPicturea{Logos/logo2.png}{0.7in}{5.8in}}
+	\AddToShipoutPicture*{\BackgroundPictureb{Logos/KebleShield.png}{6.1in}{3.7in}}
+	\thispagestyle{headings}
+	\maketitle
+	\FloatBarrier
+	\pagenumbering{roman}
+	
+	\newpage
+	\thispagestyle{empty}
+	\begin{center}
+		I dedicate this ...
+	\end{center}
+	
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\begin{center}
+		Copyright \copyright  \thinspace 2019 by Author Name \\ All Rights Reserved
+	\end{center}
+	\vspace*{\fill}
+	\newpage
+	\thispagestyle{empty}
+	\epigraph{The Book of Nature is written in the language of mathematics.}{--- \textup{Galileo Galilei}}
+	
+	\thispagestyle{empty}
+	\chapter*{Acknowledgements}
+	I would like to express ...
+	
+	
+	\thispagestyle{empty}
+	\chapter*{Declaration}
+	I, [author name], declare that ...
+	
+	\vspace{3cm}
+	\noindent\begin{tabular}{ll}
+		\makebox[2.5in]{\hrulefill} & \makebox[2.5in]{\hrulefill}\\
+		\textit{Signature} & \textit{Date}\\
+	\end{tabular}
+	
+	\thispagestyle{empty}
+	\begin{abstract}
+		\lipsum[1-2]
+		
+		\keywords{Keyword1 - Keyword2 - Keyword3}
+		% \vspace{-10mm} %To remove added white space after
+	\end{abstract}
+	\tableofcontents
+	\thispagestyle{plain}
+	\listoffigures
+	\listoftables
+	
+	\chapter*{List of Abbreviations}
+	\begin{abbreviations}
+		\item[MAS] Multi-Agent System
+	\end{abbreviations}
+	
+	\section{Machine Learning Basics}
+	\pagenumbering{arabic}
+	
+	\subsection{Introduction to machine learning}
+	\input{text/MachineLearningBasics/introduction.tex}
+	\subsection{Neural networks}
+	\input{text/MachineLearningBasics/NeuralNetworks.tex}
+	\subsection{Training of neural networks}
+	\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
+	\subsection{Mathematical framework}
+	\input{text/MachineLearningBasics/Definitions.tex}
+	
+	\printbibliography
+	
+	\begin{appendices}
+		\chapter{Appendix Example}
+	\end{appendices}
+	
 \end{document}
