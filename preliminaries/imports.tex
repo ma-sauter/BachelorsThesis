@@ -205,19 +205,19 @@
 \titlespacing*{\chapter}{0pt}{-70pt}{40pt} %Move chapter titles up
 % Title page logos:
 \makeatletter
-\newcommand\BackgroundPicturea[3]{
+\newcommand\BackgroundPicturea[4]{
 	\setlength{\unitlength}{1pt}
 	\put(0,\strip@pt\paperheight){
 		\parbox[t]{\paperwidth}{
 			\vspace{#2}\hspace{#3}
-			\mbox{\includegraphics[scale=0.5]{#1}}
+			\mbox{\includegraphics[scale=#4]{#1}}
 }}}
-\newcommand\BackgroundPictureb[3]{
+\newcommand\BackgroundPictureb[4]{
 	\setlength{\unitlength}{1pt}
 	\put(0,\strip@pt\paperheight){
 		\parbox[t]{\paperwidth}{
 			\vspace{#2}\hspace{#3}
-			\mbox{\includegraphics[scale=0.3]{#1}}
+			\mbox{\includegraphics[scale=#4]{#1}}
 }}}
 \makeatother
 % For my abbreviations
@@ -250,7 +250,7 @@
 
 \usepackage{datetime} %For dates
 
-\usepackage[backend=biber]{biblatex} %For citation
+\usepackage[backend=biber, sorting=none, citestyle=nature]{biblatex} %For citation
 \addbibresource{literature.bib} %imports the bibliography file
 
 \usepackage{xcolor} %For coloring text and equations

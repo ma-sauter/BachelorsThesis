@@ -16,7 +16,7 @@ The big circle in the middle is representing what we consider a neuron. It takes
 	\end{cases}.
 \end{equation}
 Here the neuron gets activated as soon as the sum of the input-weight-pairs is higher than $-b$ and the value of the activation increases linearly with the weighted input summation.
-\subsubsection{Neural networks}
+\subsubsection{Neural networks}\label{sec:NeuralNetworks}
 A neural network can be built from these neurons, by connecting the outputs of certain neurons to the inputs of others. For example lets consider a neural network that consists of 3 layers of 4 neurons each, that takes 2 values as an input and outputs 2 values at the end. This could for example be trained for detecting if a point on a 2d-grid is inside or outside of a given region. The input values would be the $x$ and $y$ coordinates of the point and the output value could represent the probability of the point being inside the desired region. How exactly this training would work will be explained in later chapters. A visual sketch of such a network can be seen in \cref{fig:Neural_network_example}. \\
 \begin{figure}
 	\centering
@@ -31,4 +31,5 @@ To start off we can define the inputs as $a_i^{(0)}$ , $i =  1, \dotsb n$, with 
 \begin{equation}
 	a_i^{(k+1)} = f\left(\sum_j \left(\omega_{i,j}^{(k+1)}a_j^{(k)}\right) + b_i^{(k+1)}\right).
 \end{equation}
-To actually calculate the value, the $a_j^{(k)}$ values have to be recursively replaced with their full calculation until one arrives at the input values of the network.
+To actually calculate the value, the $a_j^{(k)}$ values have to be recursively replaced with their full calculation until one arrives at the input values of the network.\\
+For simplicity reasons we will refer to the weights $\omega_{i,j}^{(k)}$ and biases $b_i^{(k)}$ together as "parameters" of the neural network. We will denote these collected in one ordered set as $\theta = \{\theta_i\}_{i=1}^{N}$ if $N$ is the amount of weights and the amount of biases added together. The mapping of the parameters onto $\theta$ is not important as long as it is known, so that one can calculate the output of a neural network if given $\theta$ in the same way as when one is given the parameters. Another possible representation that we will use often is to write this set as a vector $\theta \in \mathbb{R}^N$. A short notation for the output of the neural network will be explained in the next chapter.

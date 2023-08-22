@@ -1,4 +1,4 @@
-% Author: Clara Eleonore Pavillet
+% Template Author: Clara Eleonore Pavillet
 % Version: 1.0
 % This work is licensed under a Creative Commons Attribution 4.0 International License.
 
@@ -7,9 +7,9 @@
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\rhead{Keble College}
+\rhead{ICP}
 \chead{}
-\lhead{University of Oxford}
+\lhead{University of Stuttgart}
 \lfoot{\date{}}
 \cfoot{}
 \rfoot{\thepage}
@@ -23,23 +23,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \date{}
 
-\title{Random Title on Mathematical and Computational Modelling}
-\author{\\ \Large{Author Name}
-	\\ Keble College
+\title{Investigating the evolution of fisher information for neural network dynamics}
+\author{\\ \Large{Marc Sauter}
+	\\ ICP
 	\\
 	\\
 	\\
-	\\ University of Oxford
+	\\ University of stuttgart
 	\\
-	A thesis presented for the degree of \\ \textit{Doctor of Philosophy}
+	A thesis presented for the degree of \\ \textit{B.Sc.}
 	\\ \\
-	Trinity 2019
+	2023
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 	% Adjust logo positions here
-	\AddToShipoutPicture*{\BackgroundPicturea{Logos/logo2.png}{0.7in}{5.8in}}
-	\AddToShipoutPicture*{\BackgroundPictureb{Logos/KebleShield.png}{6.1in}{3.7in}}
+	\AddToShipoutPicture*{\BackgroundPicturea{Logos/UniStuttgartLogo.png}{0.7in}{5.0in}{1}} %The last value changes the size factor
+	\AddToShipoutPicture*{\BackgroundPictureb{Logos/ICPLogo.png}{6.1in}{3in}{0.9}}
 	\thispagestyle{headings}
 	\maketitle
 	\FloatBarrier
@@ -55,7 +55,7 @@
 	\thispagestyle{empty}
 	\vspace*{\fill}
 	\begin{center}
-		Copyright \copyright  \thinspace 2019 by Author Name \\ All Rights Reserved
+		Copyright \copyright  \thinspace 2023 by Marc Sauter \\ All Rights Reserved
 	\end{center}
 	\vspace*{\fill}
 	\newpage
@@ -106,8 +106,9 @@
 	\subsection{Mathematical framework}
 	\input{text/MachineLearningBasics/Definitions.tex}
 	
-	\printbibliography
 	
+	\nocite{*}
+	\printbibliography[title=Literature]
 	\begin{appendices}
 		\chapter{Appendix Example}
 	\end{appendices}
