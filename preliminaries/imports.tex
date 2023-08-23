@@ -303,6 +303,12 @@
 \newcommand{\tAbl}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
 %für partielle Ableitung
 \newcommand{\pAbl}[2]{\frac{\partial#1}{\partial#2}}
+%für Jacobians
+\newcommand{\jacobian}[2]{\mathcal{J}_{\left[#1/#2\right]}}
+
+\usepackage{mathtools} % for =: sign
+\mathtoolsset{centercolon}
+%\mathtoolsset{showonlyrefs} % only label equations that get mentioned
 
 \usepackage{tikz-network} %for picturing neural networks
 

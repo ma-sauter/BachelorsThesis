@@ -69,7 +69,7 @@
 	
 	\thispagestyle{empty}
 	\chapter*{Declaration}
-	I, [author name], declare that ...
+	I, Marc Sauter, declare that ...
 	
 	\vspace{3cm}
 	\noindent\begin{tabular}{ll}
@@ -91,11 +91,12 @@
 	
 	\chapter*{List of Abbreviations}
 	\begin{abbreviations}
-		\item[AI] Artificial intelligence
-		\item[ML] Machine learning
+		\item[AI] Artificial Intelligence
+		\item[ML] Machine Learning
 		\item[ReLU] Rectified Linear Unit
-		\item[NN] neural network
-		\item[SGD] stochastic gradient descent
+		\item[NN] Neural Network
+		\item[SGD] Stochastic Gradient Descent
+		\item[NTK] Neural Tangent Kernel
 	\end{abbreviations}
 	
 	\chapter{Machine Learning Basics}
@@ -110,6 +111,12 @@
 	\section{Which assumptions are actually necessary}
 	\input{text/MachineLearningBasics/TheImportantParts.tex}
 	
+	\chapter{Neural Tangent Kernel}
+	%\input{text/NTK/NTKIntro.tex}
+	\section{Derivation from Gradient Flow}
+	\input{text/NTK/GradientFlow.tex}
+	\section{Interpretation}
+	\input{text/NTK/Interpretation.tex}
 	
 	\nocite{*}
 	\printbibliography[title=Literature]
