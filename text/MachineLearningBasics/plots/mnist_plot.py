@@ -15,4 +15,4 @@ for i in range(n_plots):
     axis.tick_params(left = False, bottom = False)
     axis.grid(color='gray', linestyle='-', linewidth=0.1)
 
-plt.savefig('mnist_plot.pdf')
+plt.savefig('mnist_plot.pdf', bbox_inches='tight')
