@@ -14,7 +14,7 @@ with $p$ being the amount of parameters in the network.
 
 \subsection{Loss function}
 Now we have defined what a neural network is and how the input data we want to train on is structured. In order to train our networks to behave according to our data set, we now need to introduce a way to measure how well our network is performing. Once we can evaluate the performance of our network, we can then introduce ways to optimize that performance.\\
-This measure of the performance of a neural network is called the "loss function" $\mathscr{L}$. It is also sometimes referred to as the cost function in literature. For this study we will only consider loss functions of the form 
+This measure of the performance of a neural network is called the "\textbf{loss function}" $\mathscr{L}$. It is also sometimes referred to as the cost function in literature. For this study we will only consider loss functions of the form 
 \begin{equation}
 	\mathscr{L}\left( \{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1}^{N}, \theta \right) = \frac{1}{N} \sum_{i=1}^{N} \ell_\theta\left(\mathbf{x}_i,\mathbf{y}_i\right).
 	\label{eq:Loss_longform}
@@ -37,7 +37,7 @@ with $f_\theta(\mathbf{x_{i}})_j$ and $y_{i,j}$ being the $j$-th component of th
 
 \subsection{Optimization}\label{sec:NetworkOptimization}
 To quickly recap, we have now defined what a neural network is and that we want a fixed network architecture during training whose parameters we can vary to optimize the performance. We also assume that we have a data set that we want our network to behave like and a loss function that measures how well the current setup of our network is performing. We will now talk about how we can change the parameters in an attempt to optimize performance, which is achieved by lowering the value of the loss function.\\
-The simplest and most common algorithm to do this is stochastic gradient descent (SGD). Here, the rule for updating the parameters looks like 
+The simplest and most common algorithm to do this is \textbf{stochastic gradient descent} (SGD). Here, the rule for updating the parameters looks like 
 \begin{equation}\label{eq:SGD}
 	\theta' = \theta - \eta \nabla_\theta \mathscr{L}\left[ \{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1}^{N}, \theta \right],
 \end{equation}
