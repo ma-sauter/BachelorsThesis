@@ -45,7 +45,7 @@ colormap = plt.get_cmap("BuGn")
 color1 = colormap(0.8)
 colormap = plt.get_cmap("cool")
 color2 = colormap(0.2)
-color1 = color2
+color1 = color2 = '#00E88F'
 
 # Plot the surface.
 surf = ax.plot_surface(X, Y, F, cmap=cm.magma,
@@ -69,5 +69,5 @@ ax.zaxis.set_major_formatter('{x:.02f}')
 ax.set_axis_off()
 
 plt.tight_layout()
-#plt.show()
-plt.savefig("GradientFlowPlot.pdf", bbox_inches='tight')
+plt.show()
+#plt.savefig("GradientFlowPlot.pdf", bbox_inches='tight')
