@@ -1,10 +1,10 @@
 \subsection{What we call time}
-A simple and intuitive way to introduce the NTK is via Gradient Flow, which is an assumption related to the SGD algorithm from \cref{sec:NetworkOptimization}. To quickly recap, the update step from stochastic gradient descent is defined as 
+A simple and intuitive way to introduce the NTK is via "\textbf{Gradient Flow}", which is an assumption related to the SGD algorithm from \cref{sec:NetworkOptimization}. To quickly recap the update step from stochastic gradient descent, it is defined as 
 \begin{equation}
 	\theta' = \theta - \eta \nabla_\theta \mathscr{L}\left( \{(f_\theta(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right).
 \end{equation}
-The "flow" aspect arises when we start to ignore the discrete nature of these update steps and assume that the $\theta$ parameters change continuously. To do this, we first introduce a notion of "time" into our system. We try to visualize the optimization process as an evolution of our parameters $\theta$ through this variable called "time", which converts updating the parameters $\theta \rightarrow \theta'$ into moving further along the timeline of our parameters $\theta(t) \rightarrow \theta(t+\Delta t)$. This time in our system doesn't work exactly the same way as physical time, but since parameter optimization is always associated with the expenditure of physical time it is intuitive to refer to our system's propagation variable as "time". \\
-Returning to our SGD algorithm, since the learning rate $\eta$ affects the size of our update step, we will refer to $\eta$ as the amount of time it takes to update a parameter $\theta' \rightarrow \theta(t+\eta)$. The whole SGD algorithm then becomes
+The "flow" aspect arises when we start to ignore the discrete nature of these update steps and assume that the $\theta$ parameters change continuously. To do this, we first introduce a notion of "time" into our system. We try to visualize the optimization process as an evolution of our parameters $\theta$ through this variable called time, which converts updating the parameters into moving further along the timeline of our parameters. We now translate $\theta \rightarrow \theta(t)$ and $\theta' \rightarrow \theta(t+\Delta t)$. This time in our system doesn't work exactly the same way as physical time, but since the process of calculating better parameters and changing them is always associated with the expenditure of physical time, it is intuitive to refer to our system's propagation variable as "time". \\
+Returning to the SGD algorithm, since the learning rate $\eta$ affects the size of our update step, we will refer to $\eta$ as the amount of time it takes to update a parameter $\theta' \rightarrow \theta(t+\eta)$. The whole SGD algorithm then becomes
 \begin{equation}
 	\theta(t+\eta) = \theta(t) - \eta \nabla_{\theta(t)} \mathscr{L}\left( \{(f_{\theta(t)}(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right)
 \end{equation}
@@ -12,24 +12,30 @@ which we can rewrite to
 \begin{equation}
 	\frac{\theta(t+\eta)-\theta(t)}{\eta} = - \nabla_{\theta(t)} \mathscr{L}\left( \{(f_{\theta(t)}(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right).
 \end{equation}
-The left side converts to a derivative in the limit of infinitesimally small $\eta$ values. This means that for the limit of small learning rates we can write the SGD as 
+When observing the term on the left side, readers who are familiar with calculus might recognize that it looks similar to the definition of a derivative in time
+\begin{equation}
+	\pAbl{}{t}\theta(t) = \lim_{\eta\rightarrow0} \frac{\theta(t+\eta)-\theta(t)}{\eta}.
+\end{equation}
+This means that for very small learning rates we can approximate the SGD as 
 \begin{equation}\label{eq:NTKThetaDerivative}
 	\pAbl{}{t}\theta(t) = - \nabla_{\theta(t)} \mathscr{L}\left( \{(f_{\theta(t)}(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right)
 \end{equation}
 with the partial derivative of $\theta$ along the assumed time variable.\\
-For visual simplicity reasons, let's define the $j$-th component of the network output for the $i$-th input point $f_{\theta(t)}(\mathbf{x}_i)_i$ as $f_{ij}$ and assume Einstein summation for the rest of the chapter. This means that when an index is occuring twice (for example $a_k b_k$) we don't denote a hidden summation over all possible values for this index($\sum_k a_kb_k$).\\ 
-Because it will be convenient later we also spell out the $\nabla_\theta$ derivation of the loss function further by using the chain rule as
+For visual simplicity reasons, let's define the $j$-th component of the network output for the $i$-th input point $f_{\theta(t)}(\mathbf{x}_i)_j$ as $f_{ij}$ and assume Einstein summation for the rest of the chapter.
+This means that when an index is occuring twice we don't denote a hidden summation over all possible values for this index (for example $a_kb_k = \sum_k a_kb_k$).\\
+Because it will be convenient later we also spell out one component of the $\nabla_\theta$ derivation of the loss function further by using the chain rule as
 \begin{align}
-	\pAbl{\theta_k}{t} &= - \pAbl{}{\theta_k}\mathscr{L}\left( \{(f_{\theta(t)}(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right)\nonumber\\
+	\pAbl{}{t}f_{\theta(t)}(\mathbf{x}_i)_j = \pAbl{\theta_k}{t} &= - \pAbl{}{\theta_k}\mathscr{L}\left( \{(f_{\theta(t)}(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right)\nonumber\\
 	&= - \pAbl{\mathscr{L}}{f_{ij}} \cdot \pAbl{f_{ij}}{\theta_k}.
 \end{align} 
 
 \subsection{Derivation of the NTK}
-This notion of time affects not only the parameters, but also everything that depends on them. For example, since the network output of a fixed architecture for a given input data point only depends on the parameters of the network, it can also be mathematically viewed as dependent on the time $f_{\theta}(\mathbf{x}_i) \rightarrow f_{\theta(t)}(\mathbf{x}_i)$. This means we can also calculate the derivative of one of the network outputs to
+This notion of time affects not only the parameters, but also everything that depends on them. For example, since the network output of a fixed architecture for a given input data point only depends on the parameters of the network, it can also be mathematically viewed as dependent on the time $f_{\theta}(\mathbf{x}_i) \rightarrow f_{\theta(t)}(\mathbf{x}_i)$. This means we can also calculate the derivative of one of the network outputs $f_{\theta(t)}(\mathbf{x}_i)_j = f_{ij}$ to
 \begin{align}
 	\pAbl{}{t} f_{ij} &= \pAbl{f_{ij}}{\theta_k}\pAbl{\theta_k}{t}\nonumber\\
 	&= \pAbl{f_{ij}}{\theta_k} \left(- \pAbl{\mathscr{L}}{f_{ij}} \cdot \pAbl{f_{ij}}{\theta_k} \right)\label{eq:NTKarisesFromHere}\\
 	&= - \underbrace{\pAbl{f_{ij}}{\theta_k} \pAbl{f_{lm}}{\theta_k}}_\mathlarger{=\vcentcolon \Lambda_{i,l,j,m}}
 	\pAbl{\mathscr{L}}{f_{lm}}.\nonumber
 \end{align}
-The rank 4 hypermatrix $\Lambda$ is what we call the Neural Tangent Kernel for SGD. We sorted the indices of this matrix so that the first two refer to the input points of $f$ and the last two refer to the components of the output dimensions of the neural network. Note that this NTK is derived directly from the update algorithm of the SGD for infinitely small $\eta$, the equations above don't hold for other optimization systems.
+The rank 4 hypermatrix $\Lambda$ is what we call the Neural Tangent Kernel for SGD. We sorted the indices of this matrix so that the first two refer to the input points of $f$ and the last two refer to the components of the output dimensions of the neural network. Note that this NTK is derived directly from the update algorithm of the SGD for infinitely small $\eta$, the equations above don't hold for other optimization systems.\\
+Another way to derive the NTK using an approximation of $\Delta \mathscr{L}$ for small $\eta$ can be seen around page 196 of \cite{ThePrinciplesOfDeepLearningTheory}. The NTK derived there also works for tensorial gradient descent with a learning rate tensor $\eta_{ij}$.
