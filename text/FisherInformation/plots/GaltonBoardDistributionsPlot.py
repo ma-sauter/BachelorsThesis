@@ -64,6 +64,8 @@ for i in range(n_plots):
     ymin, ymax = tax.get_yaxis().get_view_interval()
     tax.add_artist(Line2D((xmin, xmax), (ymin, ymin), color='black', linewidth=1))
 
+fig.text(0.5, 0.04, '$x_i$', ha='center')
+axes[1,0].set_ylabel("$p_\\theta(x_i)$")
 plt.subplots_adjust(wspace=0, hspace = 0.07)
 #plt.show()
 plt.savefig("GaltonDistributionsPlot.pdf", bbox_inches='tight')
