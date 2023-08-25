@@ -1,0 +1,36 @@
+\section{Proof of \cref{eq:FIforIndependentExperiments}}
+\label{sec:ProofFIforIndependentExperiments}
+For all variables $X^n$ that satisfy
+\begin{equation}\label{eq:UsedInProofFIforIndependentExperiments}
+	f(x^n|\theta) = \sum_{\alpha = 1}^n f(x_\alpha|\theta)
+\end{equation} 
+we can prove
+\begin{equation}
+	I_{X^n,ij} = \sum_\alpha I_{X_\alpha,ij}
+\end{equation}
+by
+\begin{equation}
+\begin{split}
+	I_{X^n,ij} =& \underset{x^n \in X^n}{E} \left\{\tAbl{}{\theta_i}\log f(x^n|\theta) \tAbl{}{\theta_j}\log f(x^n|\theta)\right\}\\
+	=& \sum_{x^n \in X^n} \left\{\left[\tAbl{}{\theta_i} f(x^n|\theta)\right] \left[\tAbl{}{\theta_j} f(x^n|\theta)\right]  \left[f(x^n|\theta)\right]^{-1} \right\}\\
+	\stackrel{\ref{eq:UsedInProofFIforIndependentExperiments}}{=}& \sum_{x^n \in X^n} \left\{\tAbl{}{\theta_i} \left[\prod_\alpha f(x_\alpha|\theta)\right] \tAbl{}{\theta_j} \left[\prod_\beta f(x_\beta|\theta)\right] \left[ \prod_\gamma f(x_\gamma|\theta)\right]^{-1}\right\}\\
+	=&\sum_{x^n \in X^n} \left\{\left(\prod_\alpha f(x_\alpha|\theta)\right)\left(\sum_\alpha \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right) \right. 
+	\\
+	&\qquad\quad\left.\left(\prod_\beta f(x_\beta|\theta)\right)\left(\sum_\beta \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right) \left[\prod_\gamma f(x_\gamma|\theta)\right]^{-1} \right\}\\
+	=& \underset{x^n \in X^n}{E}\left\{ \left[\sum_\alpha\tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right] \left[\sum_\beta\tAbl{}{\theta_i}\log f(x_\beta|\theta)\right]\right\}\\
+	\stackrel{(*)}{=}& \underset{x^n \in X^n}{E} \left\{ \sum_\alpha \left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\right\}\\
+	=& \sum_\alpha \underset{x^n \in X^n}{E} \left\{\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\right\}\\
+	=& \sum_\alpha I_{X_\alpha,ij}.
+\end{split}
+\end{equation}
+The equality at $(*)$ holds because for all $\alpha \neq \beta$
+\begin{equation}
+	\begin{split}
+		&\underset{x^n \in X^n}{E} \left\{ \left[\tAbl{}{\theta_i} \log f(x_\alpha|\theta)\right]\left[\tAbl{}{\theta_i} \log f(x_\beta|\theta)\right]\right\} \\
+		\propto& \sum_{x_\alpha}\sum_{x_\beta} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\left[\tAbl{}{\theta_i}  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\left[\tAbl{}{\theta_i}  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\tAbl{}{\theta_i}\left[  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\tAbl{}{\theta_i}\left[ 1\right]\right\}\\
+		=&\ 0.
+	\end{split}
+\end{equation}

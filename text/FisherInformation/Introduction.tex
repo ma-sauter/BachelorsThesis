@@ -17,3 +17,24 @@ In general, the statistical models might be more complex, with $\theta$ containi
 What's of interest for the FI are cases where the parameters are not known before conducting the experiment, and have to be approximated by the different outcomes $x_i$.\\
 Before we introduce the FI, let's look at an example from \cite{StatisticFisherInfoTutorial}. Let's consider a biased coin where we denote the probability for heads ($x_i = 1$) with $\theta$. The probability for tails ($x_i = 0$) is then $1-\theta$. We will now take a look at the outcome of $n$ throws represented by the variable $X^n$. For example one observed result for $X^5$ could be $x = (1,1,0,1,0)$. Lets consider another variable $Y$ whose observation is the sum of the total head throws $y = \sum x$. In our example case of $x = (1,1,0,1,0)$ this would result in a value of $y = 3$. The probability for this variable $y$ is distributed according to the binomial distribution, which means $f(y|\theta) = \binom{n}{y}\theta^y \theta^{n-y}$. Here the binomial coefficient $\binom{n}{y}$ represents the different combinations that result in the same $y$ value. This is needed because there are $2^n$ different possibilities for $x$ while there are only $n$ different possibilities for $y$.\\
 If we now fix the outcome of $y$ and look at the conditional probability for the different $x$ that could have resulted in that $y$ value, we get $p(x|y,\theta) = 1/ \binom{n}{y}$. Although the probability of $y$ and $x$ both depend on $\theta$, the probability for $x$ when $y$ is fixed doesn't. This means that $y$ is fully descriptive of or "sufficient for" the parameter $\theta$. Measuring $y$ results in the same amount of information about the parameter $\theta$ as measuring the whole observation $x$. To quantify how much information a certain function of outputs $t(x)$ contains about the parameters $\theta$ Fisher introduced the Fisher information.\\
+The Fisher information is defined as 
+\begin{equation}\label{eq:FIDefinition}
+	I_{X,ij}(\theta) = \underset{x\in X}{E} \left[\tAbl{}{\theta_i}\log f(x|\theta) \cdot \tAbl{}{\theta_j}\log f(x|\theta)\right],
+\end{equation}
+where we used the expectation $E$
+\begin{equation}
+	\underset{x\in X}{E} \left[A(x)\right] = 
+	\begin{cases}
+		\sum_{x\in X} \left(A(x) p(x)\right) &\text{if $X$ is discrete},\\
+		\int_{x\in X} A(x) p(x) \mathrm{d}x &\text{if $X$ is continuous}.
+	\end{cases}
+\end{equation}
+Since the Fisher information is dependent of $\theta$, we can assume the value of $\theta$ to be fixed during calculation, which makes $f(x|\theta) = p_\theta(x)$.\\ 
+For $n$ independent experiments $X^n$, where $f(x^n|\theta) = \Pi_{i=1}^n f(x_i|\theta)$, one can split the FI into 
+\begin{equation}\label{eq:FIforIndependentExperiments}
+	I_{X^n,ij}(\theta) = \Pi_{i=1}^n I_{X_i,ij}(\theta).
+\end{equation}
+A proof of this can be found in \cref{sec:ProofFIforIndependentExperiments}.\\
+For our example the FI yields $I_{X^n}(\theta) = I_{Y}(\theta) = n/(\theta(1-\theta))$\cite{StatisticFisherInfoTutorial}. This means that there is as much information about the $\theta$ contained in the measurement of $Y$ as in the measurement of $X^n$, which coincides with $Y$ being a sufficient measurement for $\theta$. \\
+
+To conclude this chapter, the Fisher information is used in statistics to measure the amount of information one can gather about a parameter $\theta$ by measuring the outcome of a probability distribution $p_\theta(x_i)$. It is defined in equation \cref{eq:FIDefinition}.

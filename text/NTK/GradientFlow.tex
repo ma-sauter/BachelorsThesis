@@ -41,7 +41,7 @@ This notion of time affects not only the parameters, but also everything that de
 \begin{align}
 	\pAbl{}{t} f_{ij} &= \pAbl{f_{ij}}{\theta_k}\pAbl{\theta_k}{t}\nonumber\\
 	&= \pAbl{f_{ij}}{\theta_k} \left(- \pAbl{\mathscr{L}}{f_{ij}} \pAbl{f_{ij}}{\theta_k} \right)\label{eq:NTKarisesFromHere}\\
-	&= - \underbrace{\pAbl{f_{ij}}{\theta_k} \pAbl{f_{lm}}{\theta_k}}_\mathlarger{=\vcentcolon \Lambda_{i,l,j,m}}
+	&= - \underbrace{\pAbl{f_{ij}}{\theta_k} \pAbl{f_{lm}}{\theta_k}}_\mathlarger{=\vcentcolon \Lambda_{iljm}}
 	\pAbl{\mathscr{L}}{f_{lm}}.\nonumber
 \end{align}
 The rank 4 hypermatrix $\Lambda$ is what we call the Neural Tangent Kernel for SGD. We sorted the indices of this matrix so that the first two refer to the input points of $f$ and the last two refer to the components of the output dimensions of the neural network. Note that this NTK is derived directly from the update algorithm of the SGD for infinitely small $\eta$, the equations above don't hold for other optimization systems.\\
