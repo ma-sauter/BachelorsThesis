@@ -31,9 +31,9 @@ def draw_dot_and_arrow(dotx, arrowcolor='black'):
     
     plt.plot([dotx + learning_rate*(-df(dotx)), dotx + learning_rate*(-df(dotx))],
              [tangent(dotx + learning_rate*(-df(dotx)), dotx), f(dotx + learning_rate*(-df(dotx)))],
-             "--", color = arrowcolor)
+             "-", color = arrowcolor)
     plt.plot(dotx + learning_rate*(-df(dotx)), f(dotx + learning_rate*(-df(dotx))),
-             "o", markersize = plotfactor*8, color = arrowcolor)
+             "o", markersize = plotfactor*7, color = arrowcolor)
 
 
 

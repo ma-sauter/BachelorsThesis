@@ -30,7 +30,7 @@ def loss(dataset, theta,a):
     N = len(dataset)
     _loss = 0
     for i in range(N):
-        _loss += np.abs(dataset[i,2]-network(dataset[i,0],dataset[i,1],theta,a))
+        _loss += (dataset[i,2]-network(dataset[i,0],dataset[i,1],theta,a))**2
     return 1/N*_loss
 
 def analytic_gradient(dataset, theta,a):
@@ -39,8 +39,8 @@ def analytic_gradient(dataset, theta,a):
     grad2 = 0
     for i in range(N):
         n_out = network(dataset[i,0],dataset[i,1],theta,a)
-        grad1 += 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*(1/n_out-1))
-        grad2 += 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*(1/n_out-1))
+        grad1 += 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
+        grad2 += 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
     return np.array(grad1,grad2)/N
 
 def gradient(dataset, theta, a):
@@ -89,6 +89,11 @@ for i, theta1_ in enumerate(theta1):
 
 surf = ax.plot_surface(X, Y, Z, cmap=cm.magma,
                        linewidth=0, antialiased=True)
-path = ax.plot(t_list[0],t_list[1], l_list,color = 'mediumseagreen', zorder=10)
+path = ax.plot(t_list[0],t_list[1], "o-", l_list,color = 'mediumseagreen', zorder=10)
 
+plt.show()
+plt.close()
+
+plt.plot(t_list[0],t_list[1])
+plt.title("theta path")
 plt.show()
