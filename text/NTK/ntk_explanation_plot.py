@@ -49,7 +49,7 @@ color1 = color2 = '#00E88F'
 
 # Plot the surface.
 surf = ax.plot_surface(X, Y, F, cmap=cm.magma,
-                       linewidth=0, antialiased=True)
+                       linewidth=0.15, edgecolor = "black", antialiased=True)
 d1x, d1y, d1z = gradient_descent(0.3,0.95,1.5,5)
 d2x, d2y, d2z = gradient_descent(0.3,0.95,0.01,1000)
 des1 = ax.plot(d1x,d1y,d1z, "o--", color = color1, markersize = 7, zorder = 10)
@@ -69,5 +69,5 @@ ax.zaxis.set_major_formatter('{x:.02f}')
 ax.set_axis_off()
 
 plt.tight_layout()
-plt.show()
-#plt.savefig("GradientFlowPlot.pdf", bbox_inches='tight')
+#plt.show()
+plt.savefig("GradientFlowPlot.pdf", bbox_inches='tight')

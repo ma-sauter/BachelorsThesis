@@ -2,7 +2,7 @@
 \label{sec:ProofFIforIndependentExperiments}
 For all variables $X^n$ that satisfy
 \begin{equation}\label{eq:UsedInProofFIforIndependentExperiments}
-	f(x^n|\theta) = \sum_{\alpha = 1}^n f(x_\alpha|\theta)
+	f(x^n|\theta) = \prod_{\alpha = 1}^n f(x_\alpha|\theta)
 \end{equation} 
 we can prove
 \begin{equation}
@@ -34,3 +34,30 @@ The equality at $(*)$ holds because for all $\alpha \neq \beta$
 		=&\ 0.
 	\end{split}
 \end{equation}
+This prove still holds when using continuous variables instead of discrete ones.
+\section{Proof of \cref{eq:SecondRepresentationOfFisherInfo}}
+\label{sec:ProofForeq:SecondRepresentationOfFisherInfo}
+Here we will prove \cref{eq:SecondRepresentationOfFisherInfo} which states \begin{equation}
+	\underset{x\in X}{E} \Big[\partial_i\log p(x|\theta) \cdot \partial_j\log p(x|\theta) \Big] = -\underset{x\in X}{E} \Big[\partial_i\partial_j\log p(x|\theta)\Big].
+\end{equation}
+To prove this we will evaluate the right side by 
+\newcommand{\p}{p(x|\theta)}
+\begin{equation}
+	\begin{split}
+		-\underset{x\in X}{E} \Big[\partial_i\partial_j\log p(x|\theta)\Big] &= -\underset{x\in X}{E} \left\{\partial_i\left[\partial_j\log p(x|\theta)\right]\right\} \\
+		&= -\underset{x\in X}{E} \left\{\partial_i\left[\frac{\partial_j p(x|\theta)}{p(x|\theta)}\right]\right\}\\
+		&= -\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)} - \frac{\partial_i\p \partial_j \p}{\p^2}\right]\\
+		&= -\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)} - \partial_i\log\p \partial_j \log\p\right]\\
+		&= \underset{x\in X}{E} \Big[\partial_i\log p(x|\theta) \cdot \partial_j\log p(x|\theta) \Big],
+	\end{split}
+\end{equation}
+Where the last equation holds because 
+\begin{equation}
+	\begin{split}
+		-\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)}\right] &= \sum_{x\in X} \left[ \partial_i\partial_j p(x|\theta) \right]\\
+		&= \partial_i \partial_j \sum_{x\in X} \left[ p(x|\theta) \right]\\
+		&= -\partial_i \partial_j \underset{x\in X}{E} \left[1\right]\\
+		&= 0.
+	\end{split} 
+\end{equation}
+Here we assumed that we can swap the sum and the derivatives. For continuous variables, the swapping of the integral and the derivatives has to be assumed for the equation to hold.
