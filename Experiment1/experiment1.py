@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt 
 import jax.numpy as np
+import numpy
 from tqdm import tqdm
 from rich.progress import track
 import jax
@@ -7,7 +8,7 @@ import jax
 ######################
 #Create Dataset
 N_data = 100
-x, y = np.random.rand(N_data), np.random.rand(N_data)
+x, y = numpy.random.rand(N_data), numpy.random.rand(N_data)
 c = np.array(y>=x).astype(int)
 dataset = np.transpose(np.array([x,y,c]))
 
