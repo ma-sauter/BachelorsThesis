@@ -201,7 +201,7 @@ for i in range(len(t_list[0])):
     print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
     Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
 
-np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath allow_pickle=True)
+np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
 ######################################################################################
 
 
