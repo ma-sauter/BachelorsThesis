@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt 
-import jax.numpy as np
+import numpy as np
 import numpy
 from tqdm import tqdm
 from rich.progress import track
@@ -50,7 +50,7 @@ def numerical_gradient(dataset, theta, a):
     grad2 = (loss(dataset, theta+[0,epsilon],a) - loss(dataset, theta-[0,epsilon],a))/2/epsilon
     return np.array([grad1,grad2])
 
-
+@jax.jit
 def fisher_info_matrix(dataset, theta, a):
     N = len(dataset)
     I11, I12, I22 = 0,0,0
