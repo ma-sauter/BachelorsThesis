@@ -50,7 +50,6 @@ def numerical_gradient(dataset, theta, a):
     grad2 = (loss(dataset, theta+[0,epsilon],a) - loss(dataset, theta-[0,epsilon],a))/2/epsilon
     return np.array([grad1,grad2])
 
-@jax.jit
 def fisher_info_matrix(dataset, theta, a):
     N = len(dataset)
     I11, I12, I22 = 0,0,0
@@ -88,9 +87,9 @@ def Scalar_curvature(dataset, theta, a):
                     par_index_list.append(np.array([mu,v,L,sigma]))
     
     def vmap_func(muvLsList):
-        mu, v, L, s = muvLsList
+        mu, v, L, s = muvLsList[0],muvLsList[1],muvLsList[2],muvLsList[3]
         e = 1e-4
-        dLtheta, dvtheta = np.copy(theta), np.copy(theta)
+        dLtheta, dvtheta = np.copy(np.array(theta)), np.copy(np.array(theta))
         dLtheta[L] = dLtheta[L]+e
         dvtheta[v] = dvtheta[v]+e
         c1 = (christoffel(L,mu,v,dLtheta)-christoffel(L,mu,v,theta))/e
@@ -98,8 +97,11 @@ def Scalar_curvature(dataset, theta, a):
         c3 = christoffel(s,mu,v,theta)*christoffel(L,L,s,theta)
         c4 = christoffel(s,mu,L,theta)*christoffel(L,v,s,theta)
         return ig[mu,v]*(c1-c2+c3-c4)
-    map = jax.vmap(vmap_func)
-    return np.sum(map(par_index_list))
+    
+    listofvalues = []
+    for list in par_index_list:
+        listofvalues.append(vmap_func(list))
+    return np.sum(listofvalues)
 
     
     
@@ -114,7 +116,7 @@ def training(n_epochs, dataset, a, learning_rate):
     theta_list = [theta]
     loss_list = [loss(dataset,theta,a)]
     accuracy = []
-    for i in track(range(n_epochs)):
+    for i in range(n_epochs):
         theta = theta - learning_rate*gradient(dataset=dataset,theta=theta,a=a)
         loss_list.append(loss(dataset=dataset,theta=theta,a=a))
         theta_list.append(theta)
@@ -126,12 +128,13 @@ def training(n_epochs, dataset, a, learning_rate):
 
     return theta_list, loss_list, accuracy
 
+'''
 #####################################################################################
 #Training
 t_list, l_list, acc = training(10000, dataset= dataset, a = 5, learning_rate=5e-3)
 print(f"Accuracy: {acc[-1]}")
 t_list = np.transpose(t_list)
-np.save("training.npy", [t_list,l_list,acc], allow_pickle = True)
+np.savez("training.npz", t_list=t_list,l_list=l_list,acc=acc, allow_pickle = True)
 ######################################################################################
 
 ######################################################################################
@@ -144,13 +147,16 @@ Z = np.zeros_like(X)
 for i, theta1_ in enumerate(theta1):
     for j, theta2_ in enumerate(theta2):
         Z[j,i] = loss(dataset=dataset, theta=[theta1_,theta2_], a = 5)
-np.save("loss_surf_plot.npy", [X,Y,Z], allow_pickle=True)
+np.savez("loss_surf_plot.npz", X=X,Y=Y,Z=Z, allow_pickle=True)
 ######################################################################################
+
 
 ######################################################################################
 #Fisher surface plot
 def fisher_surf(t1,t2):
-    t_list, l_list, acc = np.load("training.npy")
+    t_list = np.load("training.npz")['t_list']
+    l_list = np.load("training.npz")['l_list']
+    acc = np.load("training.npz")['acc']
     theta1 = np.linspace(-2,2,100)
     theta2 = np.linspace(-2,2,100)
     X, Y = np.meshgrid(theta1, theta2)
@@ -172,8 +178,8 @@ np.save("Fisher_surf_plot12", fisher_surf(1,0), allow_pickle=True)
 np.save("Fisher_surf_plot22", fisher_surf(1,1), allow_pickle=True)
 
 ######################################################################################
-
 '''
+
 ######################################################################################
 #Scalar Curvature
 
@@ -183,11 +189,12 @@ X, Y = np.meshgrid(theta1, theta2)
 
 Z = np.zeros_like(X)
 for i, theta1_ in enumerate(theta1):
-    for j, theta2_ in enumerate(theta2):
-        Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2_], a = 5)
+    print(f"Calculating scalar curvatures done {i}%")
+    for j in track(range(len(theta2))):
+        Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
 np.save("curvature_plot.npy", [X,Y,Z], allow_pickle=True)
 ######################################################################################
-'''
+
 
 
 

@@ -6,7 +6,9 @@ PLOTLOSSSURFACE = True
 PLOTFISHERSURFACE = True
 
 if PLOTLOSSSURFACE:
-    X,Y,Z = np.load("loss_surf_plot.npy")
+    X = np.load("loss_surf_plot.npz")['X']
+    Y = np.load("loss_surf_plot.npz")['Y']
+    Z = np.load("loss_surf_plot.npz")['Z']
     t_list,l_list,acc = np.load("training.npy")
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
