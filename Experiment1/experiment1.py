@@ -186,13 +186,22 @@ np.save("Fisher_surf_plot22", fisher_surf(1,1), allow_pickle=True)
 theta1 = np.linspace(-2,1,100)
 theta2 = np.linspace(-1,2,100)
 X, Y = np.meshgrid(theta1, theta2)
+t_list = np.load("training.npz")['t_list']
+l_list = np.load("training.npz")['l_list']
+acc = np.load("training.npz")['acc']
 
 Z = np.zeros_like(X)
 for i, theta1_ in enumerate(theta1):
     print(f"Calculating scalar curvatures done {i}%")
     for j in track(range(len(theta2))):
         Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
-np.save("curvature_plot.npy", [X,Y,Z], allow_pickle=True)
+
+Zpath = []
+for i in range(len(t_list[0])):
+    print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
+    Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
+
+np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath allow_pickle=True)
 ######################################################################################
 
 
