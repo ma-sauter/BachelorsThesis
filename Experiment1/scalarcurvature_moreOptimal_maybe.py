@@ -1,7 +1,7 @@
 import jax.numpy as np
 import jax
 import numpy as onp
-from rich import track
+from rich.progress import track
 
 ######################
 #Create Dataset
