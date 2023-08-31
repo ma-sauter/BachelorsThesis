@@ -4,6 +4,7 @@ import numpy
 from tqdm import tqdm
 from rich.progress import track
 import jax
+import multiprocessing
 
 ######################
 #Create Dataset
@@ -98,9 +99,8 @@ def Scalar_curvature(dataset, theta, a):
         c4 = christoffel(s,mu,L,theta)*christoffel(L,v,s,theta)
         return ig[mu,v]*(c1-c2+c3-c4)
     
-    listofvalues = []
-    for list in par_index_list:
-        listofvalues.append(vmap_func(list))
+    pool = multiprocessing.Pool(8)
+    listofvalues = pool(vmap_func(par_index_list))
     return np.sum(listofvalues)
 
     
@@ -150,7 +150,7 @@ for i, theta1_ in enumerate(theta1):
 np.savez("loss_surf_plot.npz", X=X,Y=Y,Z=Z, allow_pickle=True)
 ######################################################################################
 
-'''
+
 ######################################################################################
 #Fisher surface plot
 def fisher_surf(t1,t2):
@@ -204,6 +204,5 @@ for i in range(len(t_list[0])):
 np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
 ######################################################################################
 
-'''
 
 
