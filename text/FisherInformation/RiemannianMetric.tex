@@ -125,16 +125,19 @@ Another representation of the metric tensor or the FI is
 A proof of this is denoted in \cref{sec:ProofForeq:SecondRepresentationOfFisherInfo}.
 
 \subsection{Scalar curvature and Christoffel symbols}
-Here we will only give the definitions needed to compute the scalar curvature of a statistical manifold. A full understanding requires much more mathematics than we will go over here. If you are interested in this, please see \cite{AmarisLectureNotes}, \cite{PaperOnCurvature} and \cite{GeneralRelativityBook}.\\
-If we use Einstein notation, the scalar curvature is given by 
-\begin{equation}
-	S = g^{\mu \nu} \left(\Gamma^{\lambda}_{\mu \nu, \lambda} -\Gamma^{\lambda}_{\mu \lambda, \nu}
-	+\Gamma^{\sigma}_{\mu \nu}\Gamma^{\lambda}_{\lambda \sigma}
-	-\Gamma^{\sigma}_{\mu \lambda}
-	\Gamma^{\lambda}_{\nu \sigma}\right),
-\end{equation}
-with the inverse components of the Riemannian metric $g^{ij} = (g^{-1})_{ij}$ and the Christoffel symbols
+Here we will only give the definitions needed to compute the scalar curvature of a statistical manifold. A full understanding requires much more mathematics than we will go over here. If you are interested in this, please see \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook}.\\
+
+
+First we define the Christoffel-symbols which can be calculated from the Riemannian metric via
 \begin{equation}
 	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta_l} + \pAbl{g_{ml}}{\theta_k} - \pAbl{g_{kl}}{\theta_m}\right),
+\end{equation} 
+where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric.
+From those we can define the Riemannian curvature tensure as 
+\begin{equation}
+	R^{i}_{jkl} = \partial_k \Gamma^i_{jl} - \partial_l \Gamma^i_{jk} + \Gamma^i_{mk}\Gamma^m_{jl} - \Gamma^i_{ml}\Gamma^m_{jk}.
 \end{equation}
-where $\Gamma^{i}_{kl,m} = \partial_m \Gamma^{i}_{kl}$.
+Now we can finally state the scalar Ricci curvature as 
+\begin{equation}
+	R = g^{ij} R^m_{imj}.
+\end{equation}

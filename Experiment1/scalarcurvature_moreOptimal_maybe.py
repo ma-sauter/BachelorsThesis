@@ -1,124 +1,102 @@
-import jax.numpy as np
-import jax
-import numpy as onp
+from math import e
+import matplotlib.pyplot as plt 
+import numpy as np
+import numpy
+from tqdm import tqdm
 from rich.progress import track
+import jax
 import time
-
+from joblib import Parallel, delayed
 
 ######################
 #Create Dataset
 N_data = 100
-x, y = onp.random.rand(N_data), onp.random.rand(N_data)
+x, y = numpy.random.rand(N_data), numpy.random.rand(N_data)
 c = np.array(y>=x).astype(int)
 dataset = np.transpose(np.array([x,y,c]))
 ######################
 
-#Helper functions:
+
 def network(x,y,theta,a):
     return 1/(1+np.exp(-a*theta[0]*x-a*theta[1]*y))
 
-def fisher_info_matrix(dataset, theta, a):
-    dataset, theta = np.array(dataset),np.array(theta)
+def fisher_info_matrix11(theta, a):
     N = len(dataset)
-
-    def mapping_func(i):
-        n_out = network(dataset[i,0],dataset[i,1],theta,a)
-        I11 = ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
-        I22 = ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
-        I12 = (2*(dataset[i,2]-n_out)*n_out**2)**2 * (
-                a**2 *dataset[i,1]*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
-        return I11,I22,I12
-    
-    map = jax.vmap(mapping_func)
-    i_list = np.arange(N)
-    I11_list, I22_list, I12_list = map(i_list)
-    I11, I22, I12 = np.mean(I11_list, axis=0),np.mean(I22_list, axis=0),np.mean(I12_list, axis=0) 
-    return np.array([[I11,I12],[I12,I22]])
-
-
-def fisher_info_matrix_alt(dataset, theta, a):
-    N = len(dataset)
-    I11, I12, I22 = 0,0,0
+    I11 = 0
     for i in range(N):
         n_out = network(dataset[i,0],dataset[i,1],theta,a)
-        I11 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
-        I22 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
+        I11 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
+    return I11/N
+def fisher_info_matrix12(theta, a):
+    N = len(dataset)
+    I12 = 0
+    for i in range(N):
+        n_out = network(dataset[i,0],dataset[i,1],theta,a)
         I12 += (2*(dataset[i,2]-n_out)*n_out**2)**2 * (
-                a**2 *dataset[i,1]*dataset[i,0]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
-    return onp.array([[I11,I12],[I12,I22]])/N
+                a**2 *dataset[i,1]*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
+    return I12/N
+def fisher_info_matrix22(theta, a):
+    N = len(dataset)
+    I22 = 0
+    for i in range(N):
+        n_out = network(dataset[i,0],dataset[i,1],theta,a)
+        I22 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
+    return I22/N
+fisher_info_matrix = np.array([[fisher_info_matrix11, fisher_info_matrix12],[fisher_info_matrix12,fisher_info_matrix22]])
 
-def del_gij_del_xk(i,j,k,theta,g,a):
+def del_gij_del_xk(i,j,k,theta,a):
     e = 1e-4
-    dktheta = np.where(np.arange(len(theta))==k, np.array(theta)+e, np.array(theta))
-    return (fisher_info_matrix(dataset,dktheta,a)[i,j]-g[i,j])/e
+    d1theta, d2theta = np.copy(theta), np.copy(theta)
+    d1theta[k] = d1theta[k]+e
+    d2theta[k] = d2theta[k]-e
+    return (fisher_info_matrix[i,j](d1theta,a)-fisher_info_matrix[i,j](d2theta,a))/2/e
 
-def christoffel(i,j,k, theta, g, ig, a):
-    def mapping_func(m,l):
-        return 0.5*ig[i,m]*(del_gij_del_xk(m,k,l,theta,g,a) + 
-                            del_gij_del_xk(m,l,k,theta,g,a) - 
-                            del_gij_del_xk(k,l,m,theta,g,a))
-    
-    map = jax.vmap(mapping_func, in_axes = (0,0))
-    i_list = np.arange(len(theta))
-    christoffel_list = map(i_list,i_list)
-    return np.sum(christoffel_list,axis=0)
+def christoffel(i,j,k,theta,ig,a):
+    symbol = 0
+    for m in range(len(theta)):
+        for l in range(len(theta)):
+            symbol += 0.5*ig[i,m]*(del_gij_del_xk(m,k,l,theta,a) + del_gij_del_xk(m,l,k,theta,a) - del_gij_del_xk(k,l,m,theta,a))
+    return symbol
 
+def Riemannian_curvature_tensor(i,j,k,l,theta,ig,a):
+    e = 1e-4
+    dktheta, dltheta = np.copy(theta), np.copy(theta)
+    dktheta[k] = dktheta[k]+e
+    dltheta[l] = dltheta[l]+e
+    c1 = (christoffel(i,j,l,dktheta,ig,a)-christoffel(i,j,l,theta,ig,a))/e
+    c2 = (christoffel(i,j,k,dltheta,ig,a)-christoffel(i,j,k,theta,ig,a))/e
+    c34 = 0
+    for m in range(len(theta)):
+        c34 += christoffel(i,m,k,theta,ig,a)*christoffel(m,j,l,theta,ig,a)
+        c34 -= christoffel(i,m,l,theta,ig,a)*christoffel(m,j,k,theta,ig,a)
+    return c1-c2+c34
 
-#####################################
-#Final function:
-def Scalar_curvature(dataset,theta,a):
-    g = fisher_info_matrix(dataset,theta,a)
+def Ricci_tensor(ij,theta,ig,a):
+    i,j = ij
+    tensor = 0
+    for m in range(len(theta)):
+        tensor += Riemannian_curvature_tensor(m,i,m,j,theta,ig,a)
+    return tensor
+
+def Scalar_curvature(theta,a):
+    g = np.array([[fisher_info_matrix[0,0](theta,a), fisher_info_matrix[0,1](theta,a)],
+                  [fisher_info_matrix[1,0](theta,a), fisher_info_matrix[1,1](theta,a)]])
     ig = np.linalg.inv(g)
+    curv = 0
 
-    def mapping_func_full(mu,v,L,sigma,g,ig,dataset,theta,a):
-        e = 1e-4
-        dLtheta = np.where(np.arange(len(theta))==L, np.array(theta)+e, np.array(theta))
-        dvtheta = np.where(np.arange(len(theta))==v, np.array(theta)+e, np.array(theta))
-        c1 = (christoffel(L,mu,v,dLtheta,g,ig,a)-christoffel(L,mu,v,theta,g,ig,a))/e
-        c2 = (christoffel(L,mu,L,dvtheta,g,ig,a)-christoffel(L,mu,L,theta,g,ig,a))/e
-        c3 = christoffel(sigma,mu,v,theta,g,ig,a)*christoffel(L,L,sigma,theta,g,ig,a)
-        c4 = christoffel(sigma,mu,L,theta,g,ig,a)*christoffel(L,v,sigma,theta,g,ig,a)
-        return ig[mu,v]*(c1-c2+c3-c4)
+    par_list = []
+    for i in range(len(theta)):
+        for j in range(len(theta)):
+            par_list.append(np.array([i,j]))
     
-    mapping_func = lambda mu,v,L,sigma: mapping_func_full(mu,v,L,sigma, g=g, ig=ig,dataset=dataset,theta=theta,a=a)
-    map = jax.vmap(mapping_func, in_axes = (0,0,0,0))
-    i_list = np.arange(len(theta))
-    curvature_list = map(i_list,i_list,i_list,i_list)
+    def map_func(ij):
+        return ig[ij[0],ij[1]]*Ricci_tensor(ij,theta,ig,a)
+    
+    listofvalues = Parallel(n_jobs=-1)(delayed(map_func)(liste) for liste in par_list)
+    return np.sum(listofvalues)
 
-    return np.sum(curvature_list,axis=0)
-############################################
-
-
-if __name__ == '__main__':
-    sn = time.time()
-    fisher_info_matrix(dataset,theta=[1,1],a=5)
-    en = time.time()
-    so = time.time()
-    fisher_info_matrix_alt(dataset,theta=[1,1],a=5)
-    eo = time.time()
-
-    print(f"old duration: {eo-so}, new duration: {en-sn}")
-
-    '''
-    #######################################
-    #Calculation of the surface
-    theta1 = np.linspace(-2,1,100)
-    theta2 = np.linspace(-1,2,100)
-    X, Y = np.meshgrid(theta1, theta2)
-    t_list = np.load("training.npz")['t_list']
-    l_list = np.load("training.npz")['l_list']
-    acc = np.load("training.npz")['acc']
-
-    Z = onp.zeros_like(X)
-    for i, theta1_ in enumerate(theta1):
-        print(f"Calculating scalar curvatures done {i}%")
-        for j in track(range(len(theta2))):
-            Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
-
-    Zpath = []
-    for i in range(len(t_list[0])):
-        print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
-        Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
-
-    np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
-    '''
+Scalar_curvature([1,1],5)
+old = time.time()
+print(Scalar_curvature([1,1],5))
+after = time.time()
+print(f"This took {after-old}")
