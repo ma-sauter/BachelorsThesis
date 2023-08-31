@@ -5,6 +5,7 @@ from tqdm import tqdm
 from rich.progress import track
 import jax
 import time
+from joblib import Parallel, delayed
 
 ######################
 #Create Dataset
@@ -99,17 +100,16 @@ def Scalar_curvature(dataset, theta, a):
         c4 = christoffel(s,mu,L,theta)*christoffel(L,v,s,theta)
         return ig[mu,v]*(c1-c2+c3-c4)
     
+    '''
     listofvalues = []
     for list in par_index_list:
         listofvalues.append(vmap_func(list))
+    '''
+    listofvalues = Parallel(n_jobs=-1)(delayed(vmap_func)(liste) for liste in par_index_list)
+
     return np.sum(listofvalues)
 
-    
-sn = time.time()
-fisher_info_matrix(dataset,theta=[1,1],a=5)
-en = time.time()
 
-print(f"new duration: {en-sn}")
     
 
 
@@ -205,8 +205,9 @@ if __name__ == '__main__':
 
     Zpath = []
     for i in range(len(t_list[0])):
-        print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
-        Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
+        if i%20 == 0:
+            print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
+            Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
 
     np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
     ######################################################################################
