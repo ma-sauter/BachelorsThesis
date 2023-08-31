@@ -59,7 +59,7 @@ def fisher_info_matrix(dataset, theta, a):
         I22 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
         I12 += (2*(dataset[i,2]-n_out)*n_out**2)**2 * (
                 a**2 *dataset[i,1]*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
-    return np.array([[I11,I12],[I12,I22]])
+    return np.array([[I11,I12],[I12,I22]])/N
 
 def Scalar_curvature(dataset, theta, a):
     global g
@@ -150,7 +150,7 @@ for i, theta1_ in enumerate(theta1):
 np.savez("loss_surf_plot.npz", X=X,Y=Y,Z=Z, allow_pickle=True)
 ######################################################################################
 
-
+'''
 ######################################################################################
 #Fisher surface plot
 def fisher_surf(t1,t2):
@@ -204,6 +204,6 @@ for i in range(len(t_list[0])):
 np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
 ######################################################################################
 
-
+'''
 
 
