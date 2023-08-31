@@ -46,7 +46,7 @@ def fisher_info_matrix_alt(dataset, theta, a):
 
 def del_gij_del_xk(i,j,k,theta,g,a):
     e = 1e-4
-    dktheta = np.where(np.arange(len(theta))==k, theta+e, theta)
+    dktheta = np.where(np.arange(len(theta))==k, np.array(theta)+e, np.array(theta))
     return (fisher_info_matrix(dataset,dktheta,a)[i,j]-g[i,j])/e
 
 def christoffel(i,j,k, theta, g, ig, a):
@@ -69,8 +69,8 @@ def Scalar_curvature(dataset,theta,a):
 
     def mapping_func_full(mu,v,L,sigma,g,ig,dataset,theta,a):
         e = 1e-4
-        dLtheta = np.where(np.arange(len(theta))==L, theta+e, theta)
-        dvtheta = np.where(np.arange(len(theta))==v, theta+e, theta)
+        dLtheta = np.where(np.arange(len(theta))==L, np.array(theta)+e, np.array(theta))
+        dvtheta = np.where(np.arange(len(theta))==v, np.array(theta)+e, np.array(theta))
         c1 = (christoffel(L,mu,v,dLtheta,g,ig,a)-christoffel(L,mu,v,theta,g,ig,a))/e
         c2 = (christoffel(L,mu,L,dvtheta,g,ig,a)-christoffel(L,mu,L,theta,g,ig,a))/e
         c3 = christoffel(sigma,mu,v,theta,g,ig,a)*christoffel(L,L,sigma,theta,g,ig,a)
@@ -94,7 +94,7 @@ t_list = np.load("training.npz")['t_list']
 l_list = np.load("training.npz")['l_list']
 acc = np.load("training.npz")['acc']
 
-Z = np.zeros_like(X)
+Z = onp.zeros_like(X)
 for i, theta1_ in enumerate(theta1):
     print(f"Calculating scalar curvatures done {i}%")
     for j in track(range(len(theta2))):

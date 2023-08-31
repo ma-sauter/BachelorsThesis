@@ -3,8 +3,8 @@ from matplotlib import cm
 import numpy as np
 
 PLOTLOSSSURFACE = False
-PLOTFISHERSURFACE = True
-PLOTCURVESURFACE = False
+PLOTFISHERSURFACE = False
+PLOTCURVESURFACE = True
 
 if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")['X']
