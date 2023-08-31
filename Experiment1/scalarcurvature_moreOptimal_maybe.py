@@ -1,6 +1,7 @@
 import jax.numpy as np
 import jax
 import numpy as onp
+from rich import track
 
 ######################
 #Create Dataset
@@ -83,4 +84,25 @@ def Scalar_curvature(dataset,theta,a):
 
     return np.sum(curvature_list,axis=0)
 
-print(Scalar_curvature(dataset,theta=np.array([0.3,-.1]),a=5))
+
+#######################################
+#Calculation of the surface
+theta1 = np.linspace(-2,1,100)
+theta2 = np.linspace(-1,2,100)
+X, Y = np.meshgrid(theta1, theta2)
+t_list = np.load("training.npz")['t_list']
+l_list = np.load("training.npz")['l_list']
+acc = np.load("training.npz")['acc']
+
+Z = np.zeros_like(X)
+for i, theta1_ in enumerate(theta1):
+    print(f"Calculating scalar curvatures done {i}%")
+    for j in track(range(len(theta2))):
+        Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
+
+Zpath = []
+for i in range(len(t_list[0])):
+    print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
+    Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
+
+np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
