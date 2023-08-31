@@ -2,6 +2,8 @@ import jax.numpy as np
 import jax
 import numpy as onp
 from rich.progress import track
+import time
+
 
 ######################
 #Create Dataset
@@ -16,6 +18,7 @@ def network(x,y,theta,a):
     return 1/(1+np.exp(-a*theta[0]*x-a*theta[1]*y))
 
 def fisher_info_matrix(dataset, theta, a):
+    dataset, theta = np.array(dataset),np.array(theta)
     N = len(dataset)
 
     def mapping_func(i):
@@ -38,11 +41,11 @@ def fisher_info_matrix_alt(dataset, theta, a):
     I11, I12, I22 = 0,0,0
     for i in range(N):
         n_out = network(dataset[i,0],dataset[i,1],theta,a)
-        I11 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
-        I22 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
+        I11 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,0]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
+        I22 += ( 2*(dataset[i,2]-n_out)*n_out**2 *(-a*dataset[i,1]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1])) )**2
         I12 += (2*(dataset[i,2]-n_out)*n_out**2)**2 * (
-                a**2 *dataset[i,1]*dataset[i,0]*np.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
-    return np.array([[I11,I12],[I12,I22]])/N
+                a**2 *dataset[i,1]*dataset[i,0]*onp.exp(-a*theta[0]*dataset[i,0] -a*theta[1]*dataset[i,1]))
+    return onp.array([[I11,I12],[I12,I22]])/N
 
 def del_gij_del_xk(i,j,k,theta,g,a):
     e = 1e-4
@@ -83,26 +86,39 @@ def Scalar_curvature(dataset,theta,a):
     curvature_list = map(i_list,i_list,i_list,i_list)
 
     return np.sum(curvature_list,axis=0)
+############################################
 
 
-#######################################
-#Calculation of the surface
-theta1 = np.linspace(-2,1,100)
-theta2 = np.linspace(-1,2,100)
-X, Y = np.meshgrid(theta1, theta2)
-t_list = np.load("training.npz")['t_list']
-l_list = np.load("training.npz")['l_list']
-acc = np.load("training.npz")['acc']
+if __name__ == '__main__':
+    sn = time.time()
+    fisher_info_matrix(dataset,theta=[1,1],a=5)
+    en = time.time()
+    so = time.time()
+    fisher_info_matrix_alt(dataset,theta=[1,1],a=5)
+    eo = time.time()
 
-Z = onp.zeros_like(X)
-for i, theta1_ in enumerate(theta1):
-    print(f"Calculating scalar curvatures done {i}%")
-    for j in track(range(len(theta2))):
-        Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
+    print(f"old duration: {eo-so}, new duration: {en-sn}")
 
-Zpath = []
-for i in range(len(t_list[0])):
-    print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
-    Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
+    '''
+    #######################################
+    #Calculation of the surface
+    theta1 = np.linspace(-2,1,100)
+    theta2 = np.linspace(-1,2,100)
+    X, Y = np.meshgrid(theta1, theta2)
+    t_list = np.load("training.npz")['t_list']
+    l_list = np.load("training.npz")['l_list']
+    acc = np.load("training.npz")['acc']
 
-np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
+    Z = onp.zeros_like(X)
+    for i, theta1_ in enumerate(theta1):
+        print(f"Calculating scalar curvatures done {i}%")
+        for j in track(range(len(theta2))):
+            Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
+
+    Zpath = []
+    for i in range(len(t_list[0])):
+        print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
+        Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
+
+    np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
+    '''

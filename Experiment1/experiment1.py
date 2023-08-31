@@ -4,7 +4,7 @@ import numpy
 from tqdm import tqdm
 from rich.progress import track
 import jax
-import multiprocessing
+import time
 
 ######################
 #Create Dataset
@@ -77,7 +77,7 @@ def Scalar_curvature(dataset, theta, a):
         symbol = 0
         for m in range(len(theta)):
             for l in range(len(theta)):
-                symbol += 0.5*ig[i,m]*(del_gij_del_xk(m,k,l,theta) + del_gij_del_xk(m,l,k,theta) + del_gij_del_xk(k,l,m,theta))
+                symbol += 0.5*ig[i,m]*(del_gij_del_xk(m,k,l,theta) + del_gij_del_xk(m,l,k,theta) - del_gij_del_xk(k,l,m,theta))
         return symbol
     
     par_index_list = []
@@ -99,12 +99,17 @@ def Scalar_curvature(dataset, theta, a):
         c4 = christoffel(s,mu,L,theta)*christoffel(L,v,s,theta)
         return ig[mu,v]*(c1-c2+c3-c4)
     
-    pool = multiprocessing.Pool(8)
-    listofvalues = pool(vmap_func(par_index_list))
+    listofvalues = []
+    for list in par_index_list:
+        listofvalues.append(vmap_func(list))
     return np.sum(listofvalues)
 
     
-    
+sn = time.time()
+fisher_info_matrix(dataset,theta=[1,1],a=5)
+en = time.time()
+
+print(f"new duration: {en-sn}")
     
 
 
@@ -128,81 +133,83 @@ def training(n_epochs, dataset, a, learning_rate):
 
     return theta_list, loss_list, accuracy
 
-'''
-#####################################################################################
-#Training
-t_list, l_list, acc = training(10000, dataset= dataset, a = 5, learning_rate=5e-3)
-print(f"Accuracy: {acc[-1]}")
-t_list = np.transpose(t_list)
-np.savez("training.npz", t_list=t_list,l_list=l_list,acc=acc, allow_pickle = True)
-######################################################################################
 
-######################################################################################
-#Loss surface plot
-theta1 = np.linspace(-2,1,100)
-theta2 = np.linspace(-1,2,100)
-X, Y = np.meshgrid(theta1, theta2)
+if __name__ == '__main__':
+    '''
+    #####################################################################################
+    #Training
+    t_list, l_list, acc = training(10000, dataset= dataset, a = 5, learning_rate=5e-3)
+    print(f"Accuracy: {acc[-1]}")
+    t_list = np.transpose(t_list)
+    np.savez("training.npz", t_list=t_list,l_list=l_list,acc=acc, allow_pickle = True)
+    ######################################################################################
 
-Z = np.zeros_like(X)
-for i, theta1_ in enumerate(theta1):
-    for j, theta2_ in enumerate(theta2):
-        Z[j,i] = loss(dataset=dataset, theta=[theta1_,theta2_], a = 5)
-np.savez("loss_surf_plot.npz", X=X,Y=Y,Z=Z, allow_pickle=True)
-######################################################################################
-
-
-######################################################################################
-#Fisher surface plot
-def fisher_surf(t1,t2):
-    t_list = np.load("training.npz")['t_list']
-    l_list = np.load("training.npz")['l_list']
-    acc = np.load("training.npz")['acc']
-    theta1 = np.linspace(-2,2,100)
-    theta2 = np.linspace(-2,2,100)
+    ######################################################################################
+    #Loss surface plot
+    theta1 = np.linspace(-2,1,100)
+    theta2 = np.linspace(-1,2,100)
     X, Y = np.meshgrid(theta1, theta2)
-
 
     Z = np.zeros_like(X)
     for i, theta1_ in enumerate(theta1):
-        print(f"{i}%")
         for j, theta2_ in enumerate(theta2):
-            fisher_info11 = fisher_info_matrix(dataset=dataset, theta=[theta1_,theta2_], a = 5)[t1,t2]
-            Z[j,i] = fisher_info11
+            Z[j,i] = loss(dataset=dataset, theta=[theta1_,theta2_], a = 5)
+    np.savez("loss_surf_plot.npz", X=X,Y=Y,Z=Z, allow_pickle=True)
+    ######################################################################################
 
-    pathZ = []
+
+    ######################################################################################
+    #Fisher surface plot
+    def fisher_surf(t1,t2):
+        t_list = np.load("training.npz")['t_list']
+        l_list = np.load("training.npz")['l_list']
+        acc = np.load("training.npz")['acc']
+        theta1 = np.linspace(-2,2,100)
+        theta2 = np.linspace(-2,2,100)
+        X, Y = np.meshgrid(theta1, theta2)
+
+
+        Z = np.zeros_like(X)
+        for i, theta1_ in enumerate(theta1):
+            print(f"{i}%")
+            for j, theta2_ in enumerate(theta2):
+                fisher_info11 = fisher_info_matrix(dataset=dataset, theta=[theta1_,theta2_], a = 5)[t1,t2]
+                Z[j,i] = fisher_info11
+
+        pathZ = []
+        for i in range(len(t_list[0])):
+            pathZ.append(fisher_info_matrix(dataset,theta=[t_list[0][i],t_list[1][i]], a = 5)[t1,t2])
+        return [X,Y,Z,t_list,pathZ]
+    np.save("Fisher_surf_plot11", fisher_surf(0,0), allow_pickle=True)
+    np.save("Fisher_surf_plot12", fisher_surf(1,0), allow_pickle=True)
+    np.save("Fisher_surf_plot22", fisher_surf(1,1), allow_pickle=True)
+
+    ######################################################################################
+    '''
+
+    ######################################################################################
+    #Scalar Curvature
+
+    theta1 = np.linspace(-2,1,100)
+    theta2 = np.linspace(-1,2,100)
+    X, Y = np.meshgrid(theta1, theta2)
+    t_list = np.load("training.npz")['t_list']
+    l_list = np.load("training.npz")['l_list']
+    acc = np.load("training.npz")['acc']
+
+    Z = np.zeros_like(X)
+    for i, theta1_ in enumerate(theta1):
+        print(f"Calculating scalar curvatures done {i}%")
+        for j in track(range(len(theta2))):
+            Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
+
+    Zpath = []
     for i in range(len(t_list[0])):
-        pathZ.append(fisher_info_matrix(dataset,theta=[t_list[0][i],t_list[1][i]], a = 5)[t1,t2])
-    return [X,Y,Z,t_list,pathZ]
-np.save("Fisher_surf_plot11", fisher_surf(0,0), allow_pickle=True)
-np.save("Fisher_surf_plot12", fisher_surf(1,0), allow_pickle=True)
-np.save("Fisher_surf_plot22", fisher_surf(1,1), allow_pickle=True)
+        print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
+        Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
 
-######################################################################################
-'''
-
-######################################################################################
-#Scalar Curvature
-
-theta1 = np.linspace(-2,1,100)
-theta2 = np.linspace(-1,2,100)
-X, Y = np.meshgrid(theta1, theta2)
-t_list = np.load("training.npz")['t_list']
-l_list = np.load("training.npz")['l_list']
-acc = np.load("training.npz")['acc']
-
-Z = np.zeros_like(X)
-for i, theta1_ in enumerate(theta1):
-    print(f"Calculating scalar curvatures done {i}%")
-    for j in track(range(len(theta2))):
-        Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
-
-Zpath = []
-for i in range(len(t_list[0])):
-    print(f"Calculating curvature path done {100*i/len(t_list[0])}%")
-    Zpath.append(Scalar_curvature(dataset, theta=[t_list[0][i],t_list[1][i]], a=5))
-
-np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
-######################################################################################
+    np.savez("curvature_plot.npz", X=X,Y=Y,Z=Z,t_list=t_list,Zpath=Zpath, allow_pickle=True)
+    ######################################################################################
 
 
 
