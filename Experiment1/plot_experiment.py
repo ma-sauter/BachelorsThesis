@@ -32,3 +32,15 @@ if PLOTFISHERSURFACE:
     plt.title("F{t1}{t2} surface")
     plt.show()
     plt.close()
+
+if PLOTCURVESURFACE:
+    X,Y,Z,t_list,pathZ = np.load(f"curvature_plot.npy")
+    surf = ax.plot_surface(X, Y, Z, cmap=cm.magma,
+                       linewidth=0, antialiased=True)
+    path = ax.plot(t_list[0],t_list[1],pathZ, color = 'mediumseagreen', zorder=100)
+
+    ax.view_init(elev=90., azim=0.)
+
+    plt.title("Scalar curvature surface")
+    plt.show()
+    plt.close()
