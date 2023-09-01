@@ -19,5 +19,5 @@ for i in range(len(dataset)):
 plt.show()
 plt.close()
 
-np.save("Dataset.npy", dataset, allow_pickle=True)
+np.save("dataset.npy", dataset, allow_pickle=True)
 ######################

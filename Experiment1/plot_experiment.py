@@ -6,9 +6,9 @@ import plotly.offline as pyo
 
 
 
-PLOTLOSSSURFACE = False
+PLOTLOSSSURFACE = True
 PLOTFISHERSURFACE = False
-PLOTFISHERSURFACEPLOTLY = True
+PLOTFISHERSURFACEPLOTLY = False
 t1,t2 = 2,2
 PLOTCURVESURFACE = False
 
@@ -16,7 +16,9 @@ if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")['X']
     Y = np.load("loss_surf_plot.npz")['Y']
     Z = np.load("loss_surf_plot.npz")['Z']
-    t_list,l_list,acc = np.load("training.npz")
+    t_list = np.load("training.npz")['t_list']
+    l_list = np.load("training.npz")['l_list']
+    acc = np.load("training.npz")['acc']
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma,

@@ -48,10 +48,10 @@ def fisher_info_matrix(dataset, theta, a):
 
 
 def del_gij_del_xk(i,j,k,theta,g,dataset,a):
-            e = 1e-5
-            dtheta = np.copy(theta)
-            dtheta[k] = dtheta[k]+e
-            return (fisher_info_matrix(dataset,dtheta,a)[i,j]-g[i,j])/e
+    e = 1e-6
+    dtheta = np.copy(theta)
+    dtheta[k] = dtheta[k]+e
+    return (fisher_info_matrix(dataset,dtheta,a)[i,j]-g[i,j])/e
 
 def christoffel(i,j,k,theta,g,ig,dataset,a): 
     symbol = 0
@@ -76,18 +76,18 @@ def Scalar_curvature(dataset, theta, a):
     
     def vmap_func_full(parameter_list,theta,g,ig,dataset,a):
         i,j,m,n = parameter_list[0],parameter_list[1],parameter_list[2],parameter_list[3]
-        e = 1e-5
+        e = 1e-6
         dmtheta, djtheta = np.copy(np.array(theta)), np.copy(np.array(theta))
         dmtheta[m] = dmtheta[m]+e
         djtheta[j] = djtheta[j]+e
-        c1 = (christoffel(m,i,j,theta,g,ig,dataset,a)-christoffel(m,i,j,dmtheta,g,ig,dataset,a))/e
+        c1 = (christoffel(m,i,j,dmtheta,g,ig,dataset,a)-christoffel(m,i,j,theta,g,ig,dataset,a))/e
         c2 = (christoffel(m,i,m,djtheta,g,ig,dataset,a)-christoffel(m,i,m,theta,g,ig,dataset,a))/e
         c3 = christoffel(n,i,j,theta,g,ig,dataset,a)*christoffel(m,m,n,theta,g,ig,dataset,a)
         c4 = christoffel(n,i,m,theta,g,ig,dataset,a)*christoffel(m,j,n,theta,g,ig,dataset,a)
         return ig[i,j]*(c1-c2+c3-c4)
     
     vmap_func = lambda x: vmap_func_full(x,theta,g,ig,dataset,a)
-    listofvalues = Parallel(n_jobs=-1, prefer='threads')(delayed(vmap_func)(liste) for liste in par_index_list)
+    listofvalues = Parallel(n_jobs=-1)(delayed(vmap_func)(liste) for liste in par_index_list)
 
     return np.sum(listofvalues)
 
@@ -167,8 +167,8 @@ if __name__ == '__main__':
     np.save("Fisher_surf_plot22", fisher_surf(1,1), allow_pickle=True)
 
     ######################################################################################
-    
     '''
+    
     start = time.time()
     ######################################################################################
     #Scalar Curvature
@@ -196,4 +196,8 @@ if __name__ == '__main__':
     ######################################################################################
     end = time.time()
     print(f"This took {end-start}")
+    
 
+    #start = time.time()
+    #print(Scalar_curvature(dataset,[-2,0.5],a=5))
+    #print(f"This took {time.time()-start}")
