@@ -10,7 +10,8 @@ PLOTLOSSSURFACE = False
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1,t2 = 2,2
-PLOTCURVESURFACE = True
+PLOTCURVESURFACE = False
+PLOTCURVESURFACEPLOTLY = False
 
 if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")['X']
@@ -98,10 +99,51 @@ if PLOTCURVESURFACE:
                        linewidth=0, antialiased=True)
     path = ax.plot(t_list[0][::20],t_list[1][::20],Zpath, color = 'mediumseagreen', zorder=100)
 
-    #ax.set_zlim(-0.2e9, 0.2e9)
+    ax.set_zlim(-0.2e9, 0.2e9)
 
     ax.view_init(elev=90., azim=0.)
 
     plt.title("Scalar curvature surface")
     plt.show()
     plt.close()
+
+if PLOTCURVESURFACEPLOTLY:
+    # Load data
+    data = np.load("curvature_plot.npz")
+    X, Y, Z, t_list, Zpath = data['X'], data['Y'], data['Z'], data['t_list'], data['Zpath']
+    # Create surface trace
+    surface_trace = go.Surface(
+        x=X,
+        y=Y,
+        z=Z,
+        colorscale='magma'
+    )
+
+    # Create path trace
+    path_trace = go.Scatter3d(
+        x=t_list[0][::20],
+        y=t_list[1][::20],
+        z=Zpath,
+        mode='lines',
+        line=dict(color='mediumseagreen', width=4),  # Adjust line width as needed
+        name='Path'
+    )
+
+    # Create layout
+    layout = go.Layout(
+        scene=dict(
+            camera=dict(up=dict(x=0, y=0, z=1), center=dict(x=0, y=0, z=0)),
+            aspectmode="manual",
+            aspectratio=dict(x=1, y=1, z=0.2),
+            zaxis=dict(range=[-0.2e9, 0.2e9])  # Set z-axis limits
+        ),
+        title="Scalar curvature surface"
+    )
+
+    # Combine traces and layout into a figure
+    fig = go.Figure(data=[surface_trace, path_trace], layout=layout)
+
+    # Save the figure as an interactive HTML file
+    html_filename = "curvature_plot.html"
+    pyo.plot(fig, filename=html_filename, auto_open=True)
+
