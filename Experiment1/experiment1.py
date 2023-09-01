@@ -284,8 +284,7 @@ if __name__ == "__main__":
 
     """
 
-fisher_info_matrix(dataset, [1, 1], a=5)
 start = time.time()
-print(fisher_info_matrix(dataset, [1, 1], a=5))
+print(Scalar_curvature(dataset, [1, 1], a=5))
 end = time.time()
 print(f"This took {end-start}")
