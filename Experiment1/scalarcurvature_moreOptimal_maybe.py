@@ -87,7 +87,7 @@ def Scalar_curvature(dataset, theta, a):
         return ig[i,j]*(c1-c2+c3-c4)
     
     vmap_func = lambda x: vmap_func_full(x,theta,g,ig,dataset,a)
-    listofvalues = Parallel(n_jobs=-1)(delayed(vmap_func)(liste) for liste in par_index_list)
+    listofvalues = Parallel(n_jobs=-1, prefer='threads')(delayed(vmap_func)(liste) for liste in par_index_list)
 
     return np.sum(listofvalues)
 
