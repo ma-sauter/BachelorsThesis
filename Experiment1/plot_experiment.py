@@ -1,10 +1,16 @@
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
+import plotly.graph_objs as go
+import plotly.offline as pyo
+
+
 
 PLOTLOSSSURFACE = False
 PLOTFISHERSURFACE = False
-PLOTCURVESURFACE = True
+PLOTFISHERSURFACEPLOTLY = True
+t1,t2 = 2,2
+PLOTCURVESURFACE = False
 
 if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")['X']
@@ -22,7 +28,6 @@ if PLOTLOSSSURFACE:
     plt.close()
 
 if PLOTFISHERSURFACE:
-    t1,t2 = 1,1
     X,Y,Z,t_list,pathZ = np.load(f"Fisher_surf_plot{t1}{t2}.npy", allow_pickle=True)
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
@@ -33,9 +38,49 @@ if PLOTFISHERSURFACE:
 
     ax.view_init(elev=90., azim=0.)
 
-    plt.title("F{t1}{t2} surface")
+    plt.title(f"F{t1}{t2} surface")
     plt.show()
     plt.close()
+
+if PLOTFISHERSURFACEPLOTLY:    
+    # Load data
+    X, Y, Z, t_list, pathZ = np.load(f"Fisher_surf_plot{t1}{t2}.npy", allow_pickle=True)
+
+    # Create surface plot
+    surface_trace = go.Surface(
+        x=X,
+        y=Y,
+        z=Z,
+        colorscale='magma'
+    )
+
+    # Create path trace
+    path_trace = go.Scatter3d(
+        x=t_list[0],
+        y=t_list[1],
+        z=pathZ,
+        mode='lines',
+        line=dict(color='mediumseagreen',width = 4),
+        name='Path'
+    )
+
+    # Create layout
+    layout = go.Layout(
+        scene=dict(
+            camera=dict(up=dict(x=0, y=0, z=1), center=dict(x=0, y=0, z=0)),
+            aspectmode="manual", 
+            aspectratio=dict(x=1, y=1, z=0.2)
+        ),
+        title=f"F{t1}{t2} surface"
+    )
+
+    # Combine traces and layout into a figure
+    fig = go.Figure(data=[surface_trace, path_trace], layout=layout)
+
+    # Save the figure as an interactive HTML file
+    html_filename = f"Interactive_Fisher{t1}{t2}.html"
+    pyo.plot(fig, filename=html_filename, auto_open=True)
+
 
 if PLOTCURVESURFACE:
     X = np.load(f"curvature_plot.npz")['X']

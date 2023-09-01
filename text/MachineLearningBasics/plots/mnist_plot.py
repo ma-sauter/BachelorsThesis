@@ -6,9 +6,9 @@ import numpy as np
 n_plots = 4
 fig, ax = plt.subplots(1,n_plots)
 for i in range(n_plots):  
-    liste = [6,3,-1,15]
+    index = np.random.randint(len(train_X))
     axis = ax[i]
-    axis.imshow(train_X[liste[i]], cmap=plt.get_cmap('bone'))
+    axis.imshow(train_X[index], cmap=plt.get_cmap('bone'))
     axis.set_yticklabels([])
     axis.set_xticklabels([])
     axis.set_xticks(np.arange(28)-0.5)

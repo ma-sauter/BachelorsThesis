@@ -73,7 +73,7 @@ def Scalar_curvature(dataset, theta, a):
         def del_gij_del_xk(i,j,k,theta):
             e = 1e-4
             dtheta = np.copy(theta)
-            dtheta[l] = dtheta[l]+e
+            dtheta[k] = dtheta[k]+e
             return (fisher_info_matrix(dataset,dtheta,a)[i,j]-g[i,j])/e
         symbol = 0
         for m in range(len(theta)):
