@@ -1,0 +1,63 @@
+\section{Proof of \cref{eq:FIforIndependentExperiments}}
+\label{sec:ProofFIforIndependentExperiments}
+For all variables $X^n$ that satisfy
+\begin{equation}\label{eq:UsedInProofFIforIndependentExperiments}
+	f(x^n|\theta) = \prod_{\alpha = 1}^n f(x_\alpha|\theta)
+\end{equation} 
+we can prove
+\begin{equation}
+	I_{X^n,ij} = \sum_\alpha I_{X_\alpha,ij}
+\end{equation}
+by
+\begin{equation}
+\begin{split}
+	I_{X^n,ij} =& \underset{x^n \in X^n}{E} \left\{\tAbl{}{\theta_i}\log f(x^n|\theta) \tAbl{}{\theta_j}\log f(x^n|\theta)\right\}\\
+	=& \sum_{x^n \in X^n} \left\{\left[\tAbl{}{\theta_i} f(x^n|\theta)\right] \left[\tAbl{}{\theta_j} f(x^n|\theta)\right]  \left[f(x^n|\theta)\right]^{-1} \right\}\\
+	\stackrel{\ref{eq:UsedInProofFIforIndependentExperiments}}{=}& \sum_{x^n \in X^n} \left\{\tAbl{}{\theta_i} \left[\prod_\alpha f(x_\alpha|\theta)\right] \tAbl{}{\theta_j} \left[\prod_\beta f(x_\beta|\theta)\right] \left[ \prod_\gamma f(x_\gamma|\theta)\right]^{-1}\right\}\\
+	=&\sum_{x^n \in X^n} \left\{\left(\prod_\alpha f(x_\alpha|\theta)\right)\left(\sum_\alpha \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right) \right. 
+	\\
+	&\qquad\quad\left.\left(\prod_\beta f(x_\beta|\theta)\right)\left(\sum_\beta \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right) \left[\prod_\gamma f(x_\gamma|\theta)\right]^{-1} \right\}\\
+	=& \underset{x^n \in X^n}{E}\left\{ \left[\sum_\alpha\tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right] \left[\sum_\beta\tAbl{}{\theta_i}\log f(x_\beta|\theta)\right]\right\}\\
+	\stackrel{(*)}{=}& \underset{x^n \in X^n}{E} \left\{ \sum_\alpha \left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\right\}\\
+	=& \sum_\alpha \underset{x^n \in X^n}{E} \left\{\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\left[ \tAbl{}{\theta_i}\log f(x_\alpha|\theta)\right]\right\}\\
+	=& \sum_\alpha I_{X_\alpha,ij}.
+\end{split}
+\end{equation}
+The equality at $(*)$ holds because for all $\alpha \neq \beta$
+\begin{equation}
+	\begin{split}
+		&\underset{x^n \in X^n}{E} \left\{ \left[\tAbl{}{\theta_i} \log f(x_\alpha|\theta)\right]\left[\tAbl{}{\theta_i} \log f(x_\beta|\theta)\right]\right\} \\
+		\propto& \sum_{x_\alpha}\sum_{x_\beta} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\left[\tAbl{}{\theta_i}  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\left[\tAbl{}{\theta_i}  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\tAbl{}{\theta_i}\left[  f(x_\beta|\theta)\right]\right\}\\
+		=& \sum_{x_\alpha} \left\{ \left[\tAbl{}{\theta_i}  f(x_\alpha|\theta)\right]\sum_{x_\beta}\tAbl{}{\theta_i}\left[ 1\right]\right\}\\
+		=&\ 0.
+	\end{split}
+\end{equation}
+This prove still holds when using continuous variables instead of discrete ones.
+\section{Proof of \cref{eq:SecondRepresentationOfFisherInfo}}
+\label{sec:ProofForeq:SecondRepresentationOfFisherInfo}
+Here we will prove \cref{eq:SecondRepresentationOfFisherInfo} which states \begin{equation}
+	\underset{x\in X}{E} \Big[\partial_i\log p(x|\theta) \cdot \partial_j\log p(x|\theta) \Big] = -\underset{x\in X}{E} \Big[\partial_i\partial_j\log p(x|\theta)\Big].
+\end{equation}
+To prove this we will evaluate the right side by 
+\newcommand{\p}{p(x|\theta)}
+\begin{equation}
+	\begin{split}
+		-\underset{x\in X}{E} \Big[\partial_i\partial_j\log p(x|\theta)\Big] &= -\underset{x\in X}{E} \left\{\partial_i\left[\partial_j\log p(x|\theta)\right]\right\} \\
+		&= -\underset{x\in X}{E} \left\{\partial_i\left[\frac{\partial_j p(x|\theta)}{p(x|\theta)}\right]\right\}\\
+		&= -\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)} - \frac{\partial_i\p \partial_j \p}{\p^2}\right]\\
+		&= -\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)} - \partial_i\log\p \partial_j \log\p\right]\\
+		&= \underset{x\in X}{E} \Big[\partial_i\log p(x|\theta) \cdot \partial_j\log p(x|\theta) \Big],
+	\end{split}
+\end{equation}
+Where the last equation holds because 
+\begin{equation}
+	\begin{split}
+		-\underset{x\in X}{E} \left[\frac{\partial_i\partial_j p(x|\theta)}{p(x|\theta)}\right] &= \sum_{x\in X} \left[ \partial_i\partial_j p(x|\theta) \right]\\
+		&= \partial_i \partial_j \sum_{x\in X} \left[ p(x|\theta) \right]\\
+		&= -\partial_i \partial_j \underset{x\in X}{E} \left[1\right]\\
+		&= 0.
+	\end{split} 
+\end{equation}
+Here we assumed that we can swap the sum and the derivatives. For continuous variables, the swapping of the integral and the derivatives has to be assumed for the equation to hold.

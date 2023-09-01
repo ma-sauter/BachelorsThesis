@@ -1,22 +1,133 @@
-\input{preliminaries/formatting.tex}
+% Template Author: Clara Eleonore Pavillet
+% Version: 1.0
+% This work is licensed under a Creative Commons Attribution 4.0 International License.
+
+\documentclass[12pt, a4paper]{report}
 \input{preliminaries/imports.tex}
-\input{preliminaries/variables.tex}
-\input{literaturesetup.tex}
+\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\rhead{ICP}
+\chead{}
+\lhead{University of Stuttgart}
+\lfoot{\date{}}
+\cfoot{}
+\rfoot{\thepage}
+% Top and Bottom Line Rules
+\renewcommand{\headrulewidth}{0.4pt} %0.4pt
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyheadoffset{9pt}
+\fancyfootoffset{9pt}
+% Line spacing
+\renewcommand{\baselinestretch}{1.5} %1.5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\date{}
 
+\title{Investigating the evolution of fisher information for neural network dynamics}
+\author{\\ \Large{Marc Sauter}
+	\\ ICP
+	\\
+	\\
+	\\
+	\\ University of stuttgart
+	\\
+	A thesis presented for the degree of \\ \textit{B.Sc.}
+	\\ \\
+	2023
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\input{text/titlepage.tex}
-
-\section{Machine Learning Basics}
-\subsection{Introduction to machine learning}
-\input{text/MachineLearningBasics/introduction.tex}
-\subsection{Neural networks}
-\input{text/MachineLearningBasics/NeuralNetworks.tex}
-\subsection{Training of neural networks}
-\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
-\subsection{Mathematical framework}
-\input{text/MachineLearningBasics/Definitions.tex}
-
-
-
-\printbibliography
+	% Adjust logo positions here
+	\AddToShipoutPicture*{\BackgroundPicturea{Logos/UniStuttgartLogo.png}{0.7in}{5.0in}{1}} %The last value changes the size factor
+	\AddToShipoutPicture*{\BackgroundPictureb{Logos/ICPLogo.png}{6.1in}{3in}{0.9}}
+	\thispagestyle{headings}
+	\maketitle
+	\FloatBarrier
+	\pagenumbering{roman}
+	
+	\newpage
+	\thispagestyle{empty}
+	\vspace*{\fill}
+	\begin{center}
+		Copyright \copyright  \thinspace 2023 by Marc Sauter \\ All Rights Reserved
+	\end{center}
+	\vspace*{\fill}
+	\newpage
+	\thispagestyle{empty}
+	\epigraph{Algebra is like sheet music. The important thing isn't can you read music, its can you hear it.}{--- \textup{Cristopher Nolan}}
+	
+	\thispagestyle{empty}
+	\chapter*{Acknowledgements}
+	I would like to express ...
+	
+	
+	\thispagestyle{empty}
+	\chapter*{Declaration}
+	I, Marc Sauter, declare that ...
+	
+	\vspace{3cm}
+	\noindent\begin{tabular}{ll}
+		\makebox[2.5in]{\hrulefill} & \makebox[2.5in]{\hrulefill}\\
+		\textit{Signature} & \textit{Date}\\
+	\end{tabular}
+	
+	\thispagestyle{empty}
+	\begin{abstract}
+		\lipsum[1-2]
+		
+		\keywords{Keyword1 - Keyword2 - Keyword3}
+		% \vspace{-10mm} %To remove added white space after
+	\end{abstract}
+	\tableofcontents
+	\thispagestyle{plain}
+	\listoffigures
+	\listoftables
+	
+	\chapter*{List of Abbreviations}
+	\begin{abbreviations}
+		\item[AI] Artificial Intelligence
+		\item[ML] Machine Learning
+		\item[ReLU] Rectified Linear Unit
+		\item[NN] Neural Network
+		\item[GD] Gradient Descent
+		\item[SGD] Stochastic Gradient Descent
+		\item[NTK] Neural Tangent Kernel
+		\item[FI] Fisher Information
+	\end{abbreviations}	
+	
+	\chapter{Machine Learning Basics}
+	\pagenumbering{arabic}
+	\section{Introduction to machine learning}
+	\input{text/MachineLearningBasics/introduction.tex}
+	\section{Neural networks}
+	\input{text/MachineLearningBasics/NeuralNetworks.tex}
+	\section{Training of neural networks}
+	\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
+	\section{Which assumptions are actually necessary}
+	\input{text/MachineLearningBasics/TheImportantParts.tex}
+	
+	
+	\chapter{Fisher information}
+	\section{Use in Statistics}
+	\input{text/FisherInformation/Introduction.tex}
+	\section{Fisher information as Riemannian metric}
+	\input{text/FisherInformation/RiemannianMetric}
+	
+	
+	\chapter{Neural Tangent Kernel}
+	%\input{text/NTK/NTKIntro.tex}
+	\section{Derivation from Gradient Flow}
+	\input{text/NTK/GradientFlow.tex}
+	\section{Interpretation}
+	\input{text/NTK/Interpretation.tex}
+	
+	
+	
+	\nocite{*}
+	\printbibliography[title=Literature]
+	\begin{appendices}
+		\chapter{Appendix A: some mathematical proofs}
+		\input{text/Appendix/AppendixA.tex}
+	\end{appendices}
+	
 \end{document}
