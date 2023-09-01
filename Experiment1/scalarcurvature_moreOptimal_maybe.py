@@ -184,7 +184,7 @@ if __name__ == '__main__':
     for i, theta1_ in enumerate(theta1):
         print(f"Calculating scalar curvatures done {i}%")
         for j in track(range(len(theta2))):
-            Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[i]], a = 5)
+            Z[j,i] = Scalar_curvature(dataset=dataset, theta=[theta1_,theta2[j]], a = 5)
 
     Zpath = []
     for i in range(len(t_list[0])):

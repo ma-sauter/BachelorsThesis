@@ -6,11 +6,11 @@ import plotly.offline as pyo
 
 
 
-PLOTLOSSSURFACE = True
+PLOTLOSSSURFACE = False
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1,t2 = 2,2
-PLOTCURVESURFACE = False
+PLOTCURVESURFACE = True
 
 if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")['X']
@@ -97,6 +97,8 @@ if PLOTCURVESURFACE:
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma,
                        linewidth=0, antialiased=True)
     path = ax.plot(t_list[0][::20],t_list[1][::20],Zpath, color = 'mediumseagreen', zorder=100)
+
+    #ax.set_zlim(-0.2e9, 0.2e9)
 
     ax.view_init(elev=90., azim=0.)
 
