@@ -42,7 +42,7 @@ if CALCULATE_SCALAR_CURVATURE:
         print(f"Calculating scalar curvatures done {i}%")
         for j in track(range(len(theta2))):
             Z[j, i] = curvature(
-                subloss, network, dataset, theta=np.array([theta1[i], theta2[i]])
+                subloss, network, dataset, theta=np.array([theta1[i], theta2[j]])
             )
 
     Zpath = []
