@@ -1,0 +1,5 @@
+Calculating scalar curvatures done 0%
+/tikhome/msauter/miniconda3/envs/work/lib/python3.10/site-packages/joblib/externals/loky/backend/resource_tracker.py:314: UserWarning: resource_tracker: There appear to be 18 leaked semlock objects to clean up at shutdown
+  warnings.warn(
+/tikhome/msauter/miniconda3/envs/work/lib/python3.10/site-packages/joblib/externals/loky/backend/resource_tracker.py:314: UserWarning: resource_tracker: There appear to be 78 leaked folder objects to clean up at shutdown
+  warnings.warn(
