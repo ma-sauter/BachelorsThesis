@@ -1,0 +1,13 @@
+Another possible use of the Fisher Information is to find phase transitions in thermodynamic systems. We will later look at the possibility of applying this to neural network training in search of processes equivalent to phase transitions, which may lead to more insight into what exactly influences training.\\
+To explain how the FI can be used to find phase transitions let's consider \cite{Prokopenko}.\\
+Given an equilibrated physical system in a large thermal heat bath, statistical models of those systems usually deal with Gibbs measures of the form 
+\begin{equation}
+	p(x|\theta) = \frac{1}{Z(\theta)} \mathrm{e}^{\sum_i \theta_i X_i(x)}.
+\end{equation}
+Here, $x$ represent the microstates of the system, $X_i$ are time-independent functions called "collective variables" and $\theta_i$ represent the time-dependent thermodynamic variables. These $\theta_i$ could be, for example, temperature, pressure, magnetic fields etc.\\
+Using the thermodynamic variables one can construct thermodynamic potentials. The one used in the paper is the Helmholtz free energy 
+\begin{equation}
+	A = - k_B T \ln Z(\theta),
+\end{equation}
+where we consider $k_B T = 1/\beta$ to be one of the thermodynamic variables. \\
+Now it's stated that a classification of phase transitions requires an examination of the derivatives of the thermodynamic potential. 

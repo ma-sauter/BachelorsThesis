@@ -37,4 +37,25 @@ For $n$ independent experiments $X^n$, where $f(x^n|\theta) = \prod_{i=1}^n f(x_
 \end{equation}
 A proof of this can be found in \cref{sec:ProofFIforIndependentExperiments}.\\
 For our example the FI yields $I_{X^n}(\theta) = I_{Y}(\theta) = n/(\theta(1-\theta))$\cite{StatisticFisherInfoTutorial}. This means that there is as much information about the $\theta$ contained in the measurement of $Y$ as in the measurement of $X^n$, which coincides with $Y$ being a sufficient measurement for $\theta$. \\
+To give another example of how the FI represents the information obtainable about a parameter from a measurement, let's consider the family of normal distributions
+\begin{equation}
+	\mathcal{N}(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}}\mathrm{e}^{-(x-\mu)^2/(2\sigma^2)}.
+\end{equation} 
+This acts as our statistical model $p_\theta(x) = \mathcal{N}(x|\theta)$ where $\theta = \{\theta_1,\theta_2\} = \{\mu, \sigma\}$. An observation would consist of a resulting value $x\in \mathbb{R}$, with it's probability distributed according to the statistical model. The FI from equation \cref{eq:FIDefinition} can be calculated as 
+\begin{equation}
+	I(\mu,\sigma) = \frac{1}{\sigma^2}
+	\begin{pmatrix}
+		1 & 0 \\
+		0 & 2
+	\end{pmatrix}.
+\end{equation}
+We can now interpret the diagonal elements as measures of how much information a measurement contains about the corresponding parameter, and the off-diagonal elements as measurements of how similar the model changes when varying the parameters. To give an example, let's look at the diagonal component corresponding to $\mu$, $I_{11}(\mu,\sigma) = 1/\sigma^2$. This value indicates that for smaller $\sigma$, random values drawn from the distribution contain more information about $\mu$. To visualize this, consider \cref{fig:NormalDistributionExample}.
+\begin{figure}
+	\centering
+	\includegraphics{"text/FisherInformation/plots/NormalDistributionPlot.pdf"}
+	\caption{This figure shows two normal distributions centered around $\mu = 2$ with varying $\sigma$ parameters. It also shows 4 samples chosen randomly according to the distribution. It's visible that for the case of a smaller variance $\sigma$, the points tend to be closer to the center and also less spread apart, which makes the information about $\mu$ contained in a measurement larger for a smaller variance.}
+	\label{fig:NormalDistributionExample}
+\end{figure}
+It can be seen that the smaller value of $\sigma$ results in a narrower spread of randomly drawn values, as indicated by the orange arrow. The values also tend to be closer to the mean value $\mu$ the smaller the variance $\sigma$ is. Therefore, if we had to predict the value of $\mu$ from knowing only the samples, it would be easier to use the values drawn from the distribution with the smaller variance, because the information contained in the samples, measured by the FI, is greater there.
+
 To conclude this chapter, the Fisher information is used in statistics to measure the amount of information one can gather about a parameter $\theta$ by measuring the outcome of a probability distribution $p_\theta(x_i)$. It is defined in equation \cref{eq:FIDefinition}.

@@ -1,6 +1,6 @@
 Previously we talked about the FI in the context of statistics. You may wonder why we went over a statistical method to describe probabilities, when we previously only talked about machine learning and neural networks. The answer to this question is, that the Fisher information matrix defined as 
 \begin{equation}
-	I_{ij} = \underset{(\mathbf{x}_i,\mathbf{y}_i) \in D}{E} \left[\tAbl{}{\theta_i}\ell(\mathbf{x}_i,\mathbf{y}_i)\cdot \tAbl{}{\theta_j}\ell(\mathbf{x}_i,\mathbf{y}_i)\right]
+	I_{ij}(\theta) = \underset{(\mathbf{x}_i,\mathbf{y}_i) \in D}{E} \left[\tAbl{}{\theta_i}\ell(\mathbf{x}_i,\mathbf{y}_i)\cdot \tAbl{}{\theta_j}\ell(\mathbf{x}_i,\mathbf{y}_i)\right]
 \end{equation}
 acts as the Riemannian metric describing the statistical manifold of the network regarding its loss. A brief introduction to this topic will be provided in this chapter. Keep in mind that this is mostly for intuition purposes and we will only cover a few important definitions. For more details, please refer to \cite{AmarisLectureNotes} where most of the following information is taken from. If you're not interested in mathematical details you can skip this chapter and go directly to \textbf{FILL SOMETHING IN HERE}.
 

@@ -9,8 +9,8 @@ PLOTLOSSSURFACE = False
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
-PLOTCURVESURFACE = True
-PLOTCURVESURFACEPLOTLY = False
+PLOTCURVESURFACE = False
+PLOTCURVESURFACEPLOTLY = True
 
 if PLOTLOSSSURFACE:
     X = np.load("loss_surf_plot.npz")["X"]
@@ -90,8 +90,11 @@ if PLOTCURVESURFACE:
     path = ax.plot(
         t_list[0][::20], t_list[1][::20], Zpath, color="mediumseagreen", zorder=100
     )
+    end = ax.plot(
+        t_list[0][-1], t_list[1][-1], Zpath, "X", color="mediumseagreen", zorder=100
+    )
 
-    ax.set_zlim(-0.2e9, 0.2e9)
+    # ax.set_zlim(-0.2e9, 0.2e9)
 
     ax.view_init(elev=90.0, azim=0.0)
 
@@ -101,7 +104,7 @@ if PLOTCURVESURFACE:
 
 if PLOTCURVESURFACEPLOTLY:
     # Load data
-    data = np.load("curvature_plot.npz")
+    data = np.load("npfiles/curvature_plot.npz")
     X, Y, Z, t_list, Zpath = (
         data["X"],
         data["Y"],
@@ -122,19 +125,28 @@ if PLOTCURVESURFACEPLOTLY:
         name="Path",
     )
 
+    cross = go.Scatter3d(
+        x=[t_list[0][-1]],
+        y=[t_list[1][-1]],
+        z=[Zpath[-1]],
+        mode="markers",
+        marker=dict(symbol="circle", color="mediumseagreen", size=5, z=100),
+        name="End",
+    )
+
     # Create layout
     layout = go.Layout(
         scene=dict(
             camera=dict(up=dict(x=0, y=0, z=1), center=dict(x=0, y=0, z=0)),
             aspectmode="manual",
             aspectratio=dict(x=1, y=1, z=0.2),
-            zaxis=dict(range=[-0.2e9, 0.2e9]),  # Set z-axis limits
+            zaxis=dict(),  # range=[-0.2e9, 0.2e9]),  # Set z-axis limits
         ),
         title="Scalar curvature surface",
     )
 
     # Combine traces and layout into a figure
-    fig = go.Figure(data=[surface_trace, path_trace], layout=layout)
+    fig = go.Figure(data=[surface_trace, path_trace, cross], layout=layout)
 
     # Save the figure as an interactive HTML file
     html_filename = "curvature_plot.html"
