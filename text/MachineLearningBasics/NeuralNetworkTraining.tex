@@ -18,7 +18,7 @@ This measure of the performance of a neural network is called the "\textbf{loss 
 	\mathscr{L}\left( \{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1}^{N}, \theta \right) = \frac{1}{N} \sum_{i=1}^{N} \ell_\theta\left(\mathbf{x}_i,\mathbf{y}_i\right).
 	\label{eq:Loss_longform}
 \end{equation}
-As a reminder, $\theta$ is a set containing the parameters of the neural network. This is the variable of the loss function that describes the neural network. How one calculates the output of the neural network using the inputs and $\theta$ has to be intrinsically defined as well. Sometimes it's more convenient to also denote this dependency, which would make the loss function
+Let's call $\ell$ the subloss of the system. As a reminder, $\theta$ is a set containing the parameters of the neural network. This is the variable of the loss function that describes the neural network. How one calculates the output of the neural network using the inputs and $\theta$ has to be intrinsically defined as well. Sometimes it's more convenient to also denote this dependency, which would make the loss function
 \begin{equation}\label{eq:Loss_longform_withFunctiondependency}
 	\mathscr{L}\left( \{(f_\theta(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right) = \frac{1}{N} \sum_{i=1}^{N} \ell_\theta\left(f_\theta(\mathbf{x}_i),\mathbf{y}_i\right).
 \end{equation}

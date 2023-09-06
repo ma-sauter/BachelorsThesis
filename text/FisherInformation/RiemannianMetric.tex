@@ -126,16 +126,20 @@ A proof of this is denoted in \cref{sec:ProofForeq:SecondRepresentationOfFisherI
 
 \subsection{Scalar curvature and Christoffel symbols}
 Here we will only give the definitions needed to compute the scalar curvature of a statistical manifold. A full understanding requires much more mathematics than we will go over here. If you are interested in this, please see \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook}.\\
-We will use Einstein notation for these equations. First we define the Christoffel-symbols which can be calculated from the Riemannian metric via
+Note that we don't use covariant and contravariant indices, since we don't need them in the scope of this thesis. The notation of uppercase or lowercase indices is just to be consistent with the notation from general relativity and should be of no further concern for our experiments. The parameters with lowercase indices defined previously translate directly to the ones with uppercase indices here. We will also use Einstein notation for these equations. First we define the Christoffel-symbols which can be calculated from the Riemannian metric via
 \begin{equation}
-	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta_l} + \pAbl{g_{ml}}{\theta_k} - \pAbl{g_{kl}}{\theta_m}\right),
+	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta^l} + \pAbl{g_{ml}}{\theta^k} - \pAbl{g_{kl}}{\theta^m}\right),
 \end{equation} 
 where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric.
-From those we can define the Riemannian curvature tensure as 
+From those we can define the Riemannian curvature tensor as 
 \begin{equation}
 	R^{i}_{jkl} = \partial_k \Gamma^i_{jl} - \partial_l \Gamma^i_{jk} + \Gamma^i_{mk}\Gamma^m_{jl} - \Gamma^i_{ml}\Gamma^m_{jk}.
 \end{equation}
-Now we can finally state the scalar Ricci curvature as 
+Finally, we can state the scalar Ricci curvature as 
 \begin{equation}
 	R = g^{ij} R^m_{imj}.
 \end{equation}
+
+\subsection{Application to neural networks}
+Now that we've laid down the mathematical fundamentals of how the FI can be considered the metric of a statistical manifold, we can apply this to our neural network optimization by introducing a way of viewing them as statistical models.\\
+Let's first define the statistical model by the probability $p_\theta(\mathbf{x}_i,\mathbf{y}_i) = e^{-\ell_\theta(\mathbf{x}_i,\mathbf{y}_i)}$, where $\ell$ is the subloss function defined in \cref{eq:Loss_split_up}. You can think of this as a kind of the probability that the network characterized by the parameters $\theta$ and the subloss function $\ell$ can generate the outputs $\mathbf{y}_i$ from the inputs $\mathbf{x}_i$. In reality, of course, it's not a probability that the network reproduces the output, since that would be either true or false, but rather a measure of how close the network's prediction is to the actual target that's normalized to be 1 if they match and shrinking the further apart they are.
