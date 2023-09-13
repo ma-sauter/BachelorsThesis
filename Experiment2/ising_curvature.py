@@ -10,6 +10,12 @@ from rich.progress import track
 import pickle
 import time
 
+
+from jax.lib import xla_bridge
+
+print(xla_bridge.get_backend().platform)
+
+
 CALCULATE_ISING_CURVATURE = True
 PLOT_ISING_CURVATURE = False
 
