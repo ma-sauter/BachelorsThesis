@@ -13,6 +13,7 @@ import time
 
 from jax.lib import xla_bridge
 
+CUDA_VISIBLE_DEVICES = 0
 print(xla_bridge.get_backend().platform)
 
 
