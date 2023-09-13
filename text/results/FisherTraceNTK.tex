@@ -1,0 +1,14 @@
+For a neural network with $N$ parameters, the Fisher Information is a matrix with $N^2$ entries. To illustrate how large those resulting matrices are, let's consider a network containing 3 hidden layers with a respective width of 128 neurons that gets trained on the $28\times28$ matrices of the MNIST dataset. This network has over $130000$ parameters, which results in over $10^{10}$ entries in the FI. When saving the entries as 32-bit floating point numbers, the matrix would take over 67GB of space. Calculating  this matrix in under 1 hour would require over 2 million entries to be calculated per second. Calculating the full matrix to optimize training is therefore computationally inefficient. That's why we're going to look at an equation for calculating the trace of the Fisher Information, or Fisher Trace for short, through other mathematical objects.\\
+Let's first inspect the Fisher Trace by using the chain rule of derivation as
+\begin{equation}
+	\begin{split}
+		\mathrm{tr}(I) &= \sum_{\alpha = 1}^{N_P} I_{\alpha\alpha}\\
+		&= \sum_{\alpha = 1}^{N_P} \left\{\underset{(\mathrm{x}_i, \mathrm{y}_i) \in D}{E} \left[\tAbl{}{\theta_\alpha}\ell(f_\theta(\mathrm{x}_i),\mathrm{y}_i)\cdot \tAbl{}{\theta_\alpha}\ell(f_\theta(\mathrm{x}_i),\mathrm{y}_i)\right]\right\}\\
+		&= \sum_{\alpha = 1}^{N_P} \left\{ \frac{1}{N} \sum_{i = 1}^{N_D} \left[\sum_{a=1}^{N_O}\left(\pAbl{\ell}{f_\theta(\mathrm{x}_i)_a}\tAbl{f_\theta(\mathrm{x}_i)_a}{\theta_\alpha}\right)\cdot\sum_{b=1}^{N_O}\left(\pAbl{\ell}{f_\theta(\mathrm{x}_i)_b}\tAbl{f_\theta(\mathrm{x}_i)_b}{\theta_\alpha}\right)\right]\right\}\\
+		&= \frac{1}{N} \sum_{i = 1}^{N_D} \sum_{a=1}^{N_O} \sum_{b=1}^{N_O} \Bigg[\pAbl{\ell}{f_\theta(\mathrm{x}_i)_a}\pAbl{\ell}{f_\theta(\mathrm{x}_i)_b} \cdot\underbrace{ \sum_{\alpha = 1}^{N_P} \left(\tAbl{f_\theta(\mathrm{x}_i)_a}{\theta_\alpha}\tAbl{f_\theta(\mathrm{x}_i)_b}{\theta_\alpha}\right)}_{\Lambda_{iiab}}\Bigg],
+	\end{split} 
+\end{equation}
+with the amount of parameters $N_P$, the amount of dataset pairs $N_D$ and the output dimension of the network $N_O$. By identifying the entries of the NTK in the last line and simplifying the notation we can rewrite the relation as
+\begin{equation}\label{eq:FisherNTKRelation}
+	\mathrm{tr}(I) = \underset{(\mathrm{x}_i, \mathrm{y}_i) \in D}{E} \left[\sum_{a,b} \left(\pAbl{\ell}{f_\theta(\mathrm{x}_i)_a}\pAbl{\ell}{f_\theta(\mathrm{x}_i)_b} \cdot \Lambda_{iiab}\right)\right].
+\end{equation}
