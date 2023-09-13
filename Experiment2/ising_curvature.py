@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib import cm
 import jax.numpy as np
 import jax
 from jax import grad
@@ -10,7 +11,7 @@ import pickle
 import time
 
 CALCULATE_ISING_CURVATURE = True
-PLOT_ISING_CURVATURE = True
+PLOT_ISING_CURVATURE = False
 
 ## Import dataset
 with open("npfiles/dataset.npy", "rb") as file:
@@ -56,3 +57,7 @@ if CALCULATE_ISING_CURVATURE:
 if PLOT_ISING_CURVATURE:
     data = np.load("npfiles/ising_curv.npz")
     X, Y, Z = data["X"], data["Y"], data["Z"]
+
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    surf = ax.plot_surface(np.exp(X), np.exp(Y), Z, cmap=cm.magma)
+    plt.show()
