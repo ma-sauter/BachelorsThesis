@@ -1,5 +1,5 @@
 import jax.numpy as np
-from jax import jit, grad
+from jax import jit, grad, debug
 
 
 def fisher_info(

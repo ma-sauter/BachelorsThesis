@@ -12,7 +12,7 @@ Going further, we will denote an output of the neural network for an input $\mat
 with $p$ being the amount of parameters in the network.
 
 \subsection{Loss function}
-Thus far, we have defined what a neural network is and how the input data we want to train on is structured. In order to train our networks to learn the underlying structure of our dataset, we now need to introduce a way to measure how well our network is performing. Once we can evaluate the performance of our network, we can then introduce ways to optimize that performance.\\
+Thus far, we have defined what a neural network is and how the input data we want to train on is structured. In order to train our networks to learn the underlying function of our dataset, we now need to introduce a way to measure how well our network is performing. Once we can evaluate the performance of our network, we can then introduce ways to optimize that performance.\\
 This measure of the performance of a neural network is called the "\textbf{loss function}" $\mathscr{L}$. It is also sometimes referred to as the cost function in literature \cite{NGD}. Within this work, we will only consider loss functions of the form 
 \begin{equation}
 	\mathscr{L}\left( \{(f_\theta(\mathbf{x}_i), \mathbf{y}_i)\}_{i=1}^{N} \right) = \frac{1}{N} \sum_{i=1}^{N} \ell\left(f_\theta(\mathbf{x}_i),\mathbf{y}_i\right).

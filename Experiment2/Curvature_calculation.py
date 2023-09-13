@@ -1,5 +1,5 @@
 import jax.numpy as np
-from jax import jacfwd, grad
+from jax import jacfwd, grad, debug
 from fisher_calculation import fisher_info
 
 

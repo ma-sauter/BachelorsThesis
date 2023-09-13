@@ -1,7 +1,7 @@
 The Fisher Information can also be useful in physical context. It is possible to use it to find phase transitions in thermodynamic systems. We will later look at the possibility of applying this to neural network training in search of processes equivalent to phase transitions, which may lead to more insight into what exactly influences training.\\
 To explain how the FI can be used to find phase transitions let's briefly review \cite{Prokopenko}.\\
 Given an equilibrated physical system in a large thermal heat bath, statistical models of those systems usually deal with Gibbs measures of the form 
-\begin{equation}
+\begin{equation}\label{eq:ThermodynamicGibbsMeasure}
 	p(x|\theta) = \frac{1}{Z(\theta)} \mathrm{exp}\left(\sum_i \theta_i X_i(x)\right).
 \end{equation}
 Here, $x$ represent the microstates of the system, $X_i$ are time-independent functions called "collective variables" and $\theta_i$ represent the time-dependent thermodynamic variables. These $\theta_i$ could be, for example, temperature, pressure, magnetic fields etc. They will be used as parameters $\theta$ of the FI.\\
@@ -10,4 +10,10 @@ Using the thermodynamic variables one can construct thermodynamic potentials. On
 	A = - k_B T \ln Z(\theta),
 \end{equation}
 where we consider $k_B T = 1/\beta$ to be one of the thermodynamic variables. \\
-Now it's stated that a classification of phase transitions requires an examination of the derivatives of the thermodynamic potential. Specifically, when considering 
+Now it's stated that a classification of phase transitions typically requires an examination of the derivatives of the thermodynamic potential. Specifically, there are cases where an order parameter $\phi^i$ describing the phase transition is representable as a negative derivative of the potential over some thermodynamic variable $\theta^i$. In this case, the diagonal components Fisher Information defined by the probability distributions in \cref{eq:ThermodynamicGibbsMeasure} and \cref{eq:FIDefinition} can be written as
+\begin{equation}
+	I_{ii} = \beta \pAbl{\phi^i}{\theta^i}.
+\end{equation}
+There are second order phase transitions, where the order parameter (which is a derivative of the thermodynamic potential) changes continuously while it's derivative diverges. Using this relationship, one can identify those phase transitions by searching for divergences in the diagonal components of the Fisher Information.\\
+In addition to that, \cite{Janke} visits the same thermodynamic metric described by the Fisher Information. Here the scalar curvature corresponding to the metric $\mathscr{R}$ is introduced as a measure of complexity for the physical systems. It is stated that for all models that they've considered so far, $\mathscr{R}$ diverges at, and only at, the phase transition.\\
+This gives us two ways of finding phase transitions which we can also apply to the Fisher Information of neural network training, to possibly search for analogues of physical phase transitions in the training.
