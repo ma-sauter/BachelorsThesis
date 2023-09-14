@@ -4,6 +4,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from matplotlib import colors
+import plotly.graph_objects as go
+
 import jax.numpy as np
 import jax
 from jax import grad
@@ -20,8 +23,9 @@ from jax.lib import xla_bridge
 print(xla_bridge.get_backend().platform)
 
 
-CALCULATE_ISING_CURVATURE = True
-PLOT_ISING_CURVATURE = True
+CALCULATE_ISING_CURVATURE = False
+PLOT_ISING_CURVATURE = False
+PLOTLY = True
 
 ## Import dataset
 with open("npfiles/dataset.npy", "rb") as file:
@@ -60,15 +64,36 @@ if CALCULATE_ISING_CURVATURE:
             Z[j, i] = curvature(
                 subloss, network, dataset, theta=np.array([theta1[i], theta2[j]])
             )
-            print(Z[i, j])
+            print(Z[j, i])
 
     np.savez("npfiles/ising_curv.npz", X=X, Y=Y, Z=Z, allow_pickle=True)
 
 if PLOT_ISING_CURVATURE:
     data = np.load("npfiles/ising_curv.npz")
-    X, Y, Z = data["X"], data["Y"], data["Z"]
+    X, Y, Z = data["X"], data["Y"], np.fabs(data["Z"])
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
     surf = ax.plot_surface(np.exp(X), np.exp(Y), Z, cmap=cm.magma)
-    # plt.show()
+    ax.set_zscale("log")
+    ax.set_zlim(-0, 10000)
+    plt.show()
     print(Z)
+
+if PLOTLY:
+    # Load data
+    data = np.load("npfiles/ising_curv.npz")
+    X, Y, Z = data["X"], data["Y"], np.fabs(data["Z"])
+    Z = np.log10(Z)
+    # Create a 3D surface plot
+    fig = go.Figure(
+        data=[go.Surface(z=Z, x=np.exp(X), y=np.exp(Y), colorscale="magma")]
+    )
+
+    # Set the z-scale to logarithmic
+    # fig.update_scenes(zaxis_type="log")
+
+    # Set z-axis limits
+    fig.update_layout(scene=dict(zaxis=dict(range=[-16, 15])))
+
+    # Show the plot
+    fig.show()

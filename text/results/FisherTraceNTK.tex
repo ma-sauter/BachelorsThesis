@@ -12,3 +12,4 @@ with the amount of parameters $N_P$, the amount of dataset pairs $N_D$ and the o
 \begin{equation}\label{eq:FisherNTKRelation}
 	\mathrm{tr}(I) = \underset{(\mathrm{x}_i, \mathrm{y}_i) \in D}{E} \left[\sum_{a,b} \left(\pAbl{\ell}{f_\theta(\mathrm{x}_i)_a}\pAbl{\ell}{f_\theta(\mathrm{x}_i)_b} \cdot \Lambda_{iiab}\right)\right].
 \end{equation}
+Here it is important to note that there are two main parts on the right hand side: One is the loss derivative and the other is the NTK. Going further we will conduct some experiments to investigate which of those two terms is the dominant driving force in the evolution of the Fisher Trace. Specifically, we will look at the time evolution of the Fisher Trace in comparison the trace of the NTK to see how similar they evolve during training.
