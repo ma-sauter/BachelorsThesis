@@ -4,7 +4,7 @@ import jax
 from jax import grad
 import numpy as onp
 from fisher_calculation import fisher_info
-from Curvature_calculation import curvature
+from Curvature_calculation import curvature1 as curvature
 from rich.progress import track
 import pickle
 import time

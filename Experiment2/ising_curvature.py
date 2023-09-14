@@ -12,7 +12,7 @@ import jax
 from jax import grad
 import numpy as onp
 from fisher_calculation import fisher_info
-from Curvature_calculation import curvature
+from Curvature_calculation import curvature2_vmap as curvature
 from rich.progress import track
 import pickle
 import time
@@ -23,9 +23,9 @@ from jax.lib import xla_bridge
 print(xla_bridge.get_backend().platform)
 
 
-CALCULATE_ISING_CURVATURE = False
+CALCULATE_ISING_CURVATURE = True
 PLOT_ISING_CURVATURE = False
-PLOTLY = True
+PLOTLY = False
 
 ## Import dataset
 with open("npfiles/dataset.npy", "rb") as file:
