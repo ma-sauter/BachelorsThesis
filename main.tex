@@ -134,8 +134,12 @@
 	\nocite{*}
 	\printbibliography[title=Literature]
 	\begin{appendices}
-		\chapter{Appendix A: some mathematical proofs}
+		\crefalias{chapter}{appendix}
+		\chapter{Some mathematical proofs}
 		\input{text/Appendix/AppendixA.tex}
+		\chapter{MNIST experiment for trace comparison}
+		\label{sec:TraceExperimentAppendix}
+		\input{text/Appendix/AppendixB.tex}
 	\end{appendices}
 	
 \end{document}
