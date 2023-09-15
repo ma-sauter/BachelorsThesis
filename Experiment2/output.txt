@@ -1,701 +1,121 @@
-Calculating scalar curvatures done 0%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 1%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 2%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 3%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 4%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 5%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 6%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 7%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 8%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 9%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 10%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 11%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 12%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 13%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 14%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 15%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 16%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 17%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 18%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 19%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 20%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 21%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 22%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 23%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 24%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 25%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 26%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 27%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 28%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 29%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 30%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 31%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 32%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 33%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 34%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 35%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 36%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 37%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 38%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 39%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 40%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 41%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 42%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 43%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 44%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 45%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 46%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 47%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 48%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 49%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 50%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 51%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 52%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 53%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 54%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 55%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 56%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 57%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 58%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:33
-Calculating scalar curvatures done 59%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 60%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 61%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 62%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 63%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 64%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 65%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 66%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 67%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 68%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 69%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 70%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 71%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 72%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 73%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 74%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 75%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 76%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 77%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 78%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 79%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 80%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 81%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 82%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 83%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 84%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 85%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 86%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 87%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:26
-Calculating scalar curvatures done 88%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 89%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating scalar curvatures done 90%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:32
-Calculating scalar curvatures done 91%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 92%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 93%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 94%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 95%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 96%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:31
-Calculating scalar curvatures done 97%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:30
-Calculating scalar curvatures done 98%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:28
-Calculating scalar curvatures done 99%
-Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:06:29
-Calculating curvature path done 0.0%
-Calculating curvature path done 0.1999800019998%
-Calculating curvature path done 0.3999600039996%
-Calculating curvature path done 0.5999400059994%
-Calculating curvature path done 0.7999200079992%
-Calculating curvature path done 0.9999000099990001%
-Calculating curvature path done 1.1998800119988%
-Calculating curvature path done 1.3998600139986002%
-Calculating curvature path done 1.5998400159984%
-Calculating curvature path done 1.7998200179982002%
-Calculating curvature path done 1.9998000199980002%
-Calculating curvature path done 2.1997800219978%
-Calculating curvature path done 2.3997600239976%
-Calculating curvature path done 2.5997400259974004%
-Calculating curvature path done 2.7997200279972003%
-Calculating curvature path done 2.9997000299970003%
-Calculating curvature path done 3.1996800319968%
-Calculating curvature path done 3.3996600339966005%
-Calculating curvature path done 3.5996400359964005%
-Calculating curvature path done 3.7996200379962004%
-Calculating curvature path done 3.9996000399960003%
-Calculating curvature path done 4.199580041995801%
-Calculating curvature path done 4.3995600439956%
-Calculating curvature path done 4.599540045995401%
-Calculating curvature path done 4.7995200479952%
-Calculating curvature path done 4.999500049995%
-Calculating curvature path done 5.199480051994801%
-Calculating curvature path done 5.3994600539946%
-Calculating curvature path done 5.599440055994401%
-Calculating curvature path done 5.799420057994201%
-Calculating curvature path done 5.9994000599940005%
-Calculating curvature path done 6.199380061993801%
-Calculating curvature path done 6.3993600639936%
-Calculating curvature path done 6.599340065993401%
-Calculating curvature path done 6.799320067993201%
-Calculating curvature path done 6.999300069993001%
-Calculating curvature path done 7.199280071992801%
-Calculating curvature path done 7.3992600739926%
-Calculating curvature path done 7.599240075992401%
-Calculating curvature path done 7.799220077992201%
-Calculating curvature path done 7.999200079992001%
-Calculating curvature path done 8.1991800819918%
-Calculating curvature path done 8.399160083991601%
-Calculating curvature path done 8.599140085991401%
-Calculating curvature path done 8.7991200879912%
-Calculating curvature path done 8.999100089991002%
-Calculating curvature path done 9.199080091990801%
-Calculating curvature path done 9.3990600939906%
-Calculating curvature path done 9.5990400959904%
-Calculating curvature path done 9.799020097990201%
-Calculating curvature path done 9.99900009999%
-Calculating curvature path done 10.1989801019898%
-Calculating curvature path done 10.398960103989602%
-Calculating curvature path done 10.598940105989401%
-Calculating curvature path done 10.7989201079892%
-Calculating curvature path done 10.998900109989002%
-Calculating curvature path done 11.198880111988801%
-Calculating curvature path done 11.3988601139886%
-Calculating curvature path done 11.598840115988402%
-Calculating curvature path done 11.798820117988202%
-Calculating curvature path done 11.998800119988001%
-Calculating curvature path done 12.1987801219878%
-Calculating curvature path done 12.398760123987602%
-Calculating curvature path done 12.598740125987401%
-Calculating curvature path done 12.7987201279872%
-Calculating curvature path done 12.998700129987002%
-Calculating curvature path done 13.198680131986801%
-Calculating curvature path done 13.398660133986601%
-Calculating curvature path done 13.598640135986402%
-Calculating curvature path done 13.798620137986202%
-Calculating curvature path done 13.998600139986001%
-Calculating curvature path done 14.1985801419858%
-Calculating curvature path done 14.398560143985602%
-Calculating curvature path done 14.598540145985401%
-Calculating curvature path done 14.7985201479852%
-Calculating curvature path done 14.998500149985002%
-Calculating curvature path done 15.198480151984802%
-Calculating curvature path done 15.398460153984601%
-Calculating curvature path done 15.598440155984402%
-Calculating curvature path done 15.798420157984202%
-Calculating curvature path done 15.998400159984001%
-Calculating curvature path done 16.198380161983803%
-Calculating curvature path done 16.3983601639836%
-Calculating curvature path done 16.5983401659834%
-Calculating curvature path done 16.798320167983203%
-Calculating curvature path done 16.998300169983%
-Calculating curvature path done 17.198280171982802%
-Calculating curvature path done 17.398260173982603%
-Calculating curvature path done 17.5982401759824%
-Calculating curvature path done 17.798220177982202%
-Calculating curvature path done 17.998200179982003%
-Calculating curvature path done 18.1981801819818%
-Calculating curvature path done 18.398160183981602%
-Calculating curvature path done 18.598140185981404%
-Calculating curvature path done 18.7981201879812%
-Calculating curvature path done 18.998100189981002%
-Calculating curvature path done 19.1980801919808%
-Calculating curvature path done 19.3980601939806%
-Calculating curvature path done 19.598040195980403%
-Calculating curvature path done 19.7980201979802%
-Calculating curvature path done 19.99800019998%
-Calculating curvature path done 20.197980201979803%
-Calculating curvature path done 20.3979602039796%
-Calculating curvature path done 20.597940205979402%
-Calculating curvature path done 20.797920207979203%
-Calculating curvature path done 20.997900209979%
-Calculating curvature path done 21.197880211978802%
-Calculating curvature path done 21.397860213978603%
-Calculating curvature path done 21.5978402159784%
-Calculating curvature path done 21.797820217978202%
-Calculating curvature path done 21.997800219978004%
-Calculating curvature path done 22.1977802219778%
-Calculating curvature path done 22.397760223977603%
-Calculating curvature path done 22.597740225977404%
-Calculating curvature path done 22.7977202279772%
-Calculating curvature path done 22.997700229977003%
-Calculating curvature path done 23.197680231976804%
-Calculating curvature path done 23.3976602339766%
-Calculating curvature path done 23.597640235976403%
-Calculating curvature path done 23.7976202379762%
-Calculating curvature path done 23.997600239976002%
-Calculating curvature path done 24.197580241975803%
-Calculating curvature path done 24.3975602439756%
-Calculating curvature path done 24.597540245975402%
-Calculating curvature path done 24.797520247975203%
-Calculating curvature path done 24.997500249975%
-Calculating curvature path done 25.197480251974802%
-Calculating curvature path done 25.397460253974604%
-Calculating curvature path done 25.5974402559744%
-Calculating curvature path done 25.797420257974203%
-Calculating curvature path done 25.997400259974004%
-Calculating curvature path done 26.1973802619738%
-Calculating curvature path done 26.397360263973603%
-Calculating curvature path done 26.597340265973404%
-Calculating curvature path done 26.797320267973202%
-Calculating curvature path done 26.997300269973003%
-Calculating curvature path done 27.197280271972804%
-Calculating curvature path done 27.397260273972602%
-Calculating curvature path done 27.597240275972403%
-Calculating curvature path done 27.7972202779722%
-Calculating curvature path done 27.997200279972002%
-Calculating curvature path done 28.197180281971804%
-Calculating curvature path done 28.3971602839716%
-Calculating curvature path done 28.597140285971403%
-Calculating curvature path done 28.797120287971204%
-Calculating curvature path done 28.997100289971%
-Calculating curvature path done 29.197080291970803%
-Calculating curvature path done 29.397060293970604%
-Calculating curvature path done 29.5970402959704%
-Calculating curvature path done 29.797020297970203%
-Calculating curvature path done 29.997000299970004%
-Calculating curvature path done 30.196980301969802%
-Calculating curvature path done 30.396960303969603%
-Calculating curvature path done 30.596940305969405%
-Calculating curvature path done 30.796920307969202%
-Calculating curvature path done 30.996900309969003%
-Calculating curvature path done 31.196880311968805%
-Calculating curvature path done 31.396860313968602%
-Calculating curvature path done 31.596840315968404%
-Calculating curvature path done 31.7968203179682%
-Calculating curvature path done 31.996800319968003%
-Calculating curvature path done 32.1967803219678%
-Calculating curvature path done 32.396760323967605%
-Calculating curvature path done 32.5967403259674%
-Calculating curvature path done 32.7967203279672%
-Calculating curvature path done 32.996700329967005%
-Calculating curvature path done 33.1966803319668%
-Calculating curvature path done 33.3966603339666%
-Calculating curvature path done 33.596640335966406%
-Calculating curvature path done 33.7966203379662%
-Calculating curvature path done 33.996600339966%
-Calculating curvature path done 34.196580341965806%
-Calculating curvature path done 34.396560343965604%
-Calculating curvature path done 34.5965403459654%
-Calculating curvature path done 34.796520347965206%
-Calculating curvature path done 34.996500349965004%
-Calculating curvature path done 35.1964803519648%
-Calculating curvature path done 35.396460353964606%
-Calculating curvature path done 35.596440355964404%
-Calculating curvature path done 35.7964203579642%
-Calculating curvature path done 35.99640035996401%
-Calculating curvature path done 36.196380361963804%
-Calculating curvature path done 36.3963603639636%
-Calculating curvature path done 36.59634036596341%
-Calculating curvature path done 36.796320367963204%
-Calculating curvature path done 36.996300369963%
-Calculating curvature path done 37.19628037196281%
-Calculating curvature path done 37.396260373962605%
-Calculating curvature path done 37.5962403759624%
-Calculating curvature path done 37.79622037796221%
-Calculating curvature path done 37.996200379962005%
-Calculating curvature path done 38.1961803819618%
-Calculating curvature path done 38.3961603839616%
-Calculating curvature path done 38.596140385961405%
-Calculating curvature path done 38.7961203879612%
-Calculating curvature path done 38.996100389961%
-Calculating curvature path done 39.196080391960805%
-Calculating curvature path done 39.3960603939606%
-Calculating curvature path done 39.5960403959604%
-Calculating curvature path done 39.796020397960206%
-Calculating curvature path done 39.99600039996%
-Calculating curvature path done 40.1959804019598%
-Calculating curvature path done 40.395960403959606%
-Calculating curvature path done 40.595940405959404%
-Calculating curvature path done 40.7959204079592%
-Calculating curvature path done 40.995900409959006%
-Calculating curvature path done 41.195880411958804%
-Calculating curvature path done 41.3958604139586%
-Calculating curvature path done 41.595840415958406%
-Calculating curvature path done 41.795820417958204%
-Calculating curvature path done 41.995800419958%
-Calculating curvature path done 42.19578042195781%
-Calculating curvature path done 42.395760423957604%
-Calculating curvature path done 42.5957404259574%
-Calculating curvature path done 42.79572042795721%
-Calculating curvature path done 42.995700429957004%
-Calculating curvature path done 43.1956804319568%
-Calculating curvature path done 43.39566043395661%
-Calculating curvature path done 43.595640435956405%
-Calculating curvature path done 43.7956204379562%
-Calculating curvature path done 43.99560043995601%
-Calculating curvature path done 44.195580441955805%
-Calculating curvature path done 44.3955604439556%
-Calculating curvature path done 44.59554044595541%
-Calculating curvature path done 44.795520447955205%
-Calculating curvature path done 44.995500449955%
-Calculating curvature path done 45.19548045195481%
-Calculating curvature path done 45.395460453954605%
-Calculating curvature path done 45.5954404559544%
-Calculating curvature path done 45.79542045795421%
-Calculating curvature path done 45.995400459954006%
-Calculating curvature path done 46.1953804619538%
-Calculating curvature path done 46.39536046395361%
-Calculating curvature path done 46.595340465953406%
-Calculating curvature path done 46.7953204679532%
-Calculating curvature path done 46.995300469953%
-Calculating curvature path done 47.195280471952806%
-Calculating curvature path done 47.395260473952604%
-Calculating curvature path done 47.5952404759524%
-Calculating curvature path done 47.795220477952206%
-Calculating curvature path done 47.995200479952004%
-Calculating curvature path done 48.1951804819518%
-Calculating curvature path done 48.39516048395161%
-Calculating curvature path done 48.595140485951404%
-Calculating curvature path done 48.7951204879512%
-Calculating curvature path done 48.99510048995101%
-Calculating curvature path done 49.195080491950804%
-Calculating curvature path done 49.3950604939506%
-Calculating curvature path done 49.59504049595041%
-Calculating curvature path done 49.795020497950205%
-Calculating curvature path done 49.99500049995%
-Calculating curvature path done 50.19498050194981%
-Calculating curvature path done 50.394960503949605%
-Calculating curvature path done 50.5949405059494%
-Calculating curvature path done 50.79492050794921%
-Calculating curvature path done 50.994900509949005%
-Calculating curvature path done 51.1948805119488%
-Calculating curvature path done 51.39486051394861%
-Calculating curvature path done 51.594840515948405%
-Calculating curvature path done 51.7948205179482%
-Calculating curvature path done 51.99480051994801%
-Calculating curvature path done 52.194780521947806%
-Calculating curvature path done 52.3947605239476%
-Calculating curvature path done 52.59474052594741%
-Calculating curvature path done 52.794720527947206%
-Calculating curvature path done 52.994700529947%
-Calculating curvature path done 53.19468053194681%
-Calculating curvature path done 53.394660533946606%
-Calculating curvature path done 53.594640535946404%
-Calculating curvature path done 53.79462053794621%
-Calculating curvature path done 53.994600539946006%
-Calculating curvature path done 54.194580541945804%
-Calculating curvature path done 54.39456054394561%
-Calculating curvature path done 54.59454054594541%
-Calculating curvature path done 54.794520547945204%
-Calculating curvature path done 54.99450054994501%
-Calculating curvature path done 55.19448055194481%
-Calculating curvature path done 55.394460553944604%
-Calculating curvature path done 55.5944405559444%
-Calculating curvature path done 55.79442055794421%
-Calculating curvature path done 55.994400559944005%
-Calculating curvature path done 56.1943805619438%
-Calculating curvature path done 56.39436056394361%
-Calculating curvature path done 56.594340565943405%
-Calculating curvature path done 56.7943205679432%
-Calculating curvature path done 56.99430056994301%
-Calculating curvature path done 57.194280571942805%
-Calculating curvature path done 57.3942605739426%
-Calculating curvature path done 57.59424057594241%
-Calculating curvature path done 57.794220577942205%
-Calculating curvature path done 57.994200579942%
-Calculating curvature path done 58.19418058194181%
-Calculating curvature path done 58.394160583941606%
-Calculating curvature path done 58.5941405859414%
-Calculating curvature path done 58.79412058794121%
-Calculating curvature path done 58.994100589941006%
-Calculating curvature path done 59.1940805919408%
-Calculating curvature path done 59.39406059394061%
-Calculating curvature path done 59.594040595940406%
-Calculating curvature path done 59.794020597940204%
-Calculating curvature path done 59.99400059994001%
-Calculating curvature path done 60.193980601939806%
-Calculating curvature path done 60.393960603939604%
-Calculating curvature path done 60.59394060593941%
-Calculating curvature path done 60.79392060793921%
-Calculating curvature path done 60.993900609939004%
-Calculating curvature path done 61.19388061193881%
-Calculating curvature path done 61.39386061393861%
-Calculating curvature path done 61.593840615938404%
-Calculating curvature path done 61.79382061793821%
-Calculating curvature path done 61.99380061993801%
-Calculating curvature path done 62.193780621937805%
-Calculating curvature path done 62.39376062393761%
-Calculating curvature path done 62.59374062593741%
-Calculating curvature path done 62.793720627937205%
-Calculating curvature path done 62.99370062993701%
-Calculating curvature path done 63.19368063193681%
-Calculating curvature path done 63.393660633936605%
-Calculating curvature path done 63.5936406359364%
-Calculating curvature path done 63.79362063793621%
-Calculating curvature path done 63.993600639936005%
-Calculating curvature path done 64.19358064193581%
-Calculating curvature path done 64.3935606439356%
-Calculating curvature path done 64.5935406459354%
-Calculating curvature path done 64.79352064793521%
-Calculating curvature path done 64.993500649935%
-Calculating curvature path done 65.1934806519348%
-Calculating curvature path done 65.39346065393461%
-Calculating curvature path done 65.5934406559344%
-Calculating curvature path done 65.7934206579342%
-Calculating curvature path done 65.99340065993401%
-Calculating curvature path done 66.1933806619338%
-Calculating curvature path done 66.3933606639336%
-Calculating curvature path done 66.59334066593341%
-Calculating curvature path done 66.7933206679332%
-Calculating curvature path done 66.993300669933%
-Calculating curvature path done 67.19328067193281%
-Calculating curvature path done 67.3932606739326%
-Calculating curvature path done 67.5932406759324%
-Calculating curvature path done 67.79322067793221%
-Calculating curvature path done 67.993200679932%
-Calculating curvature path done 68.1931806819318%
-Calculating curvature path done 68.39316068393161%
-Calculating curvature path done 68.5931406859314%
-Calculating curvature path done 68.79312068793121%
-Calculating curvature path done 68.99310068993101%
-Calculating curvature path done 69.1930806919308%
-Calculating curvature path done 69.39306069393061%
-Calculating curvature path done 69.59304069593041%
-Calculating curvature path done 69.7930206979302%
-Calculating curvature path done 69.99300069993001%
-Calculating curvature path done 70.19298070192981%
-Calculating curvature path done 70.3929607039296%
-Calculating curvature path done 70.59294070592941%
-Calculating curvature path done 70.79292070792921%
-Calculating curvature path done 70.992900709929%
-Calculating curvature path done 71.19288071192881%
-Calculating curvature path done 71.39286071392861%
-Calculating curvature path done 71.5928407159284%
-Calculating curvature path done 71.79282071792821%
-Calculating curvature path done 71.99280071992801%
-Calculating curvature path done 72.1927807219278%
-Calculating curvature path done 72.39276072392761%
-Calculating curvature path done 72.59274072592741%
-Calculating curvature path done 72.7927207279272%
-Calculating curvature path done 72.99270072992701%
-Calculating curvature path done 73.19268073192681%
-Calculating curvature path done 73.3926607339266%
-Calculating curvature path done 73.59264073592641%
-Calculating curvature path done 73.79262073792621%
-Calculating curvature path done 73.992600739926%
-Calculating curvature path done 74.19258074192581%
-Calculating curvature path done 74.39256074392561%
-Calculating curvature path done 74.5925407459254%
-Calculating curvature path done 74.79252074792521%
-Calculating curvature path done 74.99250074992501%
-Calculating curvature path done 75.1924807519248%
-Calculating curvature path done 75.39246075392461%
-Calculating curvature path done 75.59244075592441%
-Calculating curvature path done 75.7924207579242%
-Calculating curvature path done 75.99240075992401%
-Calculating curvature path done 76.19238076192381%
-Calculating curvature path done 76.3923607639236%
-Calculating curvature path done 76.59234076592341%
-Calculating curvature path done 76.7923207679232%
-Calculating curvature path done 76.992300769923%
-Calculating curvature path done 77.19228077192281%
-Calculating curvature path done 77.3922607739226%
-Calculating curvature path done 77.5922407759224%
-Calculating curvature path done 77.79222077792221%
-Calculating curvature path done 77.992200779922%
-Calculating curvature path done 78.1921807819218%
-Calculating curvature path done 78.39216078392161%
-Calculating curvature path done 78.5921407859214%
-Calculating curvature path done 78.7921207879212%
-Calculating curvature path done 78.99210078992101%
-Calculating curvature path done 79.1920807919208%
-Calculating curvature path done 79.3920607939206%
-Calculating curvature path done 79.59204079592041%
-Calculating curvature path done 79.7920207979202%
-Calculating curvature path done 79.99200079992%
-Calculating curvature path done 80.19198080191981%
-Calculating curvature path done 80.3919608039196%
-Calculating curvature path done 80.5919408059194%
-Calculating curvature path done 80.79192080791921%
-Calculating curvature path done 80.991900809919%
-Calculating curvature path done 81.19188081191881%
-Calculating curvature path done 81.39186081391861%
-Calculating curvature path done 81.5918408159184%
-Calculating curvature path done 81.79182081791821%
-Calculating curvature path done 81.99180081991801%
-Calculating curvature path done 82.1917808219178%
-Calculating curvature path done 82.39176082391761%
-Calculating curvature path done 82.59174082591741%
-Calculating curvature path done 82.7917208279172%
-Calculating curvature path done 82.99170082991701%
-Calculating curvature path done 83.19168083191681%
-Calculating curvature path done 83.3916608339166%
-Calculating curvature path done 83.59164083591641%
-Calculating curvature path done 83.79162083791621%
-Calculating curvature path done 83.991600839916%
-Calculating curvature path done 84.19158084191581%
-Calculating curvature path done 84.39156084391561%
-Calculating curvature path done 84.5915408459154%
-Calculating curvature path done 84.79152084791521%
-Calculating curvature path done 84.99150084991501%
-Calculating curvature path done 85.1914808519148%
-Calculating curvature path done 85.39146085391461%
-Calculating curvature path done 85.59144085591441%
-Calculating curvature path done 85.7914208579142%
-Calculating curvature path done 85.99140085991401%
-Calculating curvature path done 86.19138086191381%
-Calculating curvature path done 86.3913608639136%
-Calculating curvature path done 86.59134086591341%
-Calculating curvature path done 86.79132086791321%
-Calculating curvature path done 86.991300869913%
-Calculating curvature path done 87.19128087191281%
-Calculating curvature path done 87.39126087391261%
-Calculating curvature path done 87.5912408759124%
-Calculating curvature path done 87.79122087791221%
-Calculating curvature path done 87.99120087991201%
-Calculating curvature path done 88.1911808819118%
-Calculating curvature path done 88.39116088391161%
-Calculating curvature path done 88.59114088591141%
-Calculating curvature path done 88.7911208879112%
-Calculating curvature path done 88.99110088991101%
-Calculating curvature path done 89.19108089191081%
-Calculating curvature path done 89.3910608939106%
-Calculating curvature path done 89.59104089591041%
-Calculating curvature path done 89.79102089791022%
-Calculating curvature path done 89.99100089991%
-Calculating curvature path done 90.19098090190981%
-Calculating curvature path done 90.39096090390962%
-Calculating curvature path done 90.5909409059094%
-Calculating curvature path done 90.79092090790921%
-Calculating curvature path done 90.99090090990902%
-Calculating curvature path done 91.1908809119088%
-Calculating curvature path done 91.39086091390861%
-Calculating curvature path done 91.59084091590842%
-Calculating curvature path done 91.7908209179082%
-Calculating curvature path done 91.99080091990801%
-Calculating curvature path done 92.19078092190782%
-Calculating curvature path done 92.3907609239076%
-Calculating curvature path done 92.59074092590741%
-Calculating curvature path done 92.79072092790722%
-Calculating curvature path done 92.990700929907%
-Calculating curvature path done 93.19068093190681%
-Calculating curvature path done 93.3906609339066%
-Calculating curvature path done 93.5906409359064%
-Calculating curvature path done 93.79062093790621%
-Calculating curvature path done 93.990600939906%
-Calculating curvature path done 94.19058094190581%
-Calculating curvature path done 94.39056094390561%
-Calculating curvature path done 94.5905409459054%
-Calculating curvature path done 94.79052094790521%
-Calculating curvature path done 94.99050094990501%
-Calculating curvature path done 95.1904809519048%
-Calculating curvature path done 95.39046095390461%
-Calculating curvature path done 95.59044095590441%
-Calculating curvature path done 95.7904209579042%
-Calculating curvature path done 95.99040095990401%
-Calculating curvature path done 96.19038096190381%
-Calculating curvature path done 96.3903609639036%
-Calculating curvature path done 96.59034096590341%
-Calculating curvature path done 96.79032096790321%
-Calculating curvature path done 96.990300969903%
-Calculating curvature path done 97.19028097190281%
-Calculating curvature path done 97.39026097390261%
-Calculating curvature path done 97.5902409759024%
-Calculating curvature path done 97.79022097790221%
-Calculating curvature path done 97.99020097990201%
-Calculating curvature path done 98.1901809819018%
-Calculating curvature path done 98.39016098390161%
-Calculating curvature path done 98.59014098590141%
-Calculating curvature path done 98.7901209879012%
-Calculating curvature path done 98.99010098990101%
-Calculating curvature path done 99.19008099190081%
-Calculating curvature path done 99.3900609939006%
-Calculating curvature path done 99.59004099590041%
-Calculating curvature path done 99.79002099790021%
-Calculating curvature path done 99.9900009999%
+gpu
+Calculating scalar curvatures done 0.0%
+-79297470000.0
+-9490495000.0
+-60333277000.0
+-30837832000000.0
+10953410000000.0
+86329920000.0
+182687960000.0
+-1072937500.0
+-23772967000.0
+-1236445800.0
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:54
+Calculating scalar curvatures done 10.0%
+-93618850.0
+-282705100.0
+-276297380.0
+-25575576000.0
+2414262500.0
+529403400.0
+3768754.0
+4326200300.0
+-939360.6
+-647017.75
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 20.0%
+-6574187.0
+-53646643000.0
+-2935870000.0
+-42870760000.0
+435543330.0
+3698618.5
+218952.84
+2262.2817
+-1436.8623
+-8697.881
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 30.0%
+-26852.219
+-16498284.0
+-73253496.0
+-1684691100.0
+310128100.0
+157039.53
+65302.508
+17317.242
+1.6266251
+-0.032210857
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 40.0%
+-3689.7964
+-631256.56
+-3852495.2
+-3237531600.0
+-7274980.0
+1977569.8
+108.17609
+4.433779
+0.013644256
+1.866294e-06
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 50.0%
+-2.695692
+-3149.179
+-61457410.0
+-221797600.0
+-365689340.0
+-34154.742
+44.62506
+0.0027348856
+8.619223e-06
+3.3837821e-10
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 60.0%
+-0.028585035
+-4592.613
+-22175762.0
+-13440787000.0
+-831988300.0
+-39591.97
+-2.9206305
+0.00063987635
+2.019112e-09
+1.9521607e-12
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 70.0%
+-0.0017279831
+-7.4341264
+-231056.86
+-771812400.0
+-1057732600.0
+-17869.734
+-0.08409338
+-3.765803e-05
+5.5219163e-11
+1.0591435e-15
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
+Calculating scalar curvatures done 80.0%
+-1.732965e-05
+-3.531969
+-662455.5
+-419669730.0
+-71155016.0
+-9224.742
+-0.09691258
+-2.8567186e-08
+-1.4495176e-12
+0.0
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:43
+Calculating scalar curvatures done 90.0%
+-1.2482225e-07
+-0.3777209
+-13188.581
+-1139522300.0
+-152637860.0
+-695.5016
+-0.0027303584
+-1.7602134e-10
+0.0
+nan
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:42
