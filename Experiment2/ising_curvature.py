@@ -23,9 +23,9 @@ from jax.lib import xla_bridge
 print(xla_bridge.get_backend().platform)
 
 
-CALCULATE_ISING_CURVATURE = True
+CALCULATE_ISING_CURVATURE = False
 PLOT_ISING_CURVATURE = False
-PLOTLY = False
+PLOTLY = True
 
 ## Import dataset
 with open("npfiles/dataset.npy", "rb") as file:

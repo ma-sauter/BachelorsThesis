@@ -28,7 +28,7 @@ A neural network can be built from these neurons by connecting the outputs of ne
 \end{figure}
 This network serves as an illustrative example, showing what a neural network can look like. For real-world applications, there are various kinds of networks used to learn different tasks \cite{DeepLearningTaxonomy}. For this thesis we will only talk about "fully connected" or "dense" neural networks. This means that every neuron in the first layer will receive every possible input value, and every neuron in later layers will receive the output of every neuron in the previous layer as an input. All neurons are equipped with the same activation function. The weights and biases vary throughout. How the output of the network gets handled may still differ through different use cases. \\
 When working on classification tasks, it can be beneficial to feed the output of the neural network into a softmax before analyzing it. This function converts the scalar outputs of the network, which can be any number from $\mathbb{R}$, into values corresponding to probability predictions for the different classes. For a set of outputs $z_i$, the standard softmax function is defined as 
-\begin{equation}
+\begin{equation}\label{eq:softmax}
 	\sigma_i(z) = \frac{\mathrm{exp}(z_i)}{\sum_j \mathrm{exp}(z_j)}.
 \end{equation}
 The resulting values lie between $0$ and $1$ and add up to a total of $1$. A larger value of an output node results in a higher corresponding probability. For further details on the softmax function, see \cite{gao2018properties}.\\
