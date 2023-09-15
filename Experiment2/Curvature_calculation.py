@@ -1,6 +1,6 @@
 import jax.numpy as np
 from jax import vmap as jvmap
-from jax import jacfwd, grad, debug, jit
+from jax import jacfwd, jacrev, grad, debug, jit
 from fisher_calculation import fisher_info
 
 

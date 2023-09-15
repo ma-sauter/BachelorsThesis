@@ -45,7 +45,9 @@ from Curvature_calculation import curvature2_vmap as curvature
 curvature(subloss, network, dataset, theta=np.array([0.0, 5.0]))
 print("Using vmap implementation")
 test_implementation()
+"""
 from Curvature_calculation import curvature2 as curvature
 
 print("Using implementation without vmaps")
 test_implementation()
+"""
