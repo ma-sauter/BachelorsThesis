@@ -115,3 +115,18 @@ assert curvature(subloss, network, dataset, theta=[5.0, 0.0]) == -1
 assert curvature(subloss, network, dataset, theta=[1.0, 5.0]) == -1
 assert curvature(subloss, network, dataset, theta=[7.0, 10000.0]) == -1 or np.nan
 assert curvature(subloss, network, dataset, theta=[10000.0, -8.0]) == -1
+
+
+def fisher_info(subloss, network, dataset, theta):
+    t, r, teta, phi = theta[0], theta[1], theta[2], theta[3]
+    return np.array(
+        [
+            [(1 - 2 / r), 0, 0, 0],
+            [0, -1 / (1 - 2 / r), 0, 0],
+            [0, 0, -(r**2), 0],
+            [0, 0, 0, -(r**2) * np.sin(teta) ** 2],
+        ]
+    )
+
+
+print(curvature(subloss, network, dataset, theta=[1.0, 0.5, 2.0, 2.0]))
