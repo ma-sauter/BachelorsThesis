@@ -1,6 +1,6 @@
 import jax.numpy as np
 from jax import vmap as jvmap
-from jax import jacfwd, grad, debug
+from jax import jacfwd, grad, debug, jit
 from fisher_calculation import fisher_info
 
 
@@ -61,8 +61,8 @@ def curvature2(
             for alpha in range(n):
                 for beta in range(n):
                     value = (
-                        ig[mu, v]
-                        * ig[alpha, beta]
+                        ig[beta, v]
+                        * ig[alpha, mu]
                         * (
                             hessian[mu][beta][alpha, v]
                             - hessian[v][beta][alpha, mu]
