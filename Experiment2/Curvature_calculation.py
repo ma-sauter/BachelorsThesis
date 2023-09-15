@@ -90,13 +90,14 @@ def curvature2_vmap(
 
     def vmap_func(mu, v, alpha, beta, ig, hessian):
         return (
-            ig[mu, v]
-            * ig[alpha, beta]
+            ig[beta, v]
+            * ig[alpha, mu]
+            * 0.5
             * (
                 hessian[mu][beta][alpha, v]
                 - hessian[v][beta][alpha, mu]
                 + hessian[v][alpha][beta, mu]
-                - hessian[mu][alpha][alpha, mu]
+                - hessian[mu][alpha][beta, v]
             )
         )
 
@@ -107,4 +108,4 @@ def curvature2_vmap(
 
     pars = np.arange(len(theta))
     Rlist = vmap(pars, pars, pars, pars, ig, hessian)
-    return np.sum(Rlist) / 2
+    return np.sum(Rlist)

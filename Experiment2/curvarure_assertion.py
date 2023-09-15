@@ -12,6 +12,7 @@ import pickle
 import time
 
 
+# Curvature with hessians
 def curvature(
     subloss: callable, network: callable, dataset: np.ndarray, theta: np.ndarray
 ):
@@ -29,13 +30,14 @@ def curvature(
 
     def vmap_func(mu, v, alpha, beta, ig, hessian):
         return (
-            ig[mu, v]
-            * ig[alpha, beta]
+            ig[beta, v]
+            * ig[alpha, mu]
+            * 0.5
             * (
                 hessian[mu][beta][alpha, v]
                 - hessian[v][beta][alpha, mu]
                 + hessian[v][alpha][beta, mu]
-                - hessian[mu][alpha][alpha, mu]
+                - hessian[mu][alpha][beta, v]
             )
         )
 
@@ -46,36 +48,53 @@ def curvature(
 
     pars = np.arange(len(theta))
     Rlist = vmap(pars, pars, pars, pars, ig, hessian)
-    return np.sum(Rlist) / 2
+    # debug.print("{x}", x=hessian)
+    return np.sum(Rlist)
+
+
+# Curvature with christoffels
+def curvature1(
+    subloss: callable, network: callable, dataset: np.ndarray, theta: np.ndarray
+):
+    g = fisher_info(subloss, network, dataset, theta)
+    ig = np.linalg.inv(g)
+
+    fisher_derivatives = jacfwd(fisher_info, argnums=3)(
+        subloss, network, dataset, theta
+    )
+
+    def christoffel(i, j, k):
+        symbol = 0
+        i, j, k = int(i), int(j), int(k)
+        for m in range(len(theta)):
+            symbol += ig[m, i] * (
+                fisher_derivatives[k][m, j]
+                + fisher_derivatives[j][m, k]
+                - fisher_derivatives[m][j, k]
+            )
+        return 0.5 * symbol
+
+    # Derivatives of the christoffel symbol
+    dChristoffel = [grad(christoffel, 0), grad(christoffel, 1), grad(christoffel, 2)]
+
+    curvature = 0
+    n_t = len(theta)
+
+    for i in range(n_t):
+        for j in range(n_t):
+            for m in range(n_t):
+                for n in range(n_t):
+                    curvature += ig[i, j] * (
+                        dChristoffel[m](m * 1.0, i * 1.0, j * 1.0)
+                        - dChristoffel[j](m * 1.0, i * 1.0, m * 1.0)
+                        + christoffel(n, i, j) * christoffel(m, m, n)
+                        - christoffel(n, i, m) * christoffel(m, j, n)
+                    )
+    return curvature
 
 
 def fisher_info(subloss, network, dataset, theta):
-    return np.array([[theta[0] * theta[1], 0], [0, theta[0] * theta[1]]])
-
-
-import sympy
-from sympy import pprint, symbols, diag, sin, cos, exp
-from einsteinpy.symbolic import RicciTensor, RicciScalar
-from einsteinpy.symbolic.metric import MetricTensor
-from einsteinpy.symbolic.predefined import AntiDeSitter
-
-sympy.init_printing()
-
-# Define the symbols
-t, r, theta, phi = symbols("t r theta phi")
-
-# Define the metric for Minkowski space
-metric = sympy.Array([[t * r, 0], [0, t * r]])
-
-# Create the metric tensor
-g = MetricTensor(metric, (t, r))
-
-Ric = RicciTensor.from_metric(g)
-Ric.tensor()
-
-R = RicciScalar.from_riccitensor(Ric)
-R.simplify()
-pprint(f"analytic curvature {R.expr}")
+    return np.array([[np.exp(theta[1]), 0], [0, 1]])
 
 
 ## My curvature calculation
@@ -89,4 +108,10 @@ def network():
 
 dataset = np.array([])
 
-print(curvature(subloss, network, dataset, theta=[1.0, 2.0]))
+
+assert curvature(subloss, network, dataset, theta=[0.0, 5.0]) == -1
+assert curvature(subloss, network, dataset, theta=[2.0, 1.0]) == -1
+assert curvature(subloss, network, dataset, theta=[5.0, 0.0]) == -1
+assert curvature(subloss, network, dataset, theta=[1.0, 5.0]) == -1
+assert curvature(subloss, network, dataset, theta=[7.0, 10000.0]) == -1 or np.nan
+assert curvature(subloss, network, dataset, theta=[10000.0, -8.0]) == -1

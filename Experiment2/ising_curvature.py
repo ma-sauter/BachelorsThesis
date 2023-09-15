@@ -23,7 +23,7 @@ from jax.lib import xla_bridge
 print(xla_bridge.get_backend().platform)
 
 
-CALCULATE_ISING_CURVATURE = False
+CALCULATE_ISING_CURVATURE = True
 PLOT_ISING_CURVATURE = False
 PLOTLY = True
 
@@ -53,14 +53,18 @@ def subloss(input, target, theta, network):
 
 ## Calculation of curvature for ising model
 if CALCULATE_ISING_CURVATURE:
-    theta1 = np.linspace(0.1, 2.3, 10)
-    theta2 = np.linspace(-1, 1.6, 10)
+    theta1 = np.linspace(0.1, 2.3, 5)
+    theta2 = np.linspace(-1, 1.6, 5)
     X, Y = np.meshgrid(theta1, theta2)
 
     Z = onp.zeros_like(X)
+    progress = -1
     for i, theta1_ in enumerate(theta1):
-        print(f"Calculating scalar curvatures done {100*i/len(theta1)}%")
-        for j in track(range(len(theta2))):
+        for j in range(len(theta2)):
+            progress += 1
+            print(
+                f"Calculating scalar curvatures done {100*progress/len(theta1)/len(theta2)}%"
+            )
             Z[j, i] = curvature(
                 subloss, network, dataset, theta=np.array([theta1[i], theta2[j]])
             )
