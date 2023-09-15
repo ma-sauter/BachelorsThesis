@@ -29,10 +29,10 @@ and the softmax-ross-entropy loss \cite{LossExamplePaper}
 \end{equation}
 where we used the definition for distance $d$ from \cref{eq:DistanceLoss}, and a softmax function $\sigma_i$ from \cref{eq:softmax}. We trained each combination of architecture and loss function for a total of 5 times and calculated mean values and standard deviations of the traces using the results. The networks were trained using the Adam optimizer \cite{adamPaper}.\\
 As an illustrative example, the results for $L_2$-norm loss, Mean power loss of order $n=2$, as well as the result for Cross Entropy loss for a network with a width of $128$ neurons are depicted in \cref{fig:MNISTTraceComparison}. The solid line represents the mean of the 5 experiments, the translucent area marks one standard deviation above and under the mean value.\\
-It is visible that for the $L_2$ norm loss of order 
 \begin{figure}
 	\centering
 	\includegraphics{text/results/FisherNTKComparisonPlots/Triple_comparison_losses2_128.pdf}
 	\caption{Trace of NTK and Fisher information during 300 epochs of training on the MNIST dataset using the Adam optimizer. The network consisted of 2 hidden layers with a width of 128 neurons that were equipped with the ReLU activation function. The loss functions used for optimization are denoted in each subplot. The solid line represents the mean value of 5 experiments, the translucent area represents one standard deviation from the mean value.}
 	\label{fig:MNISTTraceComparison}
 \end{figure}
+It is visible that for the $L_2$ norm loss of order, the traces evolve almost proportionally to each other, but for the other loss functions they evolve significantly different. This indicates that the loss derivatives in \cref{eq:FisherNTKRelation} play major roles and can't be disregarded. The trace of the NTK doesn't seem to be a good approximation of the Fisher Trace in general. In which cases it is has to be investigated further and can't be answered from the data generated here.
