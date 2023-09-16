@@ -145,7 +145,7 @@ def curvature_slow_but_working(
         return symbol
 
     # Derivatives of the christoffel symbol
-    dChristoffel = grad(christoffel, argnums=3)
+    dChristoffel = jit(grad(christoffel, argnums=3))
 
     def Riemann_tensor(alpha, beta, mu, v, theta):
         tensor = (
@@ -168,7 +168,7 @@ def curvature_slow_but_working(
         return tensor
 
     curvature = 0
-    n_t = len(theta)
+
     for mu in range(len(theta)):
         for v in range(len(theta)):
             curvature += ig[mu, v] * Ricci_tensor(mu, v, theta)

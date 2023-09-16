@@ -4,7 +4,7 @@ import jax
 from jax import grad
 import numpy as onp
 from fisher_calculation import fisher_info
-from Curvature_calculation import curvature2_vmap as curvature
+from Curvature_calculation import curvature_slow_but_working as curvature
 from rich.progress import track
 import pickle
 import time
@@ -26,9 +26,14 @@ loss = MeanPowerLoss2.loss
 subloss = MeanPowerLoss2.subloss
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = True
-CALCULATE_SCALAR_CURVATURE = False
-CALCULATE_FISHER_MATRIX = True
+CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_SCALAR_CURVATURE = True
+CALCULATE_FISHER_MATRIX = False
+
+
+if CALCULATE_TRAINING_AND_LOSS_SURFACE:
+    # Initialize starting parameters
+    1 + 1
 
 
 if CALCULATE_SCALAR_CURVATURE:
