@@ -9,19 +9,17 @@ from einsteinpy.symbolic import (
 from einsteinpy.symbolic.predefined import Schwarzschild
 
 # Define the symbols
-t, r, theta, phi, z = symbols("t r theta phi z")
+t, r, theta, phi = symbols("t r theta phi")
 
 # Define the function
 f = Function("f")(r)
 
 # Define the metric for a static spherical symmetric spacetime
-metric = diag(
-    1 - 2 / r, -1 / (1 - 2 / r), -(r**2), -(r**2) * sin(theta) ** 2
-).tolist()
+metric = diag(exp(r), 1).tolist()
 
 # Create the metric tensor
-m_obj = MetricTensor(metric, (z, r, theta, phi))
-# m_obj = Schwarzschild()
+m_obj = MetricTensor(metric, (t, r))
+m_obj = Schwarzschild()
 
 # Calculate Christoffel Symbols
 Christ = ChristoffelSymbols.from_metric(m_obj)

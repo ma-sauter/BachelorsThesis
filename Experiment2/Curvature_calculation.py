@@ -14,7 +14,7 @@ def curvature1(
         subloss, network, dataset, theta
     )
 
-    def christoffel(i, j, k):
+    def christoffel(i, j, k, theta):
         symbol = 0
         i, j, k = int(i), int(j), int(k)
         for m in range(len(theta)):
@@ -26,7 +26,7 @@ def curvature1(
         return 0.5 * symbol
 
     # Derivatives of the christoffel symbol
-    dChristoffel = [grad(christoffel, 0), grad(christoffel, 1), grad(christoffel, 2)]
+    dChristoffel = grad(christoffel, argnums=3)
 
     curvature = 0
     n_t = len(theta)
@@ -36,10 +36,10 @@ def curvature1(
             for m in range(n_t):
                 for n in range(n_t):
                     curvature += ig[i, j] * (
-                        dChristoffel[m](m * 1.0, i * 1.0, j * 1.0)
-                        - dChristoffel[j](m * 1.0, i * 1.0, m * 1.0)
-                        + christoffel(n, i, j) * christoffel(m, m, n)
-                        - christoffel(n, i, m) * christoffel(m, j, n)
+                        dChristoffel[m](m * 1.0, i * 1.0, j * 1.0, theta)
+                        - dChristoffel[j](m * 1.0, i * 1.0, m * 1.0, theta)
+                        + christoffel(n, i, j, theta) * christoffel(m, m, n, theta)
+                        - christoffel(n, i, m, theta) * christoffel(m, j, n, theta)
                     )
     return curvature
 

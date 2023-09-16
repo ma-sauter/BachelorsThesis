@@ -6,10 +6,10 @@ import plotly.offline as pyo
 
 
 PLOTLOSSSURFACE = False
-PLOTFISHERSURFACE = False
+PLOTFISHERSURFACE = True
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
-PLOTCURVESURFACE = True
+PLOTCURVESURFACE = False
 PLOTCURVESURFACEPLOTLY = False
 
 if PLOTLOSSSURFACE:
@@ -29,12 +29,18 @@ if PLOTLOSSSURFACE:
     plt.close()
 
 if PLOTFISHERSURFACE:
-    X, Y, Z, t_list, pathZ = np.load(f"Fisher_surf_plot{t1}{t2}.npy", allow_pickle=True)
+    data = np.load("npfiles/Fisher_infos.npz", allow_pickle=True)
+    X, Y = data["X"], data["Y"]
+    Z = data[f"Z{t1}{t2}"]
+    t_list = data["t_list"]
+    Zpath = data[f"Zpath{t1}{t2}"]
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
-    path = ax.plot(t_list[0], t_list[1], pathZ, color="mediumseagreen", zorder=100)
+    path = ax.plot(
+        t_list[0][::20], t_list[1][::20], Zpath, color="mediumseagreen", zorder=100
+    )
 
     ax.view_init(elev=90.0, azim=0.0)
 
