@@ -11,49 +11,9 @@ from rich.progress import track
 import pickle
 import time
 
-TEST_BASIC_METRIC1 = False
-TEST_BASIC_METRIC2 = False
+TEST_BASIC_METRIC1 = True
+TEST_BASIC_METRIC2 = True
 TEST_SCHWARZSCHILD_METRIC = True
-
-
-# Curvature with hessians
-def curvature(
-    subloss: callable, network: callable, dataset: np.ndarray, theta: np.ndarray
-):
-    g = fisher_info(subloss, network, dataset, theta)
-    ig = np.linalg.inv(g)
-
-    hessian = np.array(
-        jacfwd(jacfwd(fisher_info, argnums=3), argnums=3)(
-            subloss, network, dataset, theta
-        )
-    )
-
-    n = len(theta)
-    R = 0
-
-    def vmap_func(mu, v, alpha, beta, ig, hessian):
-        return (
-            ig[beta, v]
-            * ig[alpha, mu]
-            * 0.5
-            * (
-                hessian[mu][beta][alpha, v]
-                - hessian[v][beta][alpha, mu]
-                + hessian[v][alpha][beta, mu]
-                - hessian[mu][alpha][beta, v]
-            )
-        )
-
-    vmap1 = jvmap(vmap_func, in_axes=(0, None, None, None, None, None))
-    vmap2 = jvmap(vmap1, in_axes=(None, 0, None, None, None, None))
-    vmap3 = jvmap(vmap2, in_axes=(None, None, 0, None, None, None))
-    vmap = jvmap(vmap3, in_axes=(None, None, None, 0, None, None))
-
-    pars = np.arange(len(theta))
-    Rlist = vmap(pars, pars, pars, pars, ig, hessian)
-    # debug.print("{x}", x=hessian)
-    return np.sum(Rlist)
 
 
 # Curvature with christoffels
@@ -253,7 +213,7 @@ if TEST_BASIC_METRIC2:
         np.abs(curvature(subloss, network, dataset, theta=[0.3, 5.0]) - 2 / r**2)
         < 0.01
     )
-    print("-All basic tests 2 passed")
+    print("-All basic tests 2 have been successfull-")
 
 
 if TEST_SCHWARZSCHILD_METRIC:
@@ -270,17 +230,17 @@ if TEST_SCHWARZSCHILD_METRIC:
         )
 
     print("----Running tests on schwarzschild metric----")
-    print("Schwazschild Test1/3")
+    print("Schwarzschild Test1/3")
     assert (
         np.abs(curvature(subloss, network, dataset, theta=[1.0, 0.5, np.pi / 4, 1.0]))
         < 0.01
     )
-    print("Schwazschild Test2/3")
+    print("Schwarzschild Test2/3")
     assert (
         np.abs(curvature(subloss, network, dataset, theta=[1.0, 4.0, np.pi / 4, 2.0]))
         < 0.01
     )
-    print("Schwazschild Test3/3")
+    print("Schwarzschild Test3/3")
     assert (
         np.abs(curvature(subloss, network, dataset, theta=[1.0, 5.0, 0.2 * np.pi, 1.0]))
         < 0.01

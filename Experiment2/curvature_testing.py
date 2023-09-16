@@ -50,3 +50,8 @@ from Curvature_calculation import curvature2 as curvature
 
 print("Using implementation without vmaps")
 test_implementation()
+
+from Curvature_calculation import curvature_slow_but_working as curvature
+
+print("Using working but unoptimized christoffel version")
+test_implementation()

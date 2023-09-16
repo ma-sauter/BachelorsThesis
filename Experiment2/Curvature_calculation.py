@@ -109,3 +109,67 @@ def curvature2_vmap(
     pars = np.arange(len(theta))
     Rlist = vmap(pars, pars, pars, pars, ig, hessian)
     return np.sum(Rlist)
+
+
+def curvature_slow_but_working(
+    subloss: callable, network: callable, dataset: np.ndarray, theta: np.ndarray
+):
+    """
+    Theta values have to be floats
+    """
+
+    g = fisher_info(subloss, network, dataset, theta)
+    ig = np.linalg.inv(g)
+
+    fisher_derivative = jacfwd(fisher_info, argnums=3)
+
+    @jit
+    def christoffel(i, k, l, theta):
+        symbol = 0
+        g = fisher_info(subloss, network, dataset, theta)
+        ig = np.linalg.inv(g)
+        fisher_derivatives = np.array(
+            fisher_derivative(subloss, network, dataset, theta)
+        )
+        for m in range(len(theta)):
+            symbol += (
+                0.5
+                * ig[i, m]
+                * (
+                    fisher_derivatives[l][m, k]
+                    + fisher_derivatives[k][m, l]
+                    - fisher_derivatives[m][k, l]
+                )
+            )
+
+        return symbol
+
+    # Derivatives of the christoffel symbol
+    dChristoffel = grad(christoffel, argnums=3)
+
+    def Riemann_tensor(alpha, beta, mu, v, theta):
+        tensor = (
+            dChristoffel(alpha, beta, v, theta)[mu]
+            - dChristoffel(alpha, beta, mu, theta)[v]
+        )
+        for sigma in range(len(theta)):
+            tensor += christoffel(alpha, sigma, mu, theta) * christoffel(
+                sigma, beta, v, theta
+            )
+            tensor -= christoffel(alpha, sigma, v, theta) * christoffel(
+                sigma, beta, mu, theta
+            )
+        return tensor
+
+    def Ricci_tensor(alpha, beta, theta):
+        tensor = 0
+        for mu in range(len(theta)):
+            tensor += Riemann_tensor(mu, alpha, mu, beta, theta)
+        return tensor
+
+    curvature = 0
+    n_t = len(theta)
+    for mu in range(len(theta)):
+        for v in range(len(theta)):
+            curvature += ig[mu, v] * Ricci_tensor(mu, v, theta)
+    return curvature
