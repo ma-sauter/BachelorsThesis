@@ -14,6 +14,9 @@ import time
 TEST_BASIC_METRIC1 = True
 TEST_BASIC_METRIC2 = True
 TEST_SCHWARZSCHILD_METRIC = True
+TEST_OFFDIAGONAL_METRIC = True
+
+TEST_FISHER_INFORMATION = True
 
 
 # Curvature with christoffels
@@ -174,6 +177,12 @@ def network():
 
 dataset = np.array([])
 
+
+#######################################################################################
+#######################################################################################
+#######################################################################################
+#######################################################################################
+#######################################################################################
 if TEST_BASIC_METRIC1:
 
     def fisher_info(subloss, network, dataset, theta):
@@ -246,3 +255,135 @@ if TEST_SCHWARZSCHILD_METRIC:
         < 0.01
     )
     print("-All Schwarzschild tests successfull-")
+
+
+if TEST_OFFDIAGONAL_METRIC:
+    print("----Starting offdiagonal metric tests----")
+
+    def fisher_info(subloss, network, dataset, theta):
+        z, r = theta[0], theta[1]
+        return np.array(
+            [
+                [r, r],
+                [r, z],
+            ]
+        )
+
+    def test():
+        assert (
+            np.abs(
+                curvature(subloss, network, dataset, [z, r])
+                - (-r + z / 2) / (r**2 * (r**2 - 2 * r * z + z**2))
+            )
+            < 0.01
+        )
+
+    print("Running offdiagonal test 1/6")
+    z, r = 1.5, 1.0
+    test()
+    print("Running offdiagonal test 2/6")
+    z, r = 1.5, 2.0
+    test()
+    print("Running offdiagonal test 3/6")
+    z, r = 0.5, 15.0
+    test()
+    print("Running offdiagonal test 4/6")
+    z, r = 1.5, 0.5
+    test()
+    print("Running offdiagonal test 5/6")
+    z, r = 0.001, -1.0
+    test()
+    print("Running offdiagonal test 6/6")
+    z, r = -4.0, 3.0
+    test()
+    print("-All offdiagonal tests passed-")
+
+
+if TEST_FISHER_INFORMATION:
+    print("----Running test on fisher information----")
+
+    ##################
+    ## Import dataset
+    with open("npfiles/dataset.npy", "rb") as file:
+        dataset = pickle.load(file)
+
+    ## Define Network
+    from networks import OneNode_DB_network
+
+    network = OneNode_DB_network.network
+
+    ## Define Loss functions
+    from losses import MeanPowerLoss2
+
+    lossname = "MeanPowerLoss2"
+    loss = MeanPowerLoss2.loss
+    subloss = MeanPowerLoss2.subloss
+    ################
+
+    def analytic_fisher_info_matrix(dataset, theta, a):
+        N = len(dataset["inputs"])
+        inputs, targets = dataset["inputs"], dataset["targets"]
+        I11, I12, I22 = 0, 0, 0
+        for i in range(N):
+            n_out = network(inputs[i], theta)
+            I11 += (
+                2
+                * (targets[i] - n_out)
+                * n_out**2
+                * (
+                    -a
+                    * inputs[i, 0]
+                    * np.exp(-a * theta[0] * inputs[i, 0] - a * theta[1] * inputs[i, 1])
+                )
+            ) ** 2
+            I22 += (
+                2
+                * (targets[i] - n_out)
+                * n_out**2
+                * (
+                    -a
+                    * inputs[i, 1]
+                    * np.exp(-a * theta[0] * inputs[i, 0] - a * theta[1] * inputs[i, 1])
+                )
+            ) ** 2
+            I12 += (2 * (targets[i] - n_out) * n_out**2) ** 2 * (
+                a**2
+                * inputs[i, 1]
+                * inputs[i, 0]
+                * np.exp(-a * theta[0] * inputs[i, 0] - a * theta[1] * inputs[i, 1])
+            )
+        return np.array([[I11, I12], [I12, I22]]) / N
+
+    from fisher_calculation import fisher_info
+
+    def test():
+        assert (
+            np.abs(
+                analytic_fisher_info_matrix(dataset, theta, 5)[0, 0]
+                - fisher_info(subloss, network, dataset, theta)[0, 0]
+            )
+            < 0.01
+        )
+
+    print("Running fisher test 1/6")
+    theta = [-0.5, 1.5]
+    test()
+    print("Running fisher test 2/6")
+    theta = [-2.5, 1.5]
+    test()
+    print("Running fisher test 3/6")
+    theta = [-0.5, 2.5]
+    test()
+    print("Running fisher test 4/6")
+    theta = [-0.5, 0.001]
+    test()
+    print("Running fisher test 5/6")
+    theta = [10.5, 1.5]
+    test()
+    print("Running fisher test 6/6")
+    theta = [0.0, 0.0]
+    test()
+    print("-Fisher tests successfull-")
+
+print("--------------------------------------")
+print("----All tests have been successfull---")

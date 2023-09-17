@@ -1,5 +1,5 @@
 import jax.numpy as np
-from jax import grad, debug, vmap as jvmap
+from jax import grad, debug, jit, vmap as jvmap
 
 
 def fisher_info(
@@ -14,10 +14,10 @@ def fisher_info(
     subloss_gradient = grad(subloss, 2)
 
     def vmap_func(i):
-        gradient = subloss_gradient(inputs[i], targets[i], theta, network)
+        gradient = np.array(subloss_gradient(inputs[i], targets[i], theta, network))
         return np.einsum("i,j->ij", gradient, gradient)
 
     vmap = jvmap(vmap_func)
-    fisher_list = vmap(np.arange(inputs.shape[0]))
+    fisher_list = vmap(np.arange(len(inputs)))
 
     return np.mean(fisher_list, axis=0)

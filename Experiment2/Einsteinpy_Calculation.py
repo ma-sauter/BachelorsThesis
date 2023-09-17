@@ -15,12 +15,10 @@ t, r, theta, phi, z = symbols("t r theta phi z")
 f = Function("f")(r)
 
 # Define the metric for a static spherical symmetric spacetime
-metric = diag(
-    1 - 2 / r, -1 / (1 - 2 / r), -(r**2), -(r**2) * sin(theta) ** 2
-).tolist()
+metric = [[r, r], [r, z]]
 
 # Create the metric tensor
-m_obj = MetricTensor(metric, (z, r, theta, phi))
+m_obj = MetricTensor(metric, (z, r))
 # m_obj = Schwarzschild()
 
 # Calculate Christoffel Symbols
@@ -32,7 +30,7 @@ Riem = RiemannCurvatureTensor.from_metric(m_obj)
 
 # Calculate Ricci Tensor
 Ric = RicciTensor.from_metric(m_obj)
-pprint(Christ.tensor())
+# pprint(m_obj.tensor())
 
 # Calculate the Ricci scalar
 rsc = RicciScalar.from_metric(m_obj)

@@ -6,10 +6,10 @@ import plotly.offline as pyo
 
 
 PLOTLOSSSURFACE = False
-PLOTFISHERSURFACE = True
+PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
-PLOTCURVESURFACE = False
+PLOTCURVESURFACE = True
 PLOTCURVESURFACEPLOTLY = False
 
 if PLOTLOSSSURFACE:
@@ -89,17 +89,16 @@ if PLOTCURVESURFACE:
     Z = np.load(f"npfiles/curvature_plot.npz")["Z"]
     t_list = np.load(f"npfiles/curvature_plot.npz")["t_list"]
     Zpath = np.load(f"npfiles/curvature_plot.npz")["Zpath"]
-    print(Zpath)
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
-    # path = ax.plot(
-    #    t_list[0][::20], t_list[1][::20], Zpath, color="mediumseagreen", zorder=100
-    # )
-    # end = ax.plot(
-    #    t_list[0][-1], t_list[1][-1], Zpath, "X", color="mediumseagreen", zorder=100
-    # )
+    path = ax.plot(
+        t_list[0][::20], t_list[1][::20], Zpath, color="mediumseagreen", zorder=100
+    )
+    end = ax.plot(
+        t_list[0][-1], t_list[1][-1], Zpath[-1], "X", color="mediumseagreen", zorder=100
+    )
 
     # ax.set_zlim(-0.2e9, 0.2e9)
 
