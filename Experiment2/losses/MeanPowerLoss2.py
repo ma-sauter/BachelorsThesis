@@ -3,7 +3,6 @@ from jax import jit
 from typing import Union
 
 
-@jit
 def loss(dataset: np.ndarray, theta: np.ndarray, network: callable):
     """
     Computes the mean power loss with power 2
@@ -18,7 +17,7 @@ def loss(dataset: np.ndarray, theta: np.ndarray, network: callable):
     N = inputs.shape[0]
 
     for i in range(N):
-        loss += targets[i] - network(inputs[i], theta)
+        loss += (targets[i] - network(inputs[i], theta)) ** 2
     return loss / N
 
 

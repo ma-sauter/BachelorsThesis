@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+from matplotlib import cm
 import jax.numpy as np
 import jax
-from jax import grad
+from jax import grad, jit
 import numpy as onp
 from fisher_calculation import fisher_info
 from Curvature_calculation import curvature_slow_but_working as curvature
@@ -26,15 +27,106 @@ loss = MeanPowerLoss2.loss
 subloss = MeanPowerLoss2.subloss
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_TRAINING_AND_LOSS_SURFACE = True
+CALCULATE_LONG_TRAINING = False
 CALCULATE_SCALAR_CURVATURE = True
-CALCULATE_FISHER_MATRIX = False
+CALCULATE_FISHER_MATRIX = True
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
+    # Traning
+    #########
+    n_epochs = 1000
+    learning_rate = 50e-3
+    theta = np.array([0.5, 0.5])
     # Initialize starting parameters
-    1 + 1
+    lossgradient = grad(loss, argnums=1)
+    theta_list = [theta]
+    loss_list = [loss(dataset, theta, network)]
+    accuracy = []
 
+    @jit
+    def update_step(theta):
+        return theta - learning_rate * lossgradient(dataset, theta, network)
+
+    for i in track(range(n_epochs), description="Training:"):
+        theta = update_step(theta)
+        loss_list.append(loss(dataset, theta, network))
+        theta_list.append(theta)
+        wrong_guesses = 0
+        N = len(dataset)
+        for i in range(N):
+            wrong_guesses += (
+                np.round(network(dataset["inputs"][i], theta)) - dataset["targets"][i]
+            ) ** 2
+        accuracy.append((N - wrong_guesses) / N)
+
+    # plt.plot(loss_list)
+    # plt.show()
+
+    # Loss Surface
+    ##############
+    theta1 = np.linspace(-2, 1, 50)
+    theta2 = np.linspace(-1, 2, 50)
+    X, Y = np.meshgrid(theta1, theta2)
+    loss_jit = loss  # Jitting doesn't work in the nested loop below
+    Z = onp.zeros_like(X)
+    for i in track(range(len(theta1)), description="Loss surface calculation:"):
+        for j in range(len(theta2)):
+            Z[j, i] = loss_jit(
+                dataset=dataset, theta=np.array([theta1[i], theta2[j]]), network=network
+            )
+
+    # fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    # ax.plot_surface(X, Y, Z, cmap=cm.magma)
+    # theta_list = onp.transpose(theta_list)
+    # ax.plot(theta_list[0], theta_list[1], loss_list, color="mediumseagreen", zorder=10)
+    # plt.show()
+    np.savez(
+        f"npfiles/{lossname}_training.npz",
+        l_list=loss_list,
+        acc_list=accuracy,
+        t_list=onp.transpose(theta_list),
+        SurfX=X,
+        SurfY=Y,
+        SurfZ=Z,
+    )
+
+if CALCULATE_LONG_TRAINING:
+    # Traning
+    #########
+    n_epochs = 1000
+    learning_rate = 50e-3
+    theta = np.array([0.5, 0.5])
+    # Initialize starting parameters
+    lossgradient = grad(loss, argnums=1)
+    theta_list = [theta]
+    loss_list = [loss(dataset, theta, network)]
+    curvature_list = [curvature(subloss, network, dataset, theta).item()]
+    accuracy = []
+
+    @jit
+    def update_step(theta):
+        return theta - learning_rate * lossgradient(dataset, theta, network)
+
+    for i in track(range(n_epochs), description="Training:"):
+        theta = update_step(theta)
+        if i % 20 == 0:
+            loss_list.append(loss(dataset, theta, network))
+            theta_list.append(theta)
+            curvature_list.append(curvature(subloss, network, dataset, theta).item())
+            wrong_guesses = 0
+            N = len(dataset)
+            for i in range(N):
+                wrong_guesses += (
+                    np.round(network(dataset["inputs"][i], theta))
+                    - dataset["targets"][i]
+                ) ** 2
+            accuracy.append((N - wrong_guesses) / N)
+
+    plt.plot(curvature_list)
+    # plt.yscale("log")
+    plt.show()
 
 if CALCULATE_SCALAR_CURVATURE:
     # Scalar Curvature
@@ -42,9 +134,8 @@ if CALCULATE_SCALAR_CURVATURE:
     theta1 = np.linspace(-2, 1, 100)
     theta2 = np.linspace(-1, 2, 100)
     X, Y = np.meshgrid(theta1, theta2)
-    t_list = np.load("npfiles/training.npz")["t_list"]
-    l_list = np.load("npfiles/training.npz")["l_list"]
-    acc = np.load("npfiles/training.npz")["acc"]
+    t_list = np.load(f"npfiles/{lossname}_training.npz")["t_list"]
+    l_list = np.load(f"npfiles/{lossname}_training.npz")["l_list"]
 
     Z = onp.zeros_like(X)
     for i, theta1_ in enumerate(theta1):
@@ -68,7 +159,7 @@ if CALCULATE_SCALAR_CURVATURE:
             )
 
     np.savez(
-        "npfiles/curvature_plot.npz",
+        f"npfiles/{lossname}curvature_plot.npz",
         X=X,
         Y=Y,
         Z=Z,
@@ -81,9 +172,8 @@ if CALCULATE_FISHER_MATRIX:
     theta1 = np.linspace(-2, 1, 100)
     theta2 = np.linspace(-1, 2, 100)
     X, Y = np.meshgrid(theta1, theta2)
-    t_list = np.load("npfiles/training.npz")["t_list"]
-    l_list = np.load("npfiles/training.npz")["l_list"]
-    acc = np.load("npfiles/training.npz")["acc"]
+    t_list = np.load(f"npfiles/{lossname}_training.npz")["t_list"]
+    l_list = np.load(f"npfiles/{lossname}_training.npz")["l_list"]
 
     Z11 = onp.zeros_like(X)
     Z12 = onp.zeros_like(X)
@@ -112,7 +202,7 @@ if CALCULATE_FISHER_MATRIX:
             Zpath22.append(fisher[1, 1])
 
     np.savez(
-        "npfiles/Fisher_infos.npz",
+        f"npfiles/{lossname}_fisher_infos.npz",
         X=X,
         Y=Y,
         Z11=Z11,
