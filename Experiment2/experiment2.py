@@ -27,10 +27,10 @@ loss = MeanPowerLoss2.loss
 subloss = MeanPowerLoss2.subloss
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = True
-CALCULATE_LONG_TRAINING = False
-CALCULATE_SCALAR_CURVATURE = True
-CALCULATE_FISHER_MATRIX = True
+CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_LONG_TRAINING = True
+CALCULATE_SCALAR_CURVATURE = False
+CALCULATE_FISHER_MATRIX = False
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
@@ -95,7 +95,7 @@ if CALCULATE_TRAINING_AND_LOSS_SURFACE:
 if CALCULATE_LONG_TRAINING:
     # Traning
     #########
-    n_epochs = 1000
+    n_epochs = 60000
     learning_rate = 50e-3
     theta = np.array([0.5, 0.5])
     # Initialize starting parameters
@@ -111,7 +111,7 @@ if CALCULATE_LONG_TRAINING:
 
     for i in track(range(n_epochs), description="Training:"):
         theta = update_step(theta)
-        if i % 20 == 0:
+        if i % 2000 == 0:
             loss_list.append(loss(dataset, theta, network))
             theta_list.append(theta)
             curvature_list.append(curvature(subloss, network, dataset, theta).item())
@@ -124,9 +124,38 @@ if CALCULATE_LONG_TRAINING:
                 ) ** 2
             accuracy.append((N - wrong_guesses) / N)
 
-    plt.plot(curvature_list)
+    theta1 = np.linspace(-2, -6, 50)
+    X, Y, Z = (
+        onp.zeros(shape=(10, len(theta1))),
+        onp.zeros(shape=(10, len(theta1))),
+        onp.zeros(shape=(10, len(theta1))),
+    )
+    for i in track(range(len(theta1)), description="Long Training Curv Surface"):
+        theta2 = np.linspace(theta1[i] - 0.5, theta1[i] + 0.5, 10)
+        for j in range(len(theta2)):
+            X[j, i] = theta1[i]
+            Y[j, i] = theta2[j]
+            Z[j, i] = curvature(subloss, network, dataset, theta=[theta1[i], theta2[j]])
+
+    np.savez(
+        f"npfiles/{lossname}_long_training.npz",
+        t_list=onp.transpose(theta_list),
+        l_list=loss_list,
+        c_list=curvature_list,
+        a_list=accuracy,
+        Xcurvsurf=X,
+        Ycurvsurf=Y,
+        Zcurvsurf=Z,
+        description=f"{n_epochs} Epochs with {learning_rate} learning_rate",
+    )
+
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    t_list = onp.transpose(theta_list)
+    ax.plot(t_list[0], t_list[1], curvature_list, color="mediumseagreen", zorder=10)
+    ax.plot_surface(X, Y, Z, cmap=cm.magma)
     # plt.yscale("log")
     plt.show()
+
 
 if CALCULATE_SCALAR_CURVATURE:
     # Scalar Curvature
