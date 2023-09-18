@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib import cm
+import seaborn as sns
 import numpy as np
 import pickle
 
@@ -13,6 +14,7 @@ plt.rcParams.update(
         "font.size": "12",
     }
 )
+
 
 losslist = ["MeanPowerLoss2", "LPNormLoss2", "CrossEntropyLoss"]
 
@@ -92,5 +94,200 @@ def Plot_Dataset(show=False, save=True):
     plt.close()
 
 
-Plot_Function_Surface()
-Plot_Dataset()
+def Plot_Loss_Surfaces(show=False, save=True):
+    fig, ax = plt.subplots(1, 3, figsize=(390 / 72, 390 / 72 / 3))
+    fig.tight_layout()
+    for i, lossname in enumerate(losslist):
+        data = np.load(f"npfiles/{lossname}_training.npz")
+
+        X = data["SurfX"]
+        Y = data["SurfY"]
+        Z = data["SurfZ"]
+        t_list = data["t_list"]
+        t_list0 = t_list[0][~np.isnan(t_list[0])]
+        t_list1 = t_list[1][~np.isnan(t_list[1])]
+        l_list = data["l_list"]
+        acc = data["acc_list"]
+
+        im = ax[i].imshow(
+            Z,
+            cmap=cm.magma,
+            extent=[X.min(), X.max(), Y.min(), Y.max()],
+            origin="lower",
+        )
+        ax[i].invert_yaxis()
+        ax[i].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+        if lossname[-1] != "LPNormLoss":
+            ax[i].annotate(
+                "",
+                xy=(t_list0[-1], t_list1[-1]),
+                xytext=(t_list0[-52], t_list1[-52]),
+                arrowprops=dict(
+                    arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0
+                ),
+            )
+
+        plt.colorbar(im, ax=ax[i], fraction=0.08, pad=0.05, shrink=0.8)
+        if lossname == "LPNormLoss2":
+            ax[i].set_title("$L_2$-norm")
+        if lossname == "CrossEntropyLoss":
+            ax[i].set_title("Cross-entropy")
+        if lossname == "MeanPowerLoss2":
+            ax[i].set_title("Mean power of $n=2$")
+    if save:
+        plt.savefig("plots/LossSurfaces.pdf", bbox_inches="tight")
+    if show:
+        plt.show()
+
+
+def Plot_Trace_Surfaces(lossname, show=False, save=True):
+    curv_data = np.load(f"npfiles/{lossname}curvature_plot.npz")
+    fisher_data = np.load(f"npfiles/{lossname}_fisher_infos.npz")
+    NTK_data = np.load(f"npfiles/{lossname}_ntk.npz")
+
+    fig, ax = plt.subplots(2, 3, figsize=(390 / 72, 390 / 72 / 1.5))
+    plt.subplots_adjust(wspace=0.5, hspace=0.4)
+
+    #######################
+    X, Y, Z11, Z12, Z22, t_list = (
+        fisher_data["X"],
+        fisher_data["Y"],
+        fisher_data["Z11"],
+        fisher_data["Z12"],
+        fisher_data["Z22"],
+        fisher_data["t_list"],
+    )
+    t_list0 = t_list[0][~np.isnan(t_list[0])]
+    t_list1 = t_list[1][~np.isnan(t_list[1])]
+
+    im = ax[0, 0].imshow(
+        Z11,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+        vmin=0,
+        vmax=0.65,
+    )
+    ax[0, 0].invert_yaxis()
+    ax[0, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[0, 0].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[0, 0].set_title("$I_{11}$")
+    plt.colorbar(im, ax=ax[0, 0], fraction=0.08, pad=0.05, shrink=0.8)
+
+    im = ax[0, 1].imshow(
+        Z12,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+        vmin=0,
+        vmax=0.65,
+    )
+    ax[0, 1].invert_yaxis()
+    ax[0, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[0, 1].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[0, 1].set_title("$I_{12}$")
+    plt.colorbar(im, ax=ax[0, 1], fraction=0.08, pad=0.05, shrink=0.8)
+
+    im = ax[0, 2].imshow(
+        Z22,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+        vmin=0,
+        vmax=0.65,
+    )
+    ax[0, 2].invert_yaxis()
+    ax[0, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[0, 2].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[0, 2].set_title("$I_{22}$")
+    plt.colorbar(im, ax=ax[0, 2], fraction=0.08, pad=0.05, shrink=0.8)
+
+    #########################################
+    # Fisher traces
+    im = ax[1, 0].imshow(
+        Z11 + Z22,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+    )
+    ax[1, 0].invert_yaxis()
+    ax[1, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[1, 0].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[1, 0].set_title(r"$\mathrm{tr}(I)$")
+    plt.colorbar(im, ax=ax[1, 0], fraction=0.08, pad=0.05, shrink=0.8)
+
+    #########################################
+    # NTK Trace
+    Z = NTK_data["Z"]
+    im = ax[1, 1].imshow(
+        Z,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+    )
+    ax[1, 1].invert_yaxis()
+    ax[1, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[1, 1].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[1, 1].set_title(r"$\mathrm{tr}(\Lambda)$")
+    plt.colorbar(im, ax=ax[1, 1], fraction=0.08, pad=0.05, shrink=0.8)
+
+    #########################################
+    # Curvature
+    Z = curv_data["Z"]
+    im = ax[1, 2].imshow(
+        Z,
+        cmap=cm.magma,
+        extent=[X.min(), X.max(), Y.min(), Y.max()],
+        origin="lower",
+    )
+    ax[1, 2].invert_yaxis()
+    ax[1, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
+    ax[1, 2].annotate(
+        "",
+        xy=(t_list0[-1], t_list1[-1]),
+        xytext=(t_list0[-52], t_list1[-52]),
+        arrowprops=dict(arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0),
+    )
+    ax[1, 2].set_title(r"$R$")
+    plt.colorbar(im, ax=ax[1, 2], fraction=0.08, pad=0.05, shrink=0.8)
+
+    ax[1, 0].set_xlabel(r"$\theta_1$")
+    ax[1, 1].set_xlabel(r"$\theta_1$")
+    ax[1, 2].set_xlabel(r"$\theta_1$")
+
+    ax[0, 0].set_ylabel(r"$\theta_2$")
+    ax[1, 0].set_ylabel(r"$\theta_2$")
+    plt.show()
+
+
+# Plot_Function_Surface()
+# Plot_Dataset()
+# Plot_Loss_Surfaces()
+Plot_Trace_Surfaces("MeanPowerLoss2")
+Plot_Trace_Surfaces("LPNormLoss2")
+Plot_Trace_Surfaces("CrossEntropyLoss")

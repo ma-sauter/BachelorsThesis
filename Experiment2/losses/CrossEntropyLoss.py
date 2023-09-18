@@ -24,5 +24,5 @@ def subloss(
     The subloss is defined for the calculation of the fisher matrix
     """
     return -(target) * np.log(network(input, theta)) - (1 - target) * np.log(
-        1 - network(inputs[i], theta)
+        1 - network(input, theta)
     )
