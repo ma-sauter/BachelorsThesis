@@ -20,24 +20,25 @@ from networks import OneNode_DB_network
 network = OneNode_DB_network.network
 
 ## Define Loss functions
-from losses import MeanPowerLoss2
+from losses import LPNormLoss2 as loss_functions
 
-lossname = "MeanPowerLoss2"
-loss = MeanPowerLoss2.loss
-subloss = MeanPowerLoss2.subloss
+lossname = "LPNormLoss2"
+loss = loss_functions.loss
+subloss = loss_functions.subloss
+thetalim1, thetalim2 = -4, 1
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = False
-CALCULATE_LONG_TRAINING = True
-CALCULATE_SCALAR_CURVATURE = False
-CALCULATE_FISHER_MATRIX = False
+CALCULATE_TRAINING_AND_LOSS_SURFACE = True
+CALCULATE_LONG_TRAINING = False
+CALCULATE_SCALAR_CURVATURE = True
+CALCULATE_FISHER_MATRIX = True
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
     # Traning
     #########
     n_epochs = 1000
-    learning_rate = 50e-3
+    learning_rate = 5e-3
     theta = np.array([0.5, 0.5])
     # Initialize starting parameters
     lossgradient = grad(loss, argnums=1)
@@ -66,8 +67,8 @@ if CALCULATE_TRAINING_AND_LOSS_SURFACE:
 
     # Loss Surface
     ##############
-    theta1 = np.linspace(-2, 1, 50)
-    theta2 = np.linspace(-1, 2, 50)
+    theta1 = np.linspace(thetalim1, thetalim2, 50)
+    theta2 = np.linspace(-thetalim2, -thetalim1, 50)
     X, Y = np.meshgrid(theta1, theta2)
     loss_jit = loss  # Jitting doesn't work in the nested loop below
     Z = onp.zeros_like(X)
@@ -123,15 +124,17 @@ if CALCULATE_LONG_TRAINING:
                     - dataset["targets"][i]
                 ) ** 2
             accuracy.append((N - wrong_guesses) / N)
+    print(onp.transpose(theta_list)[0])
 
+    n_y_points = 15
     theta1 = np.linspace(-2, -6, 50)
     X, Y, Z = (
-        onp.zeros(shape=(10, len(theta1))),
-        onp.zeros(shape=(10, len(theta1))),
-        onp.zeros(shape=(10, len(theta1))),
+        onp.zeros(shape=(n_y_points, len(theta1))),
+        onp.zeros(shape=(n_y_points, len(theta1))),
+        onp.zeros(shape=(n_y_points, len(theta1))),
     )
     for i in track(range(len(theta1)), description="Long Training Curv Surface"):
-        theta2 = np.linspace(theta1[i] - 0.5, theta1[i] + 0.5, 10)
+        theta2 = np.linspace(-theta1[i] - 1.2, -theta1[i] + 1.2, n_y_points)
         for j in range(len(theta2)):
             X[j, i] = theta1[i]
             Y[j, i] = theta2[j]
@@ -160,8 +163,8 @@ if CALCULATE_LONG_TRAINING:
 if CALCULATE_SCALAR_CURVATURE:
     # Scalar Curvature
 
-    theta1 = np.linspace(-2, 1, 100)
-    theta2 = np.linspace(-1, 2, 100)
+    theta1 = np.linspace(thetalim1, thetalim2, 50)
+    theta2 = np.linspace(-thetalim2, -thetalim1, 50)
     X, Y = np.meshgrid(theta1, theta2)
     t_list = np.load(f"npfiles/{lossname}_training.npz")["t_list"]
     l_list = np.load(f"npfiles/{lossname}_training.npz")["l_list"]
@@ -198,8 +201,8 @@ if CALCULATE_SCALAR_CURVATURE:
     )
 
 if CALCULATE_FISHER_MATRIX:
-    theta1 = np.linspace(-2, 1, 100)
-    theta2 = np.linspace(-1, 2, 100)
+    theta1 = np.linspace(thetalim1, thetalim2, 50)
+    theta2 = np.linspace(-thetalim2, -thetalim1, 50)
     X, Y = np.meshgrid(theta1, theta2)
     t_list = np.load(f"npfiles/{lossname}_training.npz")["t_list"]
     l_list = np.load(f"npfiles/{lossname}_training.npz")["l_list"]

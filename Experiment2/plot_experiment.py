@@ -4,21 +4,22 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-
-PLOTLOSSSURFACE = False
+lossname = "LPNormLoss2"
+PLOTLOSSSURFACE = True
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
-PLOTCURVESURFACE = True
+PLOTCURVESURFACE = False
 PLOTCURVESURFACEPLOTLY = False
 
 if PLOTLOSSSURFACE:
-    X = np.load("loss_surf_plot.npz")["X"]
-    Y = np.load("loss_surf_plot.npz")["Y"]
-    Z = np.load("loss_surf_plot.npz")["Z"]
-    t_list = np.load("training.npz")["t_list"]
-    l_list = np.load("training.npz")["l_list"]
-    acc = np.load("training.npz")["acc"]
+    data = np.load(f"npfiles/{lossname}_training.npz")
+    X = data["SurfX"]
+    Y = data["SurfY"]
+    Z = data["SurfZ"]
+    t_list = data["t_list"]
+    l_list = data["l_list"]
+    acc = data["acc_list"]
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
@@ -29,7 +30,7 @@ if PLOTLOSSSURFACE:
     plt.close()
 
 if PLOTFISHERSURFACE:
-    data = np.load("npfiles/Fisher_infos.npz", allow_pickle=True)
+    data = np.load(f"npfiles/{lossname}_Fisher_infos.npz", allow_pickle=True)
     X, Y = data["X"], data["Y"]
     Z = data[f"Z{t1}{t2}"]
     t_list = data["t_list"]
@@ -50,7 +51,11 @@ if PLOTFISHERSURFACE:
 
 if PLOTFISHERSURFACEPLOTLY:
     # Load data
-    X, Y, Z, t_list, pathZ = np.load(f"Fisher_surf_plot{t1}{t2}.npy", allow_pickle=True)
+    data = np.load(f"npfiles/{lossname}_Fisher_infos.npz", allow_pickle=True)
+    X, Y = data["X"], data["Y"]
+    Z = data[f"Z{t1}{t2}"]
+    t_list = data["t_list"]
+    Zpath = data[f"Zpath{t1}{t2}"]
 
     # Create surface plot
     surface_trace = go.Surface(x=X, y=Y, z=Z, colorscale="magma")
@@ -84,11 +89,12 @@ if PLOTFISHERSURFACEPLOTLY:
 
 
 if PLOTCURVESURFACE:
-    X = np.load(f"npfiles/curvature_plot.npz")["X"]
-    Y = np.load(f"npfiles/curvature_plot.npz")["Y"]
-    Z = np.load(f"npfiles/curvature_plot.npz")["Z"]
-    t_list = np.load(f"npfiles/curvature_plot.npz")["t_list"]
-    Zpath = np.load(f"npfiles/curvature_plot.npz")["Zpath"]
+    data = np.load(f"npfiles/{lossname}curvature_plot.npz")
+    X = data["X"]
+    Y = data["Y"]
+    Z = data["Z"]
+    t_list = data["t_list"]
+    Zpath = data["Zpath"]
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
@@ -110,7 +116,7 @@ if PLOTCURVESURFACE:
 
 if PLOTCURVESURFACEPLOTLY:
     # Load data
-    data = np.load("npfiles/curvature_plot.npz")
+    data = np.load(f"npfiles/{lossname}curvature_plot.npz")
     X, Y, Z, t_list, Zpath = (
         data["X"],
         data["Y"],
