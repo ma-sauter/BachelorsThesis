@@ -4,14 +4,25 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-lossname = "MeanPowerLoss2"
-PLOTLOSSSURFACE = False
+lossname = "CrossEntropyLoss"
+PLOTFUNCTION = True
+PLOTLOSSSURFACE = True
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
 PLOTCURVESURFACE = False
 PLOTCURVESURFACEPLOTLY = False
-PLOTLONGTRAININGCURVATURE = True
+PLOTLONGTRAINING = False
+PLOTNTKSURFACE = False
+
+if PLOTFUNCTION:
+    data = np.load(f"npfiles/{lossname}_training.npz")
+    X, Y, Z = data["Xfunc"], data["Yfunc"], data["Zfunc"]
+    print(data["t_list"])
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    ax.plot_surface(X, Y, Z, cmap=cm.magma)
+    plt.show()
+
 
 if PLOTLOSSSURFACE:
     data = np.load(f"npfiles/{lossname}_training.npz")
@@ -29,6 +40,9 @@ if PLOTLOSSSURFACE:
     plt.title("loss surface and training evolution")
     plt.show()
     plt.close()
+    plt.plot(acc)
+    plt.title("accuracy")
+    plt.show()
 
 if PLOTFISHERSURFACE:
     data = np.load(f"npfiles/{lossname}_Fisher_infos.npz", allow_pickle=True)
@@ -165,16 +179,38 @@ if PLOTCURVESURFACEPLOTLY:
     html_filename = "curvature_plot.html"
     pyo.plot(fig, filename=html_filename, auto_open=True)
 
-if PLOTLONGTRAININGCURVATURE:
+if PLOTLONGTRAINING:
     data = np.load(f"npfiles/{lossname}_long_training.npz")
     t_list = data["t_list"]
     c_list = data["c_list"]
-    X = data["Xcurvsurf"]
-    Y = data["Ycurvsurf"]
-    Z = data["Zcurvsurf"]
+    NTK_trace = data["NTK_trace_list"]
+    Fisher_trace = data["Fisher_trace_list"]
+
+    plt.plot(c_list)
+    plt.title("Curvature")
+    plt.show()
+    plt.close()
+
+    plt.plot(NTK_trace)
+    plt.title("NTK trace")
+    plt.show()
+    plt.close()
+
+    plt.plot(Fisher_trace)
+    plt.title("Fisher trace")
+    plt.show()
+    plt.close()
+
+if PLOTNTKSURFACE:
+    data = np.load(f"npfiles/{lossname}_ntk.npz")
+    t_list = data["t_list"]
+    Zpath = data["NTK_path"]
+    X = data["X"]
+    Y = data["Y"]
+    Z = data["Z"]
 
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
-    path = ax.plot(t_list[0], t_list[1], c_list, color="mediumseagreen", zorder=100)
+    path = ax.plot(t_list[0], t_list[1], Zpath, color="mediumseagreen", zorder=100)
     plt.show()

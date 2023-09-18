@@ -6,9 +6,11 @@ from jax import grad, jit
 import numpy as onp
 from fisher_calculation import fisher_info
 from Curvature_calculation import curvature_slow_but_working as curvature
+from NTK_calculation import NTK_trace
 from rich.progress import track
 import pickle
 import time
+import os
 
 ## Import dataset
 with open("npfiles/dataset.npy", "rb") as file:
@@ -20,25 +22,32 @@ from networks import OneNode_DB_network
 network = OneNode_DB_network.network
 
 ## Define Loss functions
-from losses import MeanPowerLoss2 as loss_functions
+from losses import CrossEntropyLoss as loss_functions
 
-lossname = "MeanPowerLoss2"
+# Remember to also change the loss import above and the thetalims!
+lossname = "CrossEntropyLoss"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
 thetalim1, thetalim2 = -4, 1
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_TRAINING_AND_LOSS_SURFACE = True
 CALCULATE_LONG_TRAINING = True
-CALCULATE_SCALAR_CURVATURE = False
-CALCULATE_FISHER_MATRIX = False
+CALCULATE_SCALAR_CURVATURE = True
+CALCULATE_FISHER_MATRIX = True
+CALCULATE_NTK = True
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
     # Traning
     #########
     n_epochs = 1000
-    learning_rate = 5e-3
+    if lossname[:-1] == "MeanPowerLoss":
+        learning_rate = 50e-3
+    if lossname[:-1] == "LPNormLoss":
+        learning_rate = 5e-3
+    if lossname == "CrossEntropyLoss":
+        learning_rate = 1e-3
     theta = np.array([0.5, 0.5])
     # Initialize starting parameters
     lossgradient = grad(loss, argnums=1)
@@ -83,6 +92,18 @@ if CALCULATE_TRAINING_AND_LOSS_SURFACE:
     # theta_list = onp.transpose(theta_list)
     # ax.plot(theta_list[0], theta_list[1], loss_list, color="mediumseagreen", zorder=10)
     # plt.show()
+
+    # Function surface
+    Xfunc = onp.linspace(0, 1, 500)
+    Yfunc = onp.linspace(0, 1, 500)
+    Zfunc = onp.zeros(shape=(len(Xfunc), len(Yfunc)))
+    t_list = onp.transpose(theta_list)
+    for i in track(range(len(Xfunc)), description="Calculating function surface..."):
+        x = Xfunc[i]
+        for j, y in enumerate(Yfunc):
+            Zfunc[j, i] = network(input=[x, y], theta=[t_list[0][-1], t_list[1][-1]])
+    Xfunc, Yfunc = np.meshgrid(Xfunc, Yfunc)
+
     np.savez(
         f"npfiles/{lossname}_training.npz",
         l_list=loss_list,
@@ -91,12 +112,15 @@ if CALCULATE_TRAINING_AND_LOSS_SURFACE:
         SurfX=X,
         SurfY=Y,
         SurfZ=Z,
+        Xfunc=Xfunc,
+        Yfunc=Yfunc,
+        Zfunc=Zfunc,
     )
 
 if CALCULATE_LONG_TRAINING:
     # Traning
     #########
-    n_epochs = 60000
+    n_epochs = 1000000
     learning_rate = 50e-3
     theta = np.array([0.5, 0.5])
     # Initialize starting parameters
@@ -104,6 +128,9 @@ if CALCULATE_LONG_TRAINING:
     theta_list = [theta]
     loss_list = [loss(dataset, theta, network)]
     curvature_list = [curvature(subloss, network, dataset, theta).item()]
+    NTK_trace_list = [NTK_trace(network, dataset, theta)]
+    fisher_inf = fisher_info(subloss, network, dataset, theta)
+    Fisher_trace_list = [fisher_inf[0, 0] + fisher_inf[1, 1]]
     accuracy = []
 
     @jit
@@ -116,6 +143,9 @@ if CALCULATE_LONG_TRAINING:
             loss_list.append(loss(dataset, theta, network))
             theta_list.append(theta)
             curvature_list.append(curvature(subloss, network, dataset, theta).item())
+            NTK_trace_list.append(NTK_trace(network, dataset, theta))
+            fisher_inf = fisher_info(subloss, network, dataset, theta)
+            Fisher_trace_list.append(fisher_inf[0, 0] + fisher_inf[1, 1])
             wrong_guesses = 0
             N = len(dataset)
             for i in range(N):
@@ -124,8 +154,8 @@ if CALCULATE_LONG_TRAINING:
                     - dataset["targets"][i]
                 ) ** 2
             accuracy.append((N - wrong_guesses) / N)
-    print(onp.transpose(theta_list)[0])
 
+    """
     n_y_points = 15
     theta1 = np.linspace(1, -6, 50)
     X, Y, Z = (
@@ -139,6 +169,7 @@ if CALCULATE_LONG_TRAINING:
             X[j, i] = theta1[i]
             Y[j, i] = theta2[j]
             Z[j, i] = curvature(subloss, network, dataset, theta=[theta1[i], theta2[j]])
+    """
 
     np.savez(
         f"npfiles/{lossname}_long_training.npz",
@@ -146,18 +177,13 @@ if CALCULATE_LONG_TRAINING:
         l_list=loss_list,
         c_list=curvature_list,
         a_list=accuracy,
-        Xcurvsurf=X,
-        Ycurvsurf=Y,
-        Zcurvsurf=Z,
+        NTK_trace_list=NTK_trace_list,
+        Fisher_trace_list=Fisher_trace_list,
+        # Xcurvsurf=X,
+        # Ycurvsurf=Y,
+        # Zcurvsurf=Z,
         description=f"{n_epochs} Epochs with {learning_rate} learning_rate",
     )
-
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    t_list = onp.transpose(theta_list)
-    ax.plot(t_list[0], t_list[1], curvature_list, color="mediumseagreen", zorder=10)
-    ax.plot_surface(X, Y, Z, cmap=cm.magma)
-    # plt.yscale("log")
-    plt.show()
 
 
 if CALCULATE_SCALAR_CURVATURE:
@@ -245,4 +271,26 @@ if CALCULATE_FISHER_MATRIX:
         Zpath22=Zpath22,
         t_list=t_list,
         allow_pickle=True,
+    )
+
+if CALCULATE_NTK:
+    assert os.path.exists(f"npfiles/{lossname}_training.npz")
+    data = np.load(f"npfiles/{lossname}_training.npz")
+    t_list = data["t_list"]
+
+    NTK_path = []
+    for i in track(range(len(t_list[0])), description="Calculating NTK Trace..."):
+        NTK_path.append(NTK_trace(network, dataset, theta=[t_list[0][i], t_list[1][i]]))
+
+    theta1 = np.linspace(thetalim1, thetalim2, 50)
+    theta2 = np.linspace(-thetalim2, -thetalim1, 50)
+    X, Y = np.meshgrid(theta1, theta2)
+
+    Z = onp.zeros_like(X)
+    for i in track(range(len(theta1))):
+        for j in range(len(theta2)):
+            Z[j, i] = NTK_trace(network, dataset, theta=[theta1[i], theta2[j]])
+
+    np.savez(
+        f"npfiles/{lossname}_ntk.npz", t_list=t_list, NTK_path=NTK_path, X=X, Y=Y, Z=Z
     )

@@ -25,7 +25,7 @@ the mean-power loss of order $n$
 \end{equation}
 and the softmax-ross-entropy loss \cite{LossExamplePaper}
 \begin{equation}
-	d(f_\theta(\mathbf{x}),\mathbf{y}) = \sum_{i=1}^{N_O} \mathbf{y}_i \log(\sigma_i(f_\theta(\mathbf{x}))),
+	d(f_\theta(\mathbf{x}),\mathbf{y}) = \sum_{i=1}^{N_O} -\mathbf{y}_i \log(\sigma_i(f_\theta(\mathbf{x}))),
 \end{equation}
 where we used the definition for distance $d$ from \cref{eq:DistanceLoss}, and a softmax function $\sigma_i$ from \cref{eq:softmax}. The experiment was conducted for orders of $n$ or $p$ equal to $2$, $4$ and $6$. We trained each combination of architecture and loss function for a total of 5 times and calculated mean values and standard deviations of the traces using the results. The networks were trained using the Adam optimizer \cite{adamPaper}.\\
 As an illustrative example, the results for $L_2$-norm loss, Mean power loss of order $n=2$, as well as the result for Cross Entropy loss for a network with a width of $128$ neurons are depicted in \cref{fig:MNISTTraceComparison}. The solid line represents the mean of the 5 experiments, the translucent area marks one standard deviation above and under the mean value.\\
