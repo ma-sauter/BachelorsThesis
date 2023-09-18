@@ -4,13 +4,14 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-lossname = "LPNormLoss2"
-PLOTLOSSSURFACE = True
+lossname = "MeanPowerLoss2"
+PLOTLOSSSURFACE = False
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
 PLOTCURVESURFACE = False
 PLOTCURVESURFACEPLOTLY = False
+PLOTLONGTRAININGCURVATURE = True
 
 if PLOTLOSSSURFACE:
     data = np.load(f"npfiles/{lossname}_training.npz")
@@ -163,3 +164,17 @@ if PLOTCURVESURFACEPLOTLY:
     # Save the figure as an interactive HTML file
     html_filename = "curvature_plot.html"
     pyo.plot(fig, filename=html_filename, auto_open=True)
+
+if PLOTLONGTRAININGCURVATURE:
+    data = np.load(f"npfiles/{lossname}_long_training.npz")
+    t_list = data["t_list"]
+    c_list = data["c_list"]
+    X = data["Xcurvsurf"]
+    Y = data["Ycurvsurf"]
+    Z = data["Zcurvsurf"]
+
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+
+    surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
+    path = ax.plot(t_list[0], t_list[1], c_list, color="mediumseagreen", zorder=100)
+    plt.show()

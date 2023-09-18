@@ -20,18 +20,18 @@ from networks import OneNode_DB_network
 network = OneNode_DB_network.network
 
 ## Define Loss functions
-from losses import LPNormLoss2 as loss_functions
+from losses import MeanPowerLoss2 as loss_functions
 
-lossname = "LPNormLoss2"
+lossname = "MeanPowerLoss2"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
 thetalim1, thetalim2 = -4, 1
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = True
-CALCULATE_LONG_TRAINING = False
-CALCULATE_SCALAR_CURVATURE = True
-CALCULATE_FISHER_MATRIX = True
+CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_LONG_TRAINING = True
+CALCULATE_SCALAR_CURVATURE = False
+CALCULATE_FISHER_MATRIX = False
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
@@ -127,7 +127,7 @@ if CALCULATE_LONG_TRAINING:
     print(onp.transpose(theta_list)[0])
 
     n_y_points = 15
-    theta1 = np.linspace(-2, -6, 50)
+    theta1 = np.linspace(1, -6, 50)
     X, Y, Z = (
         onp.zeros(shape=(n_y_points, len(theta1))),
         onp.zeros(shape=(n_y_points, len(theta1))),
