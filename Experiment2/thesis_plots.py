@@ -146,7 +146,7 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
     NTK_data = np.load(f"npfiles/{lossname}_ntk.npz")
 
     fig, ax = plt.subplots(2, 3, figsize=(390 / 72, 390 / 72 / 1.5))
-    plt.subplots_adjust(wspace=0.5, hspace=0.4)
+    plt.subplots_adjust(wspace=0.7, hspace=0.4)
 
     #######################
     X, Y, Z11, Z12, Z22, t_list = (
@@ -282,7 +282,11 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
 
     ax[0, 0].set_ylabel(r"$\theta_2$")
     ax[1, 0].set_ylabel(r"$\theta_2$")
-    plt.show()
+
+    if save:
+        plt.savefig(f"plots/{lossname}_tracecomparison.pdf", bbox_inches="tight")
+    if show:
+        plt.show()
 
 
 # Plot_Function_Surface()
