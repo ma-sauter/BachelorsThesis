@@ -22,20 +22,20 @@ from networks import OneNode_DB_network
 network = OneNode_DB_network.network
 
 ## Define Loss functions
-from losses import LPNormLoss2 as loss_functions
+from losses import CrossEntropyLoss as loss_functions
 
 # Remember to also change the loss import above and the thetalims!
-lossname = "LPNormLoss2"
+lossname = "CrossEntropyLoss"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
 thetalim1, thetalim2 = -4, 1
 
 
-CALCULATE_TRAINING_AND_LOSS_SURFACE = False
+CALCULATE_TRAINING_AND_LOSS_SURFACE = True
 CALCULATE_LONG_TRAINING = False
 CALCULATE_SCALAR_CURVATURE = False
-CALCULATE_FISHER_MATRIX = False
-CALCULATE_NTK = True
+CALCULATE_FISHER_MATRIX = True
+CALCULATE_NTK = False
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
@@ -236,7 +236,7 @@ if CALCULATE_FISHER_MATRIX:
     Z11 = onp.zeros_like(X)
     Z12 = onp.zeros_like(X)
     Z22 = onp.zeros_like(X)
-    for i in track(range(len(theta1))):
+    for i in track(range(len(theta1)), description="Fisher Surface..."):
         for j in range(len(theta2)):
             fisher = fisher_info(
                 subloss, network, dataset, theta=np.array([theta1[i], theta2[j]])
@@ -246,9 +246,8 @@ if CALCULATE_FISHER_MATRIX:
             Z22[j, i] = fisher[1, 1]
 
     Zpath11, Zpath12, Zpath22 = [], [], []
-    for i in range(len(t_list[0])):
-        if i % 20 == 0:
-            print(f"Calculating fisher path done {100*i/len(t_list[0])}%")
+    for i in track(range(len(t_list[0])), description="Fisher paths..."):
+        if i % 1 == 0:
             fisher = fisher_info(
                 subloss,
                 network,
@@ -287,7 +286,7 @@ if CALCULATE_NTK:
     X, Y = np.meshgrid(theta1, theta2)
 
     Z = onp.zeros_like(X)
-    for i in track(range(len(theta1))):
+    for i in track(range(len(theta1)), description="NTK_surface..."):
         for j in range(len(theta2)):
             Z[j, i] = NTK_trace(network, dataset, theta=[theta1[i], theta2[j]])
 

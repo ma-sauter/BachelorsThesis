@@ -289,9 +289,108 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         plt.show()
 
 
+def Plot_Curves(lossname, show=False, save=True):
+    curv_data = np.load(f"npfiles/{lossname}curvature_plot.npz")
+    fisher_data = np.load(f"npfiles/{lossname}_fisher_infos.npz")
+    NTK_data = np.load(f"npfiles/{lossname}_ntk.npz")
+
+    fig, ax = plt.subplots(2, 1, figsize=(390 / 72, 390 / 72 / 1.5), sharex=True)
+    ax[0].set_xticks([])
+    plt.subplots_adjust(hspace=0)
+    sparse_x = np.arange(len(curv_data["Zpath"])) * 20
+
+    color1, color2 = cm.magma(0.2), cm.magma(0.7)
+    ln1 = ax[0].plot(
+        fisher_data["Zpath11"] + fisher_data["Zpath22"],
+        color=color1,
+        label=r"$\mathrm{tr}(I)$",
+    )
+    ax[0].tick_params("y", colors=color1)
+    ax[0].yaxis.label.set_color(color1)
+
+    ax1 = ax[0].twinx()
+    ln2 = ax1.plot(
+        NTK_data["NTK_path"], "--", color=color2, label=r"$\mathrm{tr}(\Lambda)$"
+    )
+    ax1.yaxis.label.set_color(color2)
+    ax1.tick_params("y", colors=color2)
+
+    ax[1].plot(
+        sparse_x, curv_data["Zpath"], "o", markersize=3.5, color="#00E88F", label=r"$R$"
+    )
+
+    lns = ln1 + ln2
+    labs = [l.get_label() for l in lns]
+    ax1.legend(lns, labs)
+    ax[1].legend()
+    ax[1].set_xticks([0, 200, 400, 600, 800, 1000])
+    ax[1].set_yticks([0, -100, -200, -300])
+
+    ax[1].set_xlabel("Epochs")
+    ax[1].tick_params(labelright=True)
+
+    if lossname == losslist[0]:
+        ax[0].set_title(r"Traces and curvature for Mean Power loss of $n=2$")
+    if lossname == losslist[1]:
+        ax[0].set_title(r"Traces and curvature for $L_2$-norm loss")
+    if lossname == losslist[2]:
+        ax[0].set_title(r"Traces and curvature for Cross-entropy loss")
+
+    # Setting 0 to be the same for upper and lower plot
+    if lossname == losslist[0]:
+        ax[1].set_ylim(-380, 0)
+        ax[1].set_yticks([0, -100, -200, -300])
+        ax1.set_yticks([20, 40, 60, 80])
+        ax1.set_ylim(
+            0,
+        )
+        ax[0].set_yticks([0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
+        ax[0].set_ylim(
+            0,
+        )
+    if lossname == losslist[1]:
+        ax[1].set_ylim(-140, 0)
+        ax[1].set_yticks([0, -50, -100])
+        ax1.set_yticks([20, 40])
+        ax1.set_ylim(
+            0,
+        )
+        ax[0].set_yticks([0.2, 0.4])
+        ax[0].set_ylim(
+            0,
+        )
+    if lossname == losslist[2]:
+        ax[1].set_ylim(-80, 0)
+        ax[1].set_yticks([0, -20, -40, -60, -80])
+        ax1.set_yticks([25, 50, 75])
+        ax1.set_ylim(
+            0,
+        )
+        ax[0].set_yticks([2, 4, 6])
+        ax[0].set_ylim(
+            0,
+        )
+
+    # Setting the space at the edges to 0
+    if lossname == losslist[0] or losslist[2]:
+        ax[0].set_xlim(-10, 1010)
+        ax[1].set_xlim(-10, 1010)
+    if lossname == losslist[1]:
+        ax[0].set_xlim(-2.8, 282.8)
+        ax[1].set_xlim(-2.8, 282.8)
+
+    if save:
+        plt.savefig(f"plots/{lossname}_Curves.pdf", bbox_inches="tight")
+    if show:
+        plt.show()
+
+
 # Plot_Function_Surface()
 # Plot_Dataset()
 # Plot_Loss_Surfaces()
-Plot_Trace_Surfaces("MeanPowerLoss2")
-Plot_Trace_Surfaces("LPNormLoss2")
-Plot_Trace_Surfaces("CrossEntropyLoss")
+# Plot_Trace_Surfaces("MeanPowerLoss2")
+# Plot_Trace_Surfaces("LPNormLoss2")
+# Plot_Trace_Surfaces("CrossEntropyLoss")
+Plot_Curves("MeanPowerLoss2")
+Plot_Curves("LPNormLoss2")
+Plot_Curves("CrossEntropyLoss")
