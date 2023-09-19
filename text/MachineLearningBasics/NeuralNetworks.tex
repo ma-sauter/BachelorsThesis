@@ -9,7 +9,7 @@ The neurons, which are the building blocks of the artificial neural networks, ar
 	\label{fig:Neuron_explanation}
 \end{figure}
 The big circle in the middle represents the neuron itself. It takes the activation values $a_i$ as input, multiplies them with their corresponding weights $\omega_i$ and sums them up to obtain the excitation $e$, adds a bias value $b$ and then applies the activation function to obtain the resulting output value. The input activations $a_i$ correspond to the strength of electronic pulses in the nervous system. No pulse in the biological system would be represented by an activation of zero in the mathematical model. The weights $\omega_i$ are a representation of how important single input values are for the activation of the neuron. In the biological counterpart this might correspond to how thick or conductive the connections between the nerve cells are. Finally, the combination of bias $b$ and activation function determines how large the sum of the input-weight-pairs has to be to activate the neuron and how the resulting value for the activation of the neuron changes for higher input activations. For example, a simple output activation function would be the ReLU function (Rectified Linear Unit).
-This function is defined as 
+This function is defined as \cite{ActivationFunctionOverview}
 \begin{equation}
 	f(x) = 
 	\begin{cases}

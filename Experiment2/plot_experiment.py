@@ -4,8 +4,8 @@ import numpy as np
 import plotly.graph_objs as go
 import plotly.offline as pyo
 
-lossname = "CrossEntropyLoss"
-PLOTFUNCTION = True
+lossname = "LPNormLoss2"
+PLOTFUNCTION = False
 PLOTLOSSSURFACE = True
 PLOTFISHERSURFACE = False
 PLOTFISHERSURFACEPLOTLY = False

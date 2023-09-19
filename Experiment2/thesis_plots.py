@@ -349,8 +349,8 @@ def Plot_Curves(lossname, show=False, save=True):
             0,
         )
     if lossname == losslist[1]:
-        ax[1].set_ylim(-140, 0)
-        ax[1].set_yticks([0, -50, -100])
+        ax[1].set_ylim(-150, 0)
+        ax[1].set_yticks([0, -50, -100, -150])
         ax1.set_yticks([20, 40])
         ax1.set_ylim(
             0,
@@ -378,6 +378,7 @@ def Plot_Curves(lossname, show=False, save=True):
     if lossname == losslist[1]:
         ax[0].set_xlim(-2.8, 282.8)
         ax[1].set_xlim(-2.8, 282.8)
+        ax[1].set_xticks([0, 50, 100, 150, 200, 250])
 
     if save:
         plt.savefig(f"plots/{lossname}_Curves.pdf", bbox_inches="tight")
@@ -391,6 +392,6 @@ def Plot_Curves(lossname, show=False, save=True):
 # Plot_Trace_Surfaces("MeanPowerLoss2")
 # Plot_Trace_Surfaces("LPNormLoss2")
 # Plot_Trace_Surfaces("CrossEntropyLoss")
-Plot_Curves("MeanPowerLoss2")
-Plot_Curves("LPNormLoss2")
-Plot_Curves("CrossEntropyLoss")
+# Plot_Curves("MeanPowerLoss2")
+# Plot_Curves("LPNormLoss2")
+# Plot_Curves("CrossEntropyLoss")
