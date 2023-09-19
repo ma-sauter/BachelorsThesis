@@ -62,7 +62,7 @@ def Plot_Dataset(show=False, save=True):
     for i in range(len(inputs)):
         if targets[i] == 1:
             plt.plot(inputs[i, 0], inputs[i, 1], "o", color=cm.magma(0.8))
-            if label1:
+            if label1 and label2 == False:
                 plt.plot(
                     inputs[i, 0],
                     inputs[i, 1],
@@ -96,7 +96,7 @@ def Plot_Dataset(show=False, save=True):
 
 def Plot_Loss_Surfaces(show=False, save=True):
     fig, ax = plt.subplots(1, 3, figsize=(390 / 72, 390 / 72 / 3))
-    fig.tight_layout()
+    fig.subplots_adjust(wspace=1)
     for i, lossname in enumerate(losslist):
         data = np.load(f"npfiles/{lossname}_training.npz")
 
@@ -126,14 +126,17 @@ def Plot_Loss_Surfaces(show=False, save=True):
                     arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0
                 ),
             )
+        ax[i].set_xlabel(r"$\theta_1$")
 
-        plt.colorbar(im, ax=ax[i], fraction=0.08, pad=0.05, shrink=0.8)
+        plt.colorbar(im, ax=ax[i], fraction=0.08, pad=0.05, shrink=0.5)
         if lossname == "LPNormLoss2":
             ax[i].set_title("$L_2$-norm")
         if lossname == "CrossEntropyLoss":
             ax[i].set_title("Cross-entropy")
         if lossname == "MeanPowerLoss2":
             ax[i].set_title("Mean power of $n=2$")
+    ax[0].set_ylabel(r"$\theta_2$")
+
     if save:
         plt.savefig("plots/LossSurfaces.pdf", bbox_inches="tight")
     if show:
@@ -388,7 +391,7 @@ def Plot_Curves(lossname, show=False, save=True):
 
 # Plot_Function_Surface()
 # Plot_Dataset()
-# Plot_Loss_Surfaces()
+Plot_Loss_Surfaces(show=True)
 # Plot_Trace_Surfaces("MeanPowerLoss2")
 # Plot_Trace_Surfaces("LPNormLoss2")
 # Plot_Trace_Surfaces("CrossEntropyLoss")

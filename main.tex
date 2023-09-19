@@ -2,12 +2,13 @@
 % Version: 1.0
 % This work is licensed under a Creative Commons Attribution 4.0 International License.
 
-\documentclass[12pt, a4paper]{report}
+\documentclass[12pt, twoside, a4paper]{report}
 \input{preliminaries/imports.tex}
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\rhead{ICP}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter: #1}{}}
+\rhead{Chapter \leftmark}
 \chead{}
 \lhead{University of Stuttgart}
 \lfoot{\date{}}
@@ -94,16 +95,19 @@
 		\item[NTK] Neural Tangent Kernel
 		\item[FI] Fisher Information
 	\end{abbreviations}	
-	
-	\chapter{Machine Learning Basics}
+
+	\chapter{Introduction}
 	\pagenumbering{arabic}
+	\input{text/ThesisIntroduction.tex}
+	
+	\chapter{Machine Learning Basics}\label{sec:ChapterMachineLearningBasics}
 	\section{Introduction to machine learning}\label{sec:MachineLearningIntroduction}
 	\input{text/MachineLearningBasics/introduction.tex}
 	\section{Neural networks}\label{sec:NeuralNetworks(BigSection)}
 	\input{text/MachineLearningBasics/NeuralNetworks.tex}
 	\section{Training of neural networks}\label{sec:NeuralNetworkTraining}
 	\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
-	\section{Which assumptions are actually necessary}
+	\section{Which assumptions are actually necessary}\label{sec:WhichAssumptionsAreNecessary}
 	\input{text/MachineLearningBasics/TheImportantParts.tex}
 	
 	
@@ -111,7 +115,7 @@
 	\input{text/FisherInformation/Outline.tex}
 	\section{Use in Statistics}\label{sec:FIinStatistics}
 	\input{text/FisherInformation/Introduction.tex}
-	\section{Fisher Information as Riemannian metric}
+	\section{Fisher Information as Riemannian metric}\label{sec:FisherInformationAsRiemannianMetric(BigChapter)}
 	\input{text/FisherInformation/RiemannianMetric}
 	\section{Intuitive explanations}\label{sec:FisherInterpretation}
 	\input{text/FisherInformation/Music}
@@ -121,16 +125,19 @@
 	
 	\chapter{Neural Tangent Kernel}\label{sec:ChapterNTK}
 	%\input{text/NTK/NTKIntro.tex}
-	\section{Derivation from Gradient Flow}
+	\section{Derivation from Gradient Flow}\label{sec:NTKderivation}
 	\input{text/NTK/GradientFlow.tex}
-	\section{Interpretation}
+	\section{Interpretation}\label{sec:NTKInterpretation}
 	\input{text/NTK/Interpretation.tex}
 	
-	\chapter{Results}
-	\section{Fisher Trace - NTK relation}
+	\chapter{Investigations}\label{sec:ChapterResults}
+	\section{Fisher Trace - NTK relation}\label{sec:Results1}
 	\input{text/results/FisherTraceNTK}
-	\section{2-Parameter Network analysis}
+	\section{2-Parameter Network analysis}\label{sec:Results2}
 	\input{text/results/2ParameterNetwork.tex}
+	
+	\chapter{Conclusion and Outlook}\label{sec:ChapterConcAndOutlook}
+	\input{text/ConcAndOutlook.tex}
 	
 	
 	

@@ -22,10 +22,10 @@ from networks import OneNode_DB_network
 network = OneNode_DB_network.network
 
 ## Define Loss functions
-from losses import LPNormLoss2 as loss_functions
+from losses import MeanPowerLoss2 as loss_functions
 
 # Remember to also change the loss import above and the thetalims!
-lossname = "LPNormLoss2"
+lossname = "MeanPowerLoss2"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
 thetalim1, thetalim2 = -4, 1

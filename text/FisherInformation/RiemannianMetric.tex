@@ -123,16 +123,16 @@ Note that we don't use covariant and contravariant indices, since we don't need 
 \begin{equation}
 	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta^l} + \pAbl{g_{ml}}{\theta^k} - \pAbl{g_{kl}}{\theta^m}\right),
 \end{equation} 
-where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric.
+where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric. They originally arise from the formula $\partial_k \vec{e}_j = \Gamma^i_{jk} \vec{e}_k$, where they describe how basis vectors change when moving in the parameter space \cite{GeneralRelativityBook}.
 From those, we can define the Riemannian curvature tensor as \cite{GeneralRelativityBook}
 \begin{equation}
 	R^{i}_{jkl} = \partial_k \Gamma^i_{jl} - \partial_l \Gamma^i_{jk} + \Gamma^i_{mk}\Gamma^m_{jl} - \Gamma^i_{ml}\Gamma^m_{jk}.
 \end{equation}
-Finally, we can state the Ricci scalar curvature as \cite{GeneralRelativityBook}
+The Riemannian curvature tensor is the full description of curvature on a manifold. It generalizes the well known concept of curvature on a curve to multidimensional, abstract manifolds. We can compress it's information down into a single scalar number by defining the Ricci scalar curvature as \cite{GeneralRelativityBook}
 \begin{equation}
 	R = g^{ij} R^m_{imj}.
 \end{equation}
-The Ricci scalar can be viewed as a measure of how much the manifold at the point of computation differs from flat space. For euclidean spaces, the Ricci scalar is 0 \cite{GeneralRelativityBook}.
+The scalar curvature can be viewed as a measure of how much the manifold at the point of computation differs from flat space. For euclidean spaces, the scalar curvature is 0 \cite{GeneralRelativityBook}. To give more intuition about the curvature we can refer to its interpretation in general relativity. It considers the physical space to be a curved manifold with the added coordinate of time, along with the 3 spatial dimensions. Curvature results from objects with mass in the space \cite{GeneralRelativityBook}. The concept of curvature here can be imagined similar to how a ball placed on an elastic surface will curve it around the ball. When viewed from the top, the space seems flat, but when moving towards the ball, the distance traveled on the elastic band gets larger compared to the distance in the viewing field, the closer we move towards the ball. This results from the ball stretching the manifold represented by the elastic band.
 
 \subsection{Application to neural networks}\label{sec:ApplicationOfFIToNeuralNetworks}
 Now that we've laid down the mathematical fundamentals of how the FI can be considered the metric of a statistical manifold, we can apply this to our neural network optimization by introducing a way of viewing them as statistical models.\\
