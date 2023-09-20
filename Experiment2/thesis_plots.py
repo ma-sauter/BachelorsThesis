@@ -141,6 +141,7 @@ def Plot_Loss_Surfaces(show=False, save=True):
         plt.savefig("plots/LossSurfaces.pdf", bbox_inches="tight")
     if show:
         plt.show()
+    plt.close()
 
 
 def Plot_Trace_Surfaces(lossname, show=False, save=True):
@@ -290,6 +291,7 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         plt.savefig(f"plots/{lossname}_tracecomparison.pdf", bbox_inches="tight")
     if show:
         plt.show()
+    plt.close()
 
 
 def Plot_Curves(lossname, show=False, save=True):
@@ -340,9 +342,10 @@ def Plot_Curves(lossname, show=False, save=True):
         ax[0].set_title(r"Traces and curvature for Cross-entropy loss")
 
     # Setting 0 to be the same for upper and lower plot
+    ax[1].tick_params(labelright=True)
     if lossname == losslist[0]:
-        ax[1].set_ylim(-380, 0)
-        ax[1].set_yticks([0, -100, -200, -300])
+        ax[1].set_ylim(-700, 0)
+        ax[1].set_yticks([0, -200, -400, -600])
         ax1.set_yticks([20, 40, 60, 80])
         ax1.set_ylim(
             0,
@@ -387,6 +390,7 @@ def Plot_Curves(lossname, show=False, save=True):
         plt.savefig(f"plots/{lossname}_Curves.pdf", bbox_inches="tight")
     if show:
         plt.show()
+    plt.close()
 
 
 def Plot_Loss_Surfaces(show=False, save=True):
@@ -436,6 +440,7 @@ def Plot_Loss_Surfaces(show=False, save=True):
         plt.savefig("plots/LossSurfaces.pdf", bbox_inches="tight")
     if show:
         plt.show()
+    plt.close()
 
 
 def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
@@ -589,17 +594,18 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
         )  # , bbox_inches="tight")
     if show:
         plt.show()
+    plt.close()
 
 
 # Plot_Function_Surface()
 # Plot_Dataset()
-# Plot_Loss_Surfaces(show=True)
-Plot_Trace_Surfaces("MeanPowerLoss2")
-Plot_Trace_Surfaces("LPNormLoss2")
-Plot_Trace_Surfaces("CrossEntropyLoss")
-Plot_Trace_Surfaces_Big("MeanPowerLoss2")
-Plot_Trace_Surfaces_Big("LPNormLoss2")
-Plot_Trace_Surfaces_Big("CrossEntropyLoss")
-# Plot_Curves("MeanPowerLoss2")
-# Plot_Curves("LPNormLoss2")
-# Plot_Curves("CrossEntropyLoss")
+# Plot_Loss_Surfaces()
+# Plot_Trace_Surfaces("MeanPowerLoss2")
+# Plot_Trace_Surfaces("LPNormLoss2")
+# Plot_Trace_Surfaces("CrossEntropyLoss")
+# Plot_Trace_Surfaces_Big("MeanPowerLoss2")
+# Plot_Trace_Surfaces_Big("LPNormLoss2")
+# Plot_Trace_Surfaces_Big("CrossEntropyLoss")
+Plot_Curves("MeanPowerLoss2", show=True)
+Plot_Curves("LPNormLoss2", show=False)
+Plot_Curves("CrossEntropyLoss")
