@@ -28,14 +28,14 @@ from losses import MeanPowerLoss2 as loss_functions
 lossname = "MeanPowerLoss2"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
-thetalim1, thetalim2 = -2, 1
+thetalim1, thetalim2 = -4, 1
 
 
 CALCULATE_TRAINING_AND_LOSS_SURFACE = True
 CALCULATE_LONG_TRAINING = False
-CALCULATE_SCALAR_CURVATURE = True
-CALCULATE_FISHER_MATRIX = True
-CALCULATE_NTK = True
+CALCULATE_SCALAR_CURVATURE = False
+CALCULATE_FISHER_MATRIX = False
+CALCULATE_NTK = False
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
@@ -43,7 +43,7 @@ if CALCULATE_TRAINING_AND_LOSS_SURFACE:
     #########
     n_epochs = 1000
     if lossname[:-1] == "MeanPowerLoss":
-        learning_rate = 50e-3
+        learning_rate = 250e-3
     if lossname[:-1] == "LPNormLoss":
         learning_rate = 5e-3
     if lossname == "CrossEntropyLoss":

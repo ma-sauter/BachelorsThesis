@@ -7,7 +7,7 @@ import plotly.offline as pyo
 lossname = "MeanPowerLoss2"
 PLOTFUNCTION = False
 PLOTLOSSSURFACE = True
-PLOTFISHERSURFACE = False
+PLOTFISHERSURFACE = True
 PLOTFISHERSURFACEPLOTLY = False
 t1, t2 = 2, 2
 PLOTCURVESURFACE = False
@@ -54,9 +54,7 @@ if PLOTFISHERSURFACE:
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
 
     surf = ax.plot_surface(X, Y, Z, cmap=cm.magma, linewidth=0, antialiased=True)
-    path = ax.plot(
-        t_list[0][::20], t_list[1][::20], Zpath, color="mediumseagreen", zorder=100
-    )
+    path = ax.plot(t_list[0], t_list[1], Zpath, color="mediumseagreen", zorder=100)
 
     ax.view_init(elev=90.0, azim=0.0)
 
