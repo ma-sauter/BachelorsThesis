@@ -1,7 +1,8 @@
+This section covers the basics of Riemannian geometry for neural networks. For more details, please refer to \cite{AmarisLectureNotes}, from which most of the following information is taken.
 \subsection{Differentiable manifolds}\label{sec:Manifolds}
 To state the definition, a $n$-dimensional manifold $S$ is a topological space so that for every point you can define a neighborhood around that point which is homeomorphic to an open subset of $\mathbb{R}^n$ \cite{AmarisLectureNotes}. A good example of this would be the surface of the earth, where locally viewed in the scale that we usually see things, the earth appears flat, but on a global scale the earth is obviously a sphere. This results, for example, in the shortest path between to points not being a straight line in maps of the world as a whole. Also the angles of a triangle don't sum up to \SI{180}{\degree} as they would in a subspace of $R^n$. This results from conventional maps being subspaces of $\mathbb{R}^2$, although the earth is only homeomorphic to $\mathbb{R}^2$ in smaller local scales. If one tries to map the whole sphere into a map without gaps, one has to map the coordinates in a way that makes the shortest lines curved for example.\\
 Let's come back to the statistical models $f(x|\theta)$ we talked about in the last section. We will treat the models considering fixed parameters as probability distributions $p_\theta(x)$ in this context. If the probabilities are sufficiently smooth in $\theta$, one can view the family of probabilities as a $n$-dimensional manifold, where the $n$ different $\theta$ components play the role of the coordinate system of the manifold. \\
-For example let's consider normal distributions 
+For example let's consider normal distributions \cite{AmarisLectureNotes}
 \begin{equation}
 	p(x|\mu,\sigma) = \frac{1}{\sqrt{(2\pi\sigma^2)}} \mathrm{e}^{-(x-\mu)^2/(2\sigma^2)},
 \end{equation}
@@ -111,15 +112,16 @@ Using this representation of the inner product, we can define various things. Fo
 	s = \int_{t_0}^{t_1} \sum_{i,j} \sqrt{g_{ij}\tAbl{\theta_i}{t}\tAbl{\theta_j}{t}} \mathrm{d}t. 
 \end{equation}
 This also introduces the concept of \textbf{Riemannian geodesics}. These are the curves that connect two points via the minimal distance between the two.\\
-Another representation of the metric tensor or the FI is 
+Another representation of the metric tensor or the FI is \cite{AmarisLectureNotes} 
 \begin{equation}\label{eq:SecondRepresentationOfFisherInfo}
 	g_{ij}(\theta) = - \underset{x\in X}{E} \Big[ \partial_i \partial_j \ell(x|\theta) \Big].
 \end{equation}
 A proof of this is denoted in \cref{sec:ProofForeq:SecondRepresentationOfFisherInfo}.
 
 \subsection{Scalar curvature and Christoffel symbols}\label{sec:Curvature}
-Here we will only give the definitions needed to compute the scalar curvature of a statistical manifold. A full understanding requires much more mathematics than we will go over here. We will refer the interested reader to \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook} for further details.\\
-Note that we don't use covariant and contravariant indices, since we don't need them in the scope of this thesis. The notation of uppercase or lowercase indices is just to be consistent with the notation from general relativity and should be of no further concern for our experiments. The parameters with lowercase indices defined previously translate directly to the ones with uppercase indices here. We will also use Einstein notation for these equations. First we define the Christoffel-symbols which can be calculated from the Riemannian metric via \cite{GeneralRelativityBook}
+Here, we will only give the definitions needed to compute the scalar curvature of a statistical manifold along with brief explanations. A full understanding requires much more mathematics than we will go over here. We will refer the interested reader to \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook} for further details.\\
+Note that we don't use covariant and contravariant indices, since we don't need them in the scope of this thesis. The notation of uppercase or lowercase indices is just to be consistent with the notation from general relativity and should be of no further concern for our experiments. The parameters with lowercase indices defined previously translate directly to the ones with uppercase indices here. We will also use Einstein notation for these equations.\\
+First we define the Christoffel-symbols which can be calculated from the Riemannian metric via \cite{GeneralRelativityBook}
 \begin{equation}
 	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta^l} + \pAbl{g_{ml}}{\theta^k} - \pAbl{g_{kl}}{\theta^m}\right),
 \end{equation} 
@@ -132,7 +134,7 @@ The Riemannian curvature tensor is the full description of curvature on a manifo
 \begin{equation}
 	R = g^{ij} R^m_{imj}.
 \end{equation}
-The scalar curvature can be viewed as a measure of how much the manifold at the point of computation differs from flat space. For euclidean spaces, the scalar curvature is 0 \cite{GeneralRelativityBook}. To give more intuition about the curvature we can refer to its interpretation in general relativity. It considers the physical space to be a curved manifold with the added coordinate of time, along with the 3 spatial dimensions. Curvature results from objects with mass in the space \cite{GeneralRelativityBook}. The concept of curvature here can be imagined similar to how a ball placed on an elastic surface will curve it around the ball. When viewed from the top, the space seems flat, but when moving towards the ball, the distance traveled on the elastic band gets larger compared to the distance in the viewing field, the closer we move towards the ball. This results from the ball stretching the manifold represented by the elastic band.
+The scalar curvature can be viewed as a measure of how much the manifold at the point of computation differs from flat space. For euclidean spaces, the scalar curvature is 0 \cite{GeneralRelativityBook}. To give more intuition about the curvature we can refer to its interpretation in general relativity. It considers the physical space to be a curved manifold with the added coordinate of time, along with the 3 spatial dimensions. Curvature results from objects with mass in the space \cite{GeneralRelativityBook}. The concept of curvature here can be imagined similar to how a ball placed on an elastic surface will curve it around the ball. When viewed from the top, the space seems flat, but when moving towards the ball, the distance traveled on the elastic band gets larger compared to the distance traveled in the top down perspective. This results from the ball stretching the manifold represented by the elastic band. Similarly for neural networks, the distance from the top down view is represented by the distance in the coordinate frame. The actual distance moved on the elastic band is described by the distance between points in the manifold, which in our case means how much the loss functions at those coordinates differ from each other. How exactly this translates to neural networks is explained in \cref{sec:ApplicationOfFIToNeuralNetworks}.
 
 \subsection{Application to neural networks}\label{sec:ApplicationOfFIToNeuralNetworks}
 Now that we've laid down the mathematical fundamentals of how the FI can be considered the metric of a statistical manifold, we can apply this to our neural network optimization by introducing a way of viewing them as statistical models.\\
