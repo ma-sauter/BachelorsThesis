@@ -7,13 +7,11 @@
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter: #1}{}}
-\rhead{Chapter \leftmark}
-\chead{}
-\lhead{University of Stuttgart}
-\lfoot{\date{}}
-\cfoot{}
-\rfoot{\thepage}
+\fancyhead[LO,RE]{\nouppercase{\rightmark}}
+\fancyhead[RO,LE]{}
+\fancyfoot[LO,RE]{\thepage}
+\fancyfoot[C]{}
+
 % Top and Bottom Line Rules
 \renewcommand{\headrulewidth}{0.4pt} %0.4pt
 \renewcommand{\footrulewidth}{0.4pt}
@@ -26,7 +24,6 @@
 
 \title{Investigating the Evolution of Fisher Information for Neural Network Dynamics}
 \author{\\ \Large{Marc Sauter}
-	\\ ICP
 	\\
 	\\
 	\\
@@ -40,7 +37,7 @@
 \begin{document}
 	% Adjust logo positions here
 	\AddToShipoutPicture*{\BackgroundPicturea{Logos/UniStuttgartLogo.png}{0.7in}{5.0in}{1}} %The last value changes the size factor
-	\AddToShipoutPicture*{\BackgroundPictureb{Logos/ICPLogo.png}{6.1in}{3in}{0.9}}
+	\AddToShipoutPicture*{\BackgroundPictureb{Logos/ICPLogo.png}{6.1in}{2.6in}{0.9}}
 	\thispagestyle{headings}
 	\maketitle
 	\FloatBarrier

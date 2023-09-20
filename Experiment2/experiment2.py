@@ -28,14 +28,14 @@ from losses import MeanPowerLoss2 as loss_functions
 lossname = "MeanPowerLoss2"
 loss = loss_functions.loss
 subloss = loss_functions.subloss
-thetalim1, thetalim2 = -4, 1
+thetalim1, thetalim2 = -2, 1
 
 
 CALCULATE_TRAINING_AND_LOSS_SURFACE = True
 CALCULATE_LONG_TRAINING = False
-CALCULATE_SCALAR_CURVATURE = False
-CALCULATE_FISHER_MATRIX = False
-CALCULATE_NTK = False
+CALCULATE_SCALAR_CURVATURE = True
+CALCULATE_FISHER_MATRIX = True
+CALCULATE_NTK = True
 
 
 if CALCULATE_TRAINING_AND_LOSS_SURFACE:
