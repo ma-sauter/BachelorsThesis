@@ -4,12 +4,20 @@
 
 \documentclass[12pt, twoside, a4paper]{report}
 \input{preliminaries/imports.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%This flips the inside pages to outside pages
+%\let\tmp\oddsidemargin
+%\let\oddsidemargin\evensidemargin
+%\let\evensidemargin\tmp
+%\reversemarginpar
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\fancyhead[RE]{\nouppercase{\rightmark}}
-\fancyhead[LO]{\leftmark}
-\fancyhead[RO,LE]{}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE,LO]{}
 \fancyfoot[LE,RO]{\thepage}
 \fancyfoot[C]{}
 
@@ -75,11 +83,13 @@
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-	\thispagestyle{empty}
-	\titlethesis
-	\FloatBarrier
-	\pagenumbering{roman}
-	
+%	\thispagestyle{empty}
+%	\titlethesis
+%	\FloatBarrier
+%	\pagenumbering{roman}
+%	
+%	\newpage
+	\includepdf{titlepage.pdf}
 	\newpage
 	\thispagestyle{empty}
 	\epigraph{Algebra is like sheet music. The important thing isn't can you read music, its can you hear it.}{--- \textup{Cristopher Nolan}}
@@ -91,7 +101,7 @@
 	
 	\thispagestyle{empty}
 	\chapter*{Declaration}
-	I, Marc Sauter, declare that ...
+	I, Marc Sauter, declare that I independently authored this work. I affirm that I have used only the specified sources, and that I properly attributed every time I did so. Furthermore, this work, in whole or in part, has not been subject to any other examination procedure. The printed copy matches with the electronic ones.
 	
 	\vspace{3cm}
 	\noindent\begin{tabular}{ll}
@@ -101,9 +111,9 @@
 	
 	\thispagestyle{empty}
 	\begin{abstract}
-		\lipsum[1-2]
+		\input{text/abstract.tex}
 		
-		\keywords{Keyword1 - Keyword2 - Keyword3}
+		\keywords{Fisher Information - Neural Tangent Kernel - Neural Network Training}
 		% \vspace{-10mm} %To remove added white space after
 	\end{abstract}
 	\tableofcontents
@@ -177,6 +187,8 @@
 		\chapter{MNIST experiment for trace comparison}
 		\label{sec:TraceExperimentAppendix}
 		\input{text/Appendix/AppendixB.tex}
+		\chapter{Additional plots for the 2-parameter network experiment}\label{sec:2ParNetAppendix}
+		\input{text/Appendix/AppendixC.tex}
 	\end{appendices}
 	
 \end{document}
