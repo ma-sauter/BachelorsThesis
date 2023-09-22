@@ -263,12 +263,21 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
     #########################################
     # Curvature
     Z = curv_data["Z"]
-    im = ax[1, 2].imshow(
-        Z,
-        cmap=cm.magma,
-        extent=[X.min(), X.max(), Y.min(), Y.max()],
-        origin="lower",
-    )
+    if lossname == losslist[0]:
+        im = ax[1, 2].imshow(
+            Z,
+            cmap=cm.magma,
+            extent=[X.min(), X.max(), Y.min(), Y.max()],
+            origin="lower",
+            vmax=200,
+        )
+    else:
+        im = ax[1, 2].imshow(
+            Z,
+            cmap=cm.magma,
+            extent=[X.min(), X.max(), Y.min(), Y.max()],
+            origin="lower",
+        )
     ax[1, 2].invert_yaxis()
     ax[1, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 2].annotate(
@@ -563,12 +572,21 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
     #########################################
     # Curvature
     Z = curv_data["Z"]
-    im = ax[1, 2].imshow(
-        Z,
-        cmap=cm.magma,
-        extent=[X.min(), X.max(), Y.min(), Y.max()],
-        origin="lower",
-    )
+    if lossname == losslist[0]:
+        im = ax[1, 2].imshow(
+            Z,
+            cmap=cm.magma,
+            extent=[X.min(), X.max(), Y.min(), Y.max()],
+            origin="lower",
+            vmax=200,
+        )
+    else:
+        im = ax[1, 2].imshow(
+            Z,
+            cmap=cm.magma,
+            extent=[X.min(), X.max(), Y.min(), Y.max()],
+            origin="lower",
+        )
     ax[1, 2].invert_yaxis()
     ax[1, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 2].annotate(
@@ -603,9 +621,9 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
 # Plot_Trace_Surfaces("MeanPowerLoss2")
 # Plot_Trace_Surfaces("LPNormLoss2")
 # Plot_Trace_Surfaces("CrossEntropyLoss")
-# Plot_Trace_Surfaces_Big("MeanPowerLoss2")
+Plot_Trace_Surfaces_Big("MeanPowerLoss2", show=True, save=False)
 # Plot_Trace_Surfaces_Big("LPNormLoss2")
 # Plot_Trace_Surfaces_Big("CrossEntropyLoss")
-Plot_Curves("MeanPowerLoss2", show=True)
-Plot_Curves("LPNormLoss2", show=False)
-Plot_Curves("CrossEntropyLoss")
+# Plot_Curves("MeanPowerLoss2", show=True)
+# Plot_Curves("LPNormLoss2", show=False)
+# Plot_Curves("CrossEntropyLoss")
