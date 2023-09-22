@@ -22,7 +22,7 @@ To start of this analysis, let's inspect the loss surfaces of the network depict
 \begin{figure}
 	\centering
 	\includegraphics{Experiment2/plots/LossSurfaces.pdf}
-	\caption{Loss surfaces for the three considered loss functions. The path of the parameters during gradient descent with initialization at $\theta = \{0.5, 0.5\}$ is depicted as a dotted line.}
+	\caption{Loss surfaces for the Mean power loss of order $n=2$ (A), the $L_2$-norm loss (B) and the Cross-entropy loss (C). The path of the parameters during gradient descent with initialization at $\theta = \{0.5, 0.5\}$ is depicted as a dotted line.}
 	\label{fig:Results2LossSurfaces}
 \end{figure}
 In every case, the loss surface has a valley along the line of $-\theta_1 = \theta_2$, leading down towards increasing values of  $\theta_2$. This makes sense, considering that the network output from \cref{eq:Results2Sigmoid} is larger than $0.5$ for $\theta_1x + \theta_2y < 0$ and smaller than $0$ otherwise. Since we want the network outputs for inputs with $y>x$ to be $1$, we want the parameters to be $\theta_1 = - \theta_2$ with large absolute values. The loss functions differ in the actual shape of the valley.\\

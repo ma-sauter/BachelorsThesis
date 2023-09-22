@@ -8,6 +8,14 @@
 \usepackage{hyperref}
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=black, filecolor=green, linkcolor=red, plainpages=false}
 \usepackage{xspace}
+\usepackage{ifthen}
+\newcommand{\includeIfDateMatches}[2]{%
+	\ifthenelse{\equal{\the\day/\the\month/\the\year}{25/09/2023}}{%
+		#1% Include this content if the date matches
+	}{%
+		#2% Include this content if the date doesn't match
+	}%
+}
 
 \newdimen\imageheight
 \settoheight{\imageheight}{%
@@ -53,10 +61,9 @@
                 Supervisor: & Prof. Dr. Christian Holm
             \end{tabular}
         \end{table}
-        \vspace*{0.8\drop}
-        {Stuttgart, }\\ %TODO: Write date
-	{Edited version from \today}\\
-        \par
+        \vspace*{0.7\drop}
+        {Stuttgart, 25. September 2023}\\[0.3\baselineskip]
+	{\includeIfDateMatches{}{\small Edited version from \today\\}}
     \endgroup
 }
 \makeatletter

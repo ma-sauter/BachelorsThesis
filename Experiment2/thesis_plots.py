@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 from matplotlib import cm
 import seaborn as sns
 import numpy as np
@@ -172,6 +173,15 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         vmin=0,
         vmax=0.65,
     )
+    ax[0, 0].contour(
+        X,
+        Y,
+        Z11,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
+    )
     ax[0, 0].invert_yaxis()
     ax[0, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[0, 0].annotate(
@@ -190,6 +200,15 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         origin="lower",
         vmin=0,
         vmax=0.65,
+    )
+    ax[0, 1].contour(
+        X,
+        Y,
+        Z12,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
     )
     ax[0, 1].invert_yaxis()
     ax[0, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
@@ -210,6 +229,15 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         vmin=0,
         vmax=0.65,
     )
+    ax[0, 2].contour(
+        X,
+        Y,
+        Z22,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
+    )
     ax[0, 2].invert_yaxis()
     ax[0, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[0, 2].annotate(
@@ -229,6 +257,15 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
         extent=[X.min(), X.max(), Y.min(), Y.max()],
         origin="lower",
     )
+    ax[1, 0].contour(
+        X,
+        Y,
+        Z11 + Z22,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
+    )
     ax[1, 0].invert_yaxis()
     ax[1, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 0].annotate(
@@ -242,12 +279,21 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
 
     #########################################
     # NTK Trace
-    Z = NTK_data["Z"]
+    X, Y, Z = NTK_data["X"], NTK_data["Y"], NTK_data["Z"]
     im = ax[1, 1].imshow(
         Z,
         cmap=cm.magma,
         extent=[X.min(), X.max(), Y.min(), Y.max()],
         origin="lower",
+    )
+    ax[1, 1].contour(
+        X,
+        Y,
+        Z,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
     )
     ax[1, 1].invert_yaxis()
     ax[1, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
@@ -278,6 +324,21 @@ def Plot_Trace_Surfaces(lossname, show=False, save=True):
             extent=[X.min(), X.max(), Y.min(), Y.max()],
             origin="lower",
         )
+    if lossname == losslist[0]:
+        clevels = [-300, -150, -50]
+    if lossname == losslist[1]:
+        clevels = [-300, -200, -100, -50, -25]
+    if lossname == losslist[2]:
+        clevels = [-10, -5, -2]
+    ax[1, 2].contour(
+        X,
+        Y,
+        Z,
+        levels=clevels,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+        alpha=0.5,
+    )
     ax[1, 2].invert_yaxis()
     ax[1, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 2].annotate(
@@ -403,8 +464,8 @@ def Plot_Curves(lossname, show=False, save=True):
 
 
 def Plot_Loss_Surfaces(show=False, save=True):
-    fig, ax = plt.subplots(1, 3, figsize=(390 / 72, 390 / 72 / 3))
-    fig.subplots_adjust(wspace=1)
+    fig, ax = plt.subplots(3, 1, figsize=(390 / 72, 390 / 72 * 1.5))
+    fig.subplots_adjust(hspace=0.4)
     for i, lossname in enumerate(losslist):
         data = np.load(f"npfiles/{lossname}_training.npz")
 
@@ -423,6 +484,7 @@ def Plot_Loss_Surfaces(show=False, save=True):
             extent=[X.min(), X.max(), Y.min(), Y.max()],
             origin="lower",
         )
+        cont = ax[i].contour(X, Y, Z, linewidths=0.3, cmap=cm.magma_r)
         ax[i].invert_yaxis()
         ax[i].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
         if lossname[-1] != "LPNormLoss":
@@ -434,16 +496,16 @@ def Plot_Loss_Surfaces(show=False, save=True):
                     arrowstyle="-|>", color="#00E88F", shrinkA=0, shrinkB=0
                 ),
             )
-        ax[i].set_xlabel(r"$\theta_1$")
 
-        plt.colorbar(im, ax=ax[i], fraction=0.08, pad=0.05, shrink=0.5)
+        plt.colorbar(im, ax=ax[i], fraction=0.08, pad=0.05, shrink=0.7)
         if lossname == "LPNormLoss2":
-            ax[i].set_title("$L_2$-norm")
+            ax[i].set_title("(B)")
         if lossname == "CrossEntropyLoss":
-            ax[i].set_title("Cross-entropy")
+            ax[i].set_title("(C)")
         if lossname == "MeanPowerLoss2":
-            ax[i].set_title("Mean power of $n=2$")
-    ax[0].set_ylabel(r"$\theta_2$")
+            ax[i].set_title("(A)")
+    ax[1].set_ylabel(r"$\theta_2$")
+    ax[-1].set_xlabel(r"$\theta_1$")
 
     if save:
         plt.savefig("plots/LossSurfaces.pdf", bbox_inches="tight")
@@ -481,6 +543,7 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
         vmin=0,
         vmax=0.65,
     )
+    ax[0, 0].contour(X, Y, Z11, levels=6, linewidths=0.3, cmap=cm.magma_r)
     ax[0, 0].invert_yaxis()
     ax[0, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[0, 0].annotate(
@@ -499,6 +562,14 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
         origin="lower",
         vmin=0,
         vmax=0.65,
+    )
+    ax[0, 1].contour(
+        X,
+        Y,
+        Z12,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
     )
     ax[0, 1].invert_yaxis()
     ax[0, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
@@ -519,6 +590,14 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
         vmin=0,
         vmax=0.65,
     )
+    ax[0, 2].contour(
+        X,
+        Y,
+        Z22,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+    )
     ax[0, 2].invert_yaxis()
     ax[0, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[0, 2].annotate(
@@ -538,6 +617,14 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
         extent=[X.min(), X.max(), Y.min(), Y.max()],
         origin="lower",
     )
+    ax[1, 0].contour(
+        X,
+        Y,
+        Z11 + Z22,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+    )
     ax[1, 0].invert_yaxis()
     ax[1, 0].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 0].annotate(
@@ -551,12 +638,20 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
 
     #########################################
     # NTK Trace
-    Z = NTK_data["Z"]
+    X, Y, Z = NTK_data["X"], NTK_data["Y"], NTK_data["Z"]
     im = ax[1, 1].imshow(
         Z,
         cmap=cm.magma,
         extent=[X.min(), X.max(), Y.min(), Y.max()],
         origin="lower",
+    )
+    ax[1, 1].contour(
+        X,
+        Y,
+        Z,
+        levels=6,
+        linewidths=0.3,
+        cmap=cm.magma_r,
     )
     ax[1, 1].invert_yaxis()
     ax[1, 1].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
@@ -571,7 +666,7 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
 
     #########################################
     # Curvature
-    Z = curv_data["Z"]
+    X, Y, Z = curv_data["X"], curv_data["Y"], curv_data["Z"]
     if lossname == losslist[0]:
         im = ax[1, 2].imshow(
             Z,
@@ -587,6 +682,20 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
             extent=[X.min(), X.max(), Y.min(), Y.max()],
             origin="lower",
         )
+    if lossname == losslist[0]:
+        clevels = [-300, -150, -50]
+    if lossname == losslist[1]:
+        clevels = [-300, -200, -100, -50, -25]
+    if lossname == losslist[2]:
+        clevels = [-10, -5, -2]
+    ax[1, 2].contour(
+        X,
+        Y,
+        Z,
+        levels=clevels,
+        linewidths=0.3,
+        cmap=cm.magma_r,
+    )
     ax[1, 2].invert_yaxis()
     ax[1, 2].plot(t_list0[:-50], t_list1[:-50], "--", color="#00E88F")
     ax[1, 2].annotate(
@@ -617,11 +726,11 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
 
 # Plot_Function_Surface()
 # Plot_Dataset()
-# Plot_Loss_Surfaces()
+Plot_Loss_Surfaces(show=True)
 # Plot_Trace_Surfaces("MeanPowerLoss2")
 # Plot_Trace_Surfaces("LPNormLoss2")
 # Plot_Trace_Surfaces("CrossEntropyLoss")
-Plot_Trace_Surfaces_Big("MeanPowerLoss2", show=True, save=False)
+# Plot_Trace_Surfaces_Big("MeanPowerLoss2")
 # Plot_Trace_Surfaces_Big("LPNormLoss2")
 # Plot_Trace_Surfaces_Big("CrossEntropyLoss")
 # Plot_Curves("MeanPowerLoss2", show=True)
