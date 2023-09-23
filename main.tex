@@ -86,11 +86,12 @@
 %	\thispagestyle{empty}
 %	\titlethesis
 %	\FloatBarrier
-%	\pagenumbering{roman}
+%	
 %	
 %	\newpage
 	\includepdf{titlepage.pdf}
 	\newpage
+	\pagenumbering{roman}
 	\thispagestyle{empty}
 	\epigraph{Algebra is like sheet music. The important thing isn't can you read music, it's can you hear it.}{--- \textup{Christopher Nolan}}
 	
@@ -104,6 +105,14 @@
 		\makebox[2.5in]{\hrulefill} & \makebox[2.5in]{\hrulefill}\\
 		\textit{Signature} & \textit{Date}\\
 	\end{tabular}
+
+	\thispagestyle{empty}
+	\begin{otherlanguage}{ngerman}
+		\begin{abstract}
+		\input{text/german_abstract.tex}
+		% \vspace{-10mm} %To remove added white space after
+		\end{abstract}
+	\end{otherlanguage}
 	
 	\thispagestyle{empty}
 	\begin{abstract}
@@ -117,17 +126,9 @@
 	%\listoffigures
 	%\listoftables
 	
-	\chapter*{List of Abbreviations}
-	\begin{abbreviations}
-		\item[AI] Artificial Intelligence
-		\item[ML] Machine Learning
-		\item[ReLU] Rectified Linear Unit
-		\item[NN] Neural Network
-		\item[GD] Gradient Descent
-		\item[SGD] Stochastic Gradient Descent
-		\item[NTK] Neural Tangent Kernel
-		\item[FI] Fisher Information
-	\end{abbreviations}	
+	\thispagestyle{empty}
+	\chapter*{Acknowledgments}
+	\input{text/Acknowledgments.tex}
 
 	\chapter{Introduction}
 	\pagenumbering{arabic}
@@ -188,8 +189,5 @@
 		\input{text/Appendix/AppendixC.tex}
 	\end{appendices}
 	
-	\thispagestyle{empty}
-	\chapter*{Acknowledgments}
-	I would like to express ...
 	
 \end{document}
