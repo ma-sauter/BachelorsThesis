@@ -84,7 +84,7 @@ We do this because there is a natural isomorphism between the tangent space $T_\
 	\partial_i \in T_\theta \leftrightarrow \partial_i \ell(x|\theta) \in T_\theta^{(1)}.
 \end{equation}
 We will call $T_\theta^{(1)}$ the \textbf{1-representation} of our tangent space for the statistical models \cite{AmarisLectureNotes}. We will now use this vector to define an inner product on the tangent space and its 1-representation.
-\subsection{Riemannian metric and Fisher Information}\label{sec:RiemannianMetricAndFI}
+\subsection{Riemannian metric and Fisher information}\label{sec:RiemannianMetricAndFI}
 When the inner product of the tangent spaces $T_p$ is defined, the manifold is called a \textbf{Riemannian manifold} \cite{AmarisLectureNotes}.\\
 Let's first consider the inner product of the 1-representation space. Let $A(x)$ and $B(x)$ be 1-representations of $A$ and $B \in T_\theta$. It is intuitive to define the inner product as 
 \begin{equation}
@@ -101,7 +101,7 @@ This also means that we can calculate the inner product of the basis vectors as 
 		= \underset{x \in X}{E} \Big[\partial_i\ell(x|\theta), \partial_j\ell(x|\theta)\Big].
 	\end{split}
 \end{equation}
-The resulting object $g_{ij}(\theta)$ is called the \textbf{Riemannian metric tensor} of the manifold \cite{AmarisLectureNotes}. We can see that the Riemannian metric tensor for the statistical model is equivalent to the Fisher Information. It might be of interest to note here that we assume that $\ell$ only depends explicitly on $\theta$. If we denote these as implicit dependencies, we have to replace the partial derivatives with absolute ones.\\
+The resulting object $g_{ij}(\theta)$ is called the \textbf{Riemannian metric tensor} of the manifold \cite{AmarisLectureNotes}. We can see that the Riemannian metric tensor for the statistical model is equivalent to the Fisher information. It might be of interest to note here that we assume that $\ell$ only depends explicitly on $\theta$. If we denote these as implicit dependencies, we have to replace the partial derivatives with absolute ones.\\
 The inner product of two vectors can now be expressed with the metric tensor as \cite{AmarisLectureNotes}
 \begin{equation}
 	\langle A,B \rangle = \sum_{i,j} A_iB_jg_{ij}(\theta)
