@@ -6,19 +6,19 @@
 \input{preliminaries/imports.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This flips the inside pages to outside pages
-%\let\tmp\oddsidemargin
-%\let\oddsidemargin\evensidemargin
-%\let\evensidemargin\tmp
-%\reversemarginpar
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = magmabright, citecolor = magmadark, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\fancyhead[RO]{\nouppercase{\rightmark}}
-\fancyhead[LE]{\leftmark}
-\fancyhead[RE,LO]{}
-\fancyfoot[LE,RO]{\thepage}
+\fancyhead[RE]{\nouppercase{\rightmark}}
+\fancyhead[LO]{\leftmark}
+\fancyhead[LE,RO]{}
+\fancyfoot[RE,LO]{\thepage}
 \fancyfoot[C]{}
 
 % Top and Bottom Line Rules
@@ -148,7 +148,7 @@
 	\input{text/MachineLearningBasics/NeuralNetworks.tex}
 	\section{Training of neural networks}\label{sec:NeuralNetworkTraining}
 	\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
-	\section{Which assumptions are actually necessary}\label{sec:WhichAssumptionsAreNecessary}
+	\section{Which assumptions are actually necessary?}\label{sec:WhichAssumptionsAreNecessary}
 	\input{text/MachineLearningBasics/TheImportantParts.tex}
 	
 	
@@ -156,7 +156,7 @@
 	\input{text/FisherInformation/Outline.tex}
 	\section{Use in Statistics}\label{sec:FIinStatistics}
 	\input{text/FisherInformation/Introduction.tex}
-	\section{Fisher Information as Riemannian metric}\label{sec:FisherInformationAsRiemannianMetric(BigChapter)}
+	\section{Fisher Information as the Riemannian metric}\label{sec:FisherInformationAsRiemannianMetric(BigChapter)}
 	\input{text/FisherInformation/RiemannianMetric}
 	\section{Intuitive explanations}\label{sec:FisherInterpretation}
 	\input{text/FisherInformation/Music}
@@ -175,7 +175,7 @@
 	\input{text/results/ResultsIntroduction.tex}
 	\section{Fisher Trace - NTK relation}\label{sec:Results1}
 	\input{text/results/FisherTraceNTK}
-	\section{2-Parameter Network analysis}\label{sec:Results2}
+	\section{2-parameter network analysis}\label{sec:Results2}
 	\input{text/results/2ParameterNetwork.tex}
 	
 	\chapter{Conclusion and Outlook}\label{sec:ChapterConcAndOutlook}
@@ -187,7 +187,7 @@
 	\printbibliography[title=Literature]
 	\begin{appendices}
 		\crefalias{chapter}{appendix}
-		\chapter{Some mathematical proofs}
+		\chapter{Auxiliary mathematical proofs}
 		\input{text/Appendix/AppendixA.tex}
 		\chapter{MNIST experiment for trace comparison}
 		\label{sec:TraceExperimentAppendix}

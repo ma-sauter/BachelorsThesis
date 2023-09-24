@@ -1,6 +1,6 @@
 As previously mentioned, it's computationally expensive to compute the full Fisher Information. A single matrix for the smallest network from the previous section would already be over 50 GB in size. Therefore, to be able to compute and visualize the trace of the NTK, the Fisher Information and the curvature $R$, this section covers the training of one of the simplest networks possible. It's simplicity allows us to compute the observables for a whole grid of parameters instead of just the path of parameters during training. The measurements of the full surfaces provided here might lead us to a better understanding of the meaning and impact of the Fisher Information, NTK and scalar curvature.
 
-\subsection{The network}
+\subsection{The Network}
 The network used for the experiment in \cref{sec:ResultsOf2ParameterNetwork} consists of a single neuron with two inputs, two weights but no bias. It uses a sigmoid function \cite{ActivationFunctionOverview} as activation function. This means that we can express the output of the network by 
 \begin{equation}\label{eq:Results2Sigmoid}
 	f_\theta(x,y) = \frac{1}{1+ \exp (-5(\theta_1 x + \theta_2 y))},
@@ -8,7 +8,7 @@ The network used for the experiment in \cref{sec:ResultsOf2ParameterNetwork} con
 with inputs $x$ and $y$. The factor $5$ was added to make the sigmoid function steeper. The network output, which is a number between $0$ and $1$, represents prediction whether the input data belongs to the class with target $0$ or the class with target $1$.\\
 The loss functions considered are the same as in \cref{sec:Results1}.
 
-\subsection{The dataset}
+\subsection{The Dataset}
 The dataset used in \cref{sec:ResultsOf2ParameterNetwork} is depicted in \cref{fig:DB dataset}. We created the input data by generating a set of randomly distributed $(x,y)$ pairs within the square from $0$ to $1$. The input pair is sorted into the class of target $1$ if the $y$ coordinate is bigger than the $x$ coordinate, and into the class of target $0$ otherwise.
 \begin{figure}
 	\centering
