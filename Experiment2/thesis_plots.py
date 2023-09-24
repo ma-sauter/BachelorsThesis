@@ -382,6 +382,8 @@ def Plot_Curves(lossname, show=False, save=True):
     )
     ax[0].tick_params("y", colors=color1)
     ax[0].yaxis.label.set_color(color1)
+    ax[0].yaxis.set_label_position("left")
+    ax[0].set_ylabel("Fisher Trace", color=color1)
 
     ax1 = ax[0].twinx()
     ln2 = ax1.plot(
@@ -389,6 +391,8 @@ def Plot_Curves(lossname, show=False, save=True):
     )
     ax1.yaxis.label.set_color(color2)
     ax1.tick_params("y", colors=color2)
+    ax1.yaxis.set_label_position("right")
+    ax1.set_ylabel("NTK Trace", color=color2)
 
     ax[1].plot(
         sparse_x, curv_data["Zpath"], "o", markersize=3.5, color="#00E88F", label=r"$R$"
@@ -396,10 +400,11 @@ def Plot_Curves(lossname, show=False, save=True):
 
     lns = ln1 + ln2
     labs = [l.get_label() for l in lns]
-    ax1.legend(lns, labs)
+    # ax1.legend(lns, labs)
     ax[1].legend()
     ax[1].set_xticks([0, 200, 400, 600, 800, 1000])
     ax[1].set_yticks([0, -100, -200, -300])
+    ax[1].set_ylabel("scalar curvature")
 
     ax[1].set_xlabel("Epochs")
     ax[1].tick_params(labelright=True)
@@ -733,6 +738,6 @@ def Plot_Trace_Surfaces_Big(lossname, show=False, save=True):
 # Plot_Trace_Surfaces_Big("MeanPowerLoss2")
 # Plot_Trace_Surfaces_Big("LPNormLoss2")
 # Plot_Trace_Surfaces_Big("CrossEntropyLoss")
-# Plot_Curves("MeanPowerLoss2", show=True)
-# Plot_Curves("LPNormLoss2", show=False)
-# Plot_Curves("CrossEntropyLoss")
+Plot_Curves("MeanPowerLoss2", show=True)
+Plot_Curves("LPNormLoss2")
+Plot_Curves("CrossEntropyLoss")

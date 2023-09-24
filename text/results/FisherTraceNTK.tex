@@ -31,25 +31,25 @@ This means that we can split the Fisher Trace, which describes the size of the u
 Going further, we will conduct some experiments to investigate which of those two parts is the dominant driving force in the evolution of the Fisher Trace, and therefore, also the driving force behind the training of the neural network. Specifically, we will look at the time evolution of the Fisher Trace in comparison to the trace of the NTK, to see how similar they evolve during training.
 
 \subsection{Comparison of traces of NTK and Fisher Information}\label{sec:TraceComparisonExperiment}
-To test how similar the evolutions of the traces of NTK and Fisher Information are, we trained multiple networks on the MNIST dataset, which was introduced in \cref{sec:Datasets} and recorded the traces of the FI and NTK. We used networks consisting of 2 hidden layers that were equipped with the ReLU activation function. The network widths varied between $128$ and $784$. The losses used were the $L_p$-Norm loss \cite{LpNormSource}
+To test how similar the the traces of NTK and Fisher Information evolve, we trained multiple networks on the MNIST dataset\footnote{See \cref{sec:Datasets}.} and recorded the traces of the FI and NTK. We used networks consisting of 2 hidden layers that were equipped with the ReLU activation function. The network widths varied between $128$ and $784$. The losses used were the $L_p$-Norm loss \cite{LpNormSource}
 \begin{equation}
 	d_p(f_\theta(\mathbf{x}),\mathbf{y}) = \sqrt[p]{\sum_{i=1}^{N_O} |f_\theta(\mathbf{x}_i) - \mathbf{y}_i|^p},
 \end{equation}
-the mean-power loss of order $n$
+the Mean power loss of order $n$
 \begin{equation}
 	d_n(f_\theta(\mathbf{x}),\mathbf{y}) = \frac{1}{N_O} \sum_{i=1}^{N_O} (f_\theta(\mathbf{x}_i)-\mathbf{y}_i)^n,
 \end{equation}
-and the softmax-ross-entropy loss \cite{LossExamplePaper}
+and the Cross-entropy loss \cite{LossExamplePaper}
 \begin{equation}
-	d(f_\theta(\mathbf{x}),\mathbf{y}) = \sum_{i=1}^{N_O} -\mathbf{y}_i \log(\sigma_i(f_\theta(\mathbf{x}))),
+	d(f_\theta(\mathbf{x}),\mathbf{y}) = \sum_{i=1}^{N_O} -\mathbf{y}_i \log(\sigma_i(f_\theta(\mathbf{x}))).
 \end{equation}
-where we used the definition for distance $d$ from \cref{eq:DistanceLoss}, and a softmax function $\sigma_i$ from \cref{eq:softmax}. The experiment was conducted for orders of $n$ or $p$ equal to $2$, $4$ and $6$. We trained each combination of architecture and loss function for a total of 5 times and calculated mean values and standard deviations of the traces using the results. The networks were trained using the Adam optimizer \cite{adamPaper}.\\
-As an illustrative example, the results for $L_2$-norm loss, Mean power loss of order $n=2$, as well as the result for Cross Entropy loss for a network with a width of $128$ neurons are depicted in \cref{fig:MNISTTraceComparison}. The solid line represents the mean of the 5 experiments, the translucent area marks one standard deviation above and under the mean value.\\
+Here, we used the definition of the distance $d$ from \cref{eq:DistanceLoss}, and of the softmax function $\sigma_i$ from \cref{eq:softmax}. The experiment was conducted for orders of $n$ or $p$ equal to $2$, $4$ and $6$. We trained each combination of architecture and loss function for a total of 5 times and calculated mean values and standard deviations of the traces using the results. The networks were trained using the Adam optimizer \cite{adamPaper}.\\
+As an illustrative example, the results for $L_2$-norm loss, Mean power loss of order $n=2$, as well as the result for Cross-entropy loss for a network with a width of $128$ neurons are depicted in \cref{fig:MNISTTraceComparison}. The solid line represents the mean of the 5 experiments, the translucent area marks one standard deviation above and under the mean value.\\
 \begin{figure}
 	\centering
 	\includegraphics{text/results/FisherNTKComparisonPlots/Triple_comparison_losses2_128.pdf}
 	\caption{Trace of NTK and Fisher information during 300 epochs of training on the MNIST dataset using the Adam optimizer. The network consisted of 2 hidden layers with a \emph{width of 128 neurons} that were equipped with the ReLU activation function. The loss functions used for optimization are denoted in each subplot. The solid line represents the mean value of 5 experiments, the translucent area represents one standard deviation from the mean value.}
 	\label{fig:MNISTTraceComparison}
 \end{figure}
-It is visible that for the $L_2$ norm loss of order, the traces evolve almost proportionally to each other, but for the other loss functions they evolve significantly different. This indicates that the loss derivatives in \cref{eq:FisherNTKRelation} play an important role and can't be neglected. The NTK Trace doesn't seem to be a good approximation of the Fisher Trace in general. For which cases the NTK is the driving force of training and can be used as a good approximation for the Fisher Trace needs to be investigated further and can't be answered just from the data generated here.\\
-More results from the experiment for different losses and also a larger network width can be found in \cref{sec:TraceExperimentAppendix}. From there it seems like the deviations between the two traces increase for larger network size. 
+It's visible that for the $L_2$-norm, the traces evolve almost proportionally to each other, but for the other loss functions they evolve significantly different. This indicates that the loss derivatives in \cref{eq:FisherNTKRelation} play an important role and can't be neglected. The NTK Trace doesn't seem to be a good approximation of the Fisher Trace in general. For which cases the NTK is the driving force of training and can be used as a good approximation of the Fisher Trace needs to be investigated further and can't be answered from just the data generated here.\\
+More results from the experiment for different losses and also a larger network width can be found in \cref{sec:TraceExperimentAppendix}. From there it seems like the deviations between the two traces increase for growing network width. 
