@@ -6,7 +6,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
-\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=black, filecolor=green, linkcolor=red, plainpages=false}
+\usepackage[symbol]{footmisc}
+\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = black, citecolor = blue, urlcolor=black, filecolor=green, linkcolor=black, plainpages=false}
 \usepackage{xspace}
 \usepackage{ifthen}
 \newcommand{\includeIfDateMatches}[2]{%
@@ -40,7 +41,7 @@
         \vspace*{2.1\drop}
         {\LARGE\bfseries Investigating the Evolution of Fisher Information for Neural Network Dynamics}\\[3\baselineskip] %TODO: Write down title
         {\normalsize by}\\[\baselineskip]
-        {\Large Marc Sauter\footnote{\href{https://github.com/ma-sauter}{github.com/ma-sauter}}}\\
+        {\Large Marc Sauter\footnote[2]{\href{https://github.com/ma-sauter}{github.com/ma-sauter}}}\\
         \vspace*{\drop}
         {\large A bachelor's thesis submitted to the}\\[\baselineskip]
         \begin{table}[H]
@@ -63,7 +64,7 @@
         \end{table}
         \vspace*{0.7\drop}
         {Stuttgart, 25. September 2023}\\[0.3\baselineskip]
-	{\includeIfDateMatches{}{\small Edited version from \today\\}}
+	{\includeIfDateMatches{\small Edited version from \today\\}{}}
     \endgroup
 }
 \makeatletter
