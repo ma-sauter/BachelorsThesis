@@ -400,7 +400,7 @@ def Plot_Curves(lossname, show=False, save=True):
 
     lns = ln1 + ln2
     labs = [l.get_label() for l in lns]
-    # ax1.legend(lns, labs)
+    ax1.legend(lns, labs)
     ax[1].legend()
     ax[1].set_xticks([0, 200, 400, 600, 800, 1000])
     ax[1].set_yticks([0, -100, -200, -300])
