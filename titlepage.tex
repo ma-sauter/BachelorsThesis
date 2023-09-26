@@ -1,0 +1,78 @@
+\documentclass[a4paper, 12pt, hidelinks]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage[ngerman]{babel}
+%\usepackage{Cochineal}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[symbol]{footmisc}
+\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = black, citecolor = blue, urlcolor=black, filecolor=green, linkcolor=black, plainpages=false}
+\usepackage{xspace}
+\usepackage{ifthen}
+\newcommand{\includeIfDateMatches}[2]{%
+	\ifthenelse{\equal{\the\day/\the\month/\the\year}{25/09/2023}}{%
+		#1% Include this content if the date matches
+	}{%
+		#2% Include this content if the date doesn't match
+	}%
+}
+
+\newdimen\imageheight
+\settoheight{\imageheight}{%
+    \includegraphics[width=0.5\textwidth]{logos/UniStuttgartLogo.png}%
+}
+
+\makeatother
+\newlength\drop
+\newcommand*{\titlethesis}{%
+    \begingroup
+    \drop = 0.1\textheight
+    \noindent
+    \begin{minipage}[t]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{logos/UniStuttgartLogo.png}%
+\end{minipage}
+    \begin{minipage}[t]{0.5\textwidth}
+            \hfill
+        \includegraphics[height=\imageheight]{logos/ICPLogo.png}
+\end{minipage}
+
+        \centering
+        \vspace*{2.1\drop}
+        {\LARGE\bfseries Investigating the Evolution of Fisher Information for Neural Network Dynamics}\\[3\baselineskip] %TODO: Write down title
+        {\normalsize by}\\[\baselineskip]
+        {\Large Marc Sauter\footnote[2]{\href{https://github.com/ma-sauter}{github.com/ma-sauter}}}\\
+        \vspace*{\drop}
+        {\large A bachelor's thesis submitted to the}\\[\baselineskip]
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{c}
+                {\large\bfseries\scshape Institute for Computational Physics}\\[5pt]
+                {University of Stuttgart}\\
+                {Allmandring 3}\\
+                {70569 Stuttgart}
+            \end{tabular}
+        \end{table}
+        \vspace*{\baselineskip}
+        \begin{table}[H]
+            \centering
+            \large
+            \begin{tabular}{ll}
+                Advisor: & M. Sc. Samuel Tovey\\
+                Supervisor: & Prof. Dr. Christian Holm
+            \end{tabular}
+        \end{table}
+        \vspace*{0.7\drop}
+        {Stuttgart, 25. September 2023}\\[0.3\baselineskip]
+	{\includeIfDateMatches{\small Edited version from \today\\}{}}
+    \endgroup
+}
+\makeatletter
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\titlethesis
+
+\end{document}

@@ -1,5 +1,5 @@
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
+\usepackage[ngerman, english]{babel}
 \usepackage{siunitx}
 \usepackage{graphicx}
 \usepackage{tipa} % for the \ark{} command
@@ -250,10 +250,12 @@
 
 \usepackage{datetime} %For dates
 
-\usepackage[backend=biber, sorting=none, citestyle=nature]{biblatex} %For citation
+\usepackage[backend=biber, citestyle=nature, sorting=none]{biblatex} %For citation
 \addbibresource{literature.bib} %imports the bibliography file
 
 \usepackage{xcolor} %For coloring text and equations
+\definecolor{magmadark}{RGB}{84,1,172}
+\definecolor{magmabright}{RGB}{193,34,2}
 
 \usepackage[bookmarks,colorlinks=true]{hyperref} %For referencing
 \hypersetup{
@@ -312,4 +314,8 @@
 
 \usepackage{tikz-network} %for picturing neural networks
 
-\usepackage{cleveref} %both for referencing
+\usepackage[capitalise]{cleveref} %both for referencing
+
+\usepackage{pdfpages} %For including titlepage
+
+%\usepackage[lmargin=142pt,rmargin=95pt,tmargin=127pt,bmargin=123pt]{geometry}

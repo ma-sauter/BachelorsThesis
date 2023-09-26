@@ -2,17 +2,25 @@
 % Version: 1.0
 % This work is licensed under a Creative Commons Attribution 4.0 International License.
 
-\documentclass[12pt, a4paper]{report}
+\documentclass[12pt, twoside, a4paper]{report}
 \input{preliminaries/imports.tex}
-\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = red, citecolor = blue, urlcolor=blue, filecolor=green, linkcolor=red, plainpages=false}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%This flips the inside pages to outside pages
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{pdftitle = Thesis, pdfauthor = {Marc Sauter}, pdfstartview=FitH, pdfkeywords = essay, pdfpagemode=FullScreen, colorlinks, anchorcolor = magmabright, citecolor = magmadark, urlcolor=blue, filecolor=green, linkcolor=magmabright, plainpages=false}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{fancy}
-\rhead{ICP}
-\chead{}
-\lhead{University of Stuttgart}
-\lfoot{\date{}}
-\cfoot{}
-\rfoot{\thepage}
+\fancyhead[RE]{\nouppercase{\rightmark}}
+\fancyhead[LO]{\leftmark}
+\fancyhead[LE,RO]{}
+\fancyfoot[RE,LO]{\thepage}
+\fancyfoot[C]{}
+
 % Top and Bottom Line Rules
 \renewcommand{\headrulewidth}{0.4pt} %0.4pt
 \renewcommand{\footrulewidth}{0.4pt}
@@ -22,112 +30,171 @@
 \renewcommand{\baselinestretch}{1.5} %1.5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \date{}
-
-\title{Investigating the evolution of fisher information for neural network dynamics}
-\author{\\ \Large{Marc Sauter}
-	\\ ICP
-	\\
-	\\
-	\\
-	\\ University of stuttgart
-	\\
-	A thesis presented for the degree of \\ \textit{B.Sc.}
-	\\ \\
-	2023
+\usepackage{xspace}
+\newdimen\imageheight
+\settoheight{\imageheight}{%
+	\includegraphics[width=0.5\textwidth]{logos/UniStuttgartLogo.png}%
 }
+
+\makeatother
+\newlength\drop
+\newcommand*{\titlethesis}{%
+	\begingroup
+	\drop = 0.1\textheight
+	\noindent
+	\begin{minipage}[t]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{logos/UniStuttgartLogo.png}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\hfill
+		\includegraphics[height=\imageheight]{logos/ICPLogo.png}
+	\end{minipage}
+	
+	\centering
+	\vspace*{\drop}
+	{\LARGE\bfseries Investigating the Evolution of Fisher information for Neural Network Training}\\[2\baselineskip] %TODO: Write down title
+	{\large By}\\
+	{\large Marc Sauter\footnote{\href{mailto:msauter@icp.uni-stuttgart.de}{msauter@icp.uni-stuttgart.de}}}\\[3\baselineskip]
+	{\large A bachelor's thesis submitted to the}\\[\baselineskip]
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{c}
+			{\large\bfseries\scshape Institute for Computational Physics}\\[5pt]
+			{University of Stuttgart}\\
+			{Allmandring 3}\\
+			{70569 Stuttgart}
+		\end{tabular}
+	\end{table}
+	\vspace*{0.2\baselineskip}
+	\begin{table}[H]
+		\centering
+		\large
+		\begin{tabular}{ll}
+			Advisor: & M. Sc. Samuel Tovey\\
+			Supervisor: & Prof. Dr. Christian Holm
+		\end{tabular}
+	\end{table}
+	\vspace*{5pt}
+	{Stuttgart, }\\ %TODO: Write date
+	{Edited version from \today}\\
+	\par
+	\endgroup
+}
+\makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-	% Adjust logo positions here
-	\AddToShipoutPicture*{\BackgroundPicturea{Logos/UniStuttgartLogo.png}{0.7in}{5.0in}{1}} %The last value changes the size factor
-	\AddToShipoutPicture*{\BackgroundPictureb{Logos/ICPLogo.png}{6.1in}{3in}{0.9}}
-	\thispagestyle{headings}
-	\maketitle
-	\FloatBarrier
+%	\thispagestyle{empty}
+%	\titlethesis
+%	\FloatBarrier
+%	
+%	
+%	\newpage
+	\includepdf{titlepage.pdf}
+	\newpage
 	\pagenumbering{roman}
-	
-	\newpage
 	\thispagestyle{empty}
-	\vspace*{\fill}
-	\begin{center}
-		Copyright \copyright  \thinspace 2023 by Marc Sauter \\ All Rights Reserved
-	\end{center}
-	\vspace*{\fill}
-	\newpage
-	\thispagestyle{empty}
-	\epigraph{Algebra is like sheet music. The important thing isn't can you read music, its can you hear it.}{--- \textup{Cristopher Nolan}}
-	
-	\thispagestyle{empty}
-	\chapter*{Acknowledgements}
-	I would like to express ...
+	\epigraph{Try not to have a good time... this is supposed to be educational.}{--- \textup{Charles M. Schulz}}
 	
 	
 	\thispagestyle{empty}
 	\chapter*{Declaration}
-	I, Marc Sauter, declare that ...
+	I, Marc Sauter, hereby declare that I independently authored this work. I affirm that I have used only the specified sources, and that I provided proper attribution whenever necessary. Furthermore, this work, in whole or in part, has not been subject to any other examination procedure. The printed copy matches with the electronic ones.
 	
 	\vspace{3cm}
 	\noindent\begin{tabular}{ll}
 		\makebox[2.5in]{\hrulefill} & \makebox[2.5in]{\hrulefill}\\
 		\textit{Signature} & \textit{Date}\\
 	\end{tabular}
+
+	\thispagestyle{empty}
+	\begin{otherlanguage}{ngerman}
+		\begin{abstract}
+		\input{text/german_abstract.tex}
+		% \vspace{-10mm} %To remove added white space after
+		\end{abstract}
+	\end{otherlanguage}
 	
 	\thispagestyle{empty}
 	\begin{abstract}
-		\lipsum[1-2]
+		\input{text/abstract.tex}
 		
-		\keywords{Keyword1 - Keyword2 - Keyword3}
+		\keywords{Fisher Information - Neural Tangent Kernel - Neural Network Training}
 		% \vspace{-10mm} %To remove added white space after
 	\end{abstract}
+	
+	\vspace*{\fill}
+	{\centering This page would be intentionally left blank if we would not wish to inform about that.\par}
+	\vspace{\fill}
+
+	\thispagestyle{empty}
+	\chapter*{Acknowledgments}
+	\input{text/Acknowledgments.tex}
+	
+	
 	\tableofcontents
 	\thispagestyle{plain}
-	\listoffigures
-	\listoftables
+	%\listoffigures
+	%\listoftables
 	
-	\chapter*{List of Abbreviations}
-	\begin{abbreviations}
-		\item[AI] Artificial Intelligence
-		\item[ML] Machine Learning
-		\item[ReLU] Rectified Linear Unit
-		\item[NN] Neural Network
-		\item[GD] Gradient Descent
-		\item[SGD] Stochastic Gradient Descent
-		\item[NTK] Neural Tangent Kernel
-		\item[FI] Fisher Information
-	\end{abbreviations}	
-	
-	\chapter{Machine Learning Basics}
+
+	\chapter{Introduction}
 	\pagenumbering{arabic}
-	\section{Introduction to machine learning}
+	\input{text/ThesisIntroduction.tex}
+	
+	\chapter{Machine Learning Basics}\label{sec:ChapterMachineLearningBasics}
+	\section{Introduction to machine learning}\label{sec:MachineLearningIntroduction}
 	\input{text/MachineLearningBasics/introduction.tex}
-	\section{Neural networks}
+	\section{Neural networks}\label{sec:NeuralNetworks(BigSection)}
 	\input{text/MachineLearningBasics/NeuralNetworks.tex}
-	\section{Training of neural networks}
+	\section{Training of neural networks}\label{sec:NeuralNetworkTraining}
 	\input{text/MachineLearningBasics/NeuralNetworkTraining.tex}
-	\section{Which assumptions are actually necessary}
+	\section{Which assumptions are actually necessary?}\label{sec:WhichAssumptionsAreNecessary}
 	\input{text/MachineLearningBasics/TheImportantParts.tex}
 	
 	
-	\chapter{Fisher information}
-	\section{Use in Statistics}
+	\chapter{Fisher information}\label{sec:ChapterFisherInformation}
+	\input{text/FisherInformation/Outline.tex}
+	\section{Use in Statistics}\label{sec:FIinStatistics}
 	\input{text/FisherInformation/Introduction.tex}
-	\section{Fisher information as Riemannian metric}
+	\section{Fisher information as the Riemannian metric}\label{sec:FisherInformationAsRiemannianMetric(BigChapter)}
 	\input{text/FisherInformation/RiemannianMetric}
+	\section{Intuitive explanations}\label{sec:FisherInterpretation}
+	\input{text/FisherInformation/Music}
+	\section{Investigation of physical phase transitions using Fisher information}\label{sec:FIPhysics}
+	\input{text/FisherInformation/Physics}
 	
 	
-	\chapter{Neural Tangent Kernel}
-	%\input{text/NTK/NTKIntro.tex}
-	\section{Derivation from Gradient Flow}
+	\chapter{Neural Tangent Kernel}\label{sec:ChapterNTK}
+	\input{text/NTK/NTKIntro.tex}
+	\section{Derivation from Gradient Flow}\label{sec:NTKderivation}
 	\input{text/NTK/GradientFlow.tex}
-	\section{Interpretation}
+	\section{Interpretation}\label{sec:NTKInterpretation}
 	\input{text/NTK/Interpretation.tex}
+	
+	\chapter{Investigations}\label{sec:ChapterResults}
+	\input{text/results/ResultsIntroduction.tex}
+	\section{Fisher Trace - NTK relation}\label{sec:Results1}
+	\input{text/results/FisherTraceNTK}
+	\section{2-parameter network analysis}\label{sec:Results2}
+	\input{text/results/2ParameterNetwork.tex}
+	
+	\chapter{Conclusion and Outlook}\label{sec:ChapterConcAndOutlook}
+	\input{text/ConcAndOutlook.tex}
 	
 	
 	
 	\nocite{*}
 	\printbibliography[title=Literature]
 	\begin{appendices}
-		\chapter{Appendix A: some mathematical proofs}
+		\crefalias{chapter}{appendix}
+		\chapter{Auxiliary mathematical proofs}
 		\input{text/Appendix/AppendixA.tex}
+		\chapter{MNIST experiment for trace comparison}
+		\label{sec:TraceExperimentAppendix}
+		\input{text/Appendix/AppendixB.tex}
+		\chapter{Additional plots for the 2-parameter network experiment}\label{sec:2ParNetAppendix}
+		\input{text/Appendix/AppendixC.tex}
 	\end{appendices}
+	
 	
 \end{document}

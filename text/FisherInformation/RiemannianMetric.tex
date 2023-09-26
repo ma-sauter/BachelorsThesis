@@ -1,17 +1,12 @@
-Previously we talked about the FI in the context of statistics. You may wonder why we went over a statistical method to describe probabilities, when we previously only talked about machine learning and neural networks. The answer to this question is, that the Fisher information matrix defined as 
+This section covers the basics of Riemannian geometry for neural networks. For more details, please refer to \cite{AmarisLectureNotes}, from which most of the following information is taken.
+\subsection{Differentiable manifolds}\label{sec:Manifolds}
+To state the definition, a $n$-dimensional \textbf{manifold} $S$ is a topological space so that for every point you can define a neighborhood around that point which is homeomorphic to an open subset of $\mathbb{R}^n$ \cite{AmarisLectureNotes}. A good example of this would be the surface of the earth, where locally viewed in the scale that we usually see things, the earth appears flat, but on a global scale the earth is obviously a sphere. This results, for example, in the shortest path between to points not being a straight line in maps of the world as a whole. Also the angles of a triangle don't sum up to \SI{180}{\degree} as they would in a subspace of $\mathbb{R}^n$. This results from conventional maps being subspaces of $\mathbb{R}^2$, although the earth is only homeomorphic to $\mathbb{R}^2$ in smaller local scales. If one tries to map the whole sphere into a map without gaps, one has to map the coordinates in a way that makes the shortest lines curved for example.\\
+Let's come back to the statistical models $f(x|\theta)$ we talked about in the last section. If a model is sufficiently smooth in $\theta$, we can consider it to be a $n$-dimensional manifold, called a \textbf{statistical manifold}, where the $n$ different $\theta$ components play the role of the coordinate system of the manifold. Since at one specific point in that manifold, the coordinate system and therefore the parameters are fixed, we can also refer to points in the statistical manifold as probability distributions $p_\theta$ as mentioned in \cref{sec:FIinStatistics}.\\
+For example let's consider normal distributions \cite{AmarisLectureNotes}
 \begin{equation}
-	I_{ij} = \underset{(\mathbf{x}_i,\mathbf{y}_i) \in D}{E} \left[\tAbl{}{\theta_i}\ell(\mathbf{x}_i,\mathbf{y}_i)\cdot \tAbl{}{\theta_j}\ell(\mathbf{x}_i,\mathbf{y}_i)\right]
+	p_{\theta}(x) = \frac{1}{\sqrt{(2\pi\sigma^2)}} \mathrm{e}^{-(x-\mu)^2/(2\sigma^2)},
 \end{equation}
-acts as the Riemannian metric describing the statistical manifold of the network regarding its loss. A brief introduction to this topic will be provided in this chapter. Keep in mind that this is mostly for intuition purposes and we will only cover a few important definitions. For more details, please refer to \cite{AmarisLectureNotes} where most of the following information is taken from. If you're not interested in mathematical details you can skip this chapter and go directly to \textbf{FILL SOMETHING IN HERE}.
-
-\subsection{Differentiable manifolds}
-To state the definition, a $n$-dimensional manifold $S$ is a topological space so that for every point you can define a neighborhood around that point which is homeomorphic to an open subset of $\mathbb{R}^n$. A good example of this would be the surface of the earth, where locally viewed in the scale that we usually see things, the earth appears flat, but on a global scale the earth is obviously a sphere. This results for example in the shortest path between to points not being a straight line in maps of the world as a whole. Also the angles of a triangle don't sum up to \SI{180}{\degree} as they would in a subspace of $R^n$. This results from conventional maps being subspaces of $\mathbb{R}^2$, although the earth is only homeomorphic to $\mathbb{R}^2$ in smaller local scales. If one tries to map the whole sphere into a map without gaps, one has to map the coordinates in a way that makes the shortest lines curved for example.\\
-Let's come back to the statistical models $f(x|\theta)$ we talked about in the last section. We will treat the models considering fixed parameters as probability distributions $p_\theta(x)$ in this context. If the probabilities are sufficiently smooth in $\theta$, which means that they are differentiable in $\theta$ as often as needed for further considerations, one can view the family of probabilities as a $n$-dimensional manifold, where the $n$ different $\theta$ components play the role of the coordinate system of the manifold. \\
-For example let's consider normal distributions 
-\begin{equation}
-	p(x|\mu,\sigma) = \frac{1}{\sqrt{(2\pi\sigma^2)}} \mathrm{e}^{-(x-\mu)^2/(2\sigma^2)},
-\end{equation}
-where $\theta = \{\theta_1,\theta_2\} = \{\mu,\sigma\}$. We can now consider this family of distributions as a manifold, displayed in \cref{fig:NormalDistributionManifold}. This is like a space, where every point in the space represents a distribution $p(x|\theta)$.
+where $\theta = \{\theta_1,\theta_2\} = \{\mu,\sigma\}$. We can now consider this family of distributions as a manifold, displayed in \cref{fig:NormalDistributionManifold}. This is a space in which every point represents a distribution $p_{\theta}(x)$.
 
 \begin{figure}
 	\centering
@@ -38,9 +33,9 @@ where $\theta = \{\theta_1,\theta_2\} = \{\mu,\sigma\}$. We can now consider thi
 	\node at (2.7,4.5) [above] {$p(x|\mu = 2,\sigma = 3)$};
 		
 \end{tikzpicture}
-\caption{This figure illustrates the manifold of normal distributions. As coordinate system, $\mu$ and $\sigma$ are used. Every point in this manifold represents a probability distribution, as indicated by the arrow. \label{fig:NormalDistributionManifold}}
+\caption{This figure illustrates the manifold of normal distributions. As the coordinates, $\mu$ and $\sigma$ are used. Every point in this manifold represents a probability distribution, as indicated by the arrow. \label{fig:NormalDistributionManifold}}
 \end{figure}
-It might also be clear that the coordinate system of a manifold is definable in multiple different ways. Although it's always given in our use case, let's therefore denote that in general when we have coordinates $\theta$ we also need a mapping $\phi$, which maps coordinates to points on a manifold. This means that by applying $\phi(p)$ to a point $p\in S$ the resulting vector in $\mathbb{R}^n$ resembles the coordinates of that point. We can also apply the inverse of that mapping to a set of coordinates to the point in the manifold that's represented by those coordinates.
+It might also be clear that the coordinate system of a manifold is definable in multiple different ways. Although it's always given for our use case later, let's therefore denote that in general, if we have coordinates $\theta$ we also need a mapping $\phi$, which maps coordinates to points on a manifold. This means that by applying $\phi(p)$ to a point $p\in S$ the resulting vector in $\mathbb{R}^n$ resembles the coordinates of that point. We can also apply the inverse of that mapping to a set of coordinates to the point in the manifold that's represented by those coordinates.
 %Now we need to introduce some assumptions for the following theorems and definitions:
 %\begin{enumerate}
 %	\item All $p(x|\theta)$ must have a common "support" $X$ so that $p(x|\theta)>0$ for all $x\in X$.
@@ -50,92 +45,98 @@ It might also be clear that the coordinate system of a manifold is definable in 
 %\end{enumerate}
 
 \subsection{Tangent space}
-The tangent space $T_p$ of a manifold at point $p$ is a vector space obtained by linearization of the manifold around $p$. For intuition purposes, let's take a look at the tangent plane of a 2d-surface in \cref{fig:TangentSpacePlot}. Here the tangent space is simply a plane that touches the surface in one point, with derivatives adjusted to match the surface at that point.
-\begin{figure}
+The tangent space $T_p$ of a manifold at point $p$ is a vector space obtained by linearization of the manifold around $p$. For intuition purposes, let's consider the tangent plane of a 2D-surface in \cref{fig:TangentSpacePlot}. There, the tangent space is simply a plane that touches the surface in one point, with derivatives adjusted to match the surface at that point.
+\begin{figure}\label{fig:TangentSpacePlot}
 	\centering
 	\includegraphics[width = 12cm, clip, trim= 0cm 1.5cm 0cm 2cm]{text/FisherInformation/plots/TangentSpacePlot.pdf}
-	\label{fig:TangentSpacePlot}
-	\caption{This figure contains an example of a tangent space of a manifold, which in this case is a 2d-surface.}
+	\caption{This figure contains a visualization of a tangent space of a manifold, which in this case is a 2D-surface.}
 \end{figure}
-For the general case of $n$-dimensional manifolds, it is obvious that tangent spaces aren't simply tangent planes of surfaces in every case, therefore let's introduce a way how to calculate a tangent space.\\
-First we will define curves $c(t)$ that are continuous mappings from an interval $[a,b] \in \mathbb{R}$ into the manifold $S$. In the parametric representation, the curve is given by $\theta(t)$. Now we can define what a tangent vector is.\\
-Imagine a smooth real function $f(\theta): S \rightarrow \mathbb{R}$. We can now restrict this function to our predefined curve $c$ by $f \circ c : [a,b] \rightarrow \mathbb{R}$. We'll denote this via $f\left(\{\theta(t)\}\right)$ in the coordinate expression. The derivative $Cf$ of this function is then given by 
+For the general case of $n$-dimensional manifolds, tangent spaces aren't simply tangent planes of surfaces in every case, therefore let's introduce a way to calculate a tangent space.\\
+First, we will define curves $c(t)$ that are continuous mappings from an interval $[a,b] \in \mathbb{R}$ into the manifold $S$. In the parametric representation, the curve is given by $\theta(t)$. Now we can define what a tangent vector is.\\
+Imagine a smooth, real function $f(\theta): S \rightarrow \mathbb{R}$. We can now restrict this function to our predefined curve $c$ by $f \circ c : [a,b] \rightarrow \mathbb{R}$. We'll denote this via $f\left(\{\theta(t)\}\right)$ in the coordinate expression. The derivative $Cf$ of this function is then given by \cite{AmarisLectureNotes}
 \begin{equation}
 	Cf = \tAbl{f\circ c}{t} = \sum_{i=1}^{n} \pAbl{f}{\theta_i}\tAbl{\theta_i(t)}{t} = \underbrace{\left(\sum_{i=1}^{n}\tAbl{\theta_i}{t}\pAbl{}{\theta_i}\right)}_{\text{Operator }C} f.
 \end{equation}
-Therefore we can associate a directional derivative operator $C$ with each curve. The only dependence of this operator regarding the curve is $\tAbl{\theta_i}{t}$, where we might also clarify that this derivative depends itself on the point where it is calculated at.\\
-If the manifold is infinitely differentiable, the set of these mappings $C$ at a fixed point on the manifold forms a $n$-dimensional vector space, called the "\textbf{tangent space}" $T_p$ of that point $p$. \\
-To make this more clear, let's look at the simplest basis for this vector space, which we'll call the "natural basis" of the tangent space. For this we'll consider curves $c_1,c_2, \dotsc c_n$ through a point $p_0$, where the curves are defined as 
+Therefore we can associate a directional derivative operator $C$ with each curve. The only dependence of this operator regarding the curve is $\tAbl{\theta_i}{t}$, where we might also clarify that this derivative itself depends on the point where it is calculated at.\\
+If the manifold is infinitely differentiable, the set of these mappings $C$ at a fixed point on the manifold forms a $n$-dimensional vector space, called the \textbf{tangent space} $T_p$ of that point $p$. \\
+To make this more clear, let's look at the most simple basis for this vector space, which we call the natural basis of the tangent space. For this, we consider curves $c_1,c_2, \dotsc ,c_n$ through a point $p_0$, with
 \begin{equation}
-	c_i(t) = \{\theta_1^0,\theta_2^0, \dotsc, \theta_i^0 + (t-t_0), \dotsc \theta_n^0 \},
+	c_i(t) = \{\theta_1^0,\theta_2^0, \dotsc, \theta_i^0 + (t-t_0), \dotsc ,\theta_n^0 \},
 \end{equation}
-so that $c_i(t_0) = \{\theta_1^0,\theta_2^0, \dotsc\theta_n^0\} = p_0$ for every curve. The tangent vectors $C_i$ then are simply the derivatives regarding their corresponding coordinate $C_i f = \partial/\partial \theta_i f$. We will denote this in short by $C_i = \partial_i$. The $n$ vectors $\partial_i$ are linearly independent and form the natural basis for the tangent space. This means that any tangent vector $A$ can be represented by 
+so that $c_i(t_0) = \{\theta_1^0,\theta_2^0, \dotsc,\theta_n^0\} = p_0$ for every curve. The tangent vectors $C_i$ then are simply the derivatives regarding their corresponding coordinate $C_i f = \partial/\partial \theta_i f$. We denote this in short by $C_i = \partial_i$. The $n$ vectors $\partial_i$ are linearly independent and form the natural basis for the tangent space \cite{AmarisLectureNotes} . This means that any tangent vector $A$ can be represented by \cite{AmarisLectureNotes} 
 \begin{equation}
-	A = \sum_{I=1}^{n} A_i \partial_i,
+	A = \sum_{i=1}^{n} A_i \partial_i,
 \end{equation}
-with components with respect to the natural basis $A_i$. If we are given a curve $c(t)$ going through $c(t_0)$ which derivative operator $C$ in $t_0$ is equivalent to the vector $A$, we can find the natural basis representation of $A$ as
+with components with respect to the natural basis $A_i$. If we are given a curve $c(t)$ going through $c(t_0)$ where the derivative operator $C$ in $t_0$ is equivalent to the vector $A$, we can find the natural basis representation of $A$ as \cite{AmarisLectureNotes}
 \begin{equation}
 	A_i = \left. \tAbl{\theta_i}{t}\right|_{t_0}.
-\end{equation} \\
-Now let's take a look at the case of manifolds of statistical models. First we will define $\ell$ as
+\end{equation}
+Now let's take a look at the case of manifolds of statistical models. First, we revisit the definition
 \begin{equation}
 	\ell(x|\theta) = \log f(x|\theta),
 \end{equation}
-and assume that for fixed $\theta$, the $n$-functions $\partial_i \ell(x|\theta)$ are linearly independent. This means that we can construct a vector space by defining
+and assume that for fixed $\theta$, the $n$ functions $\partial_i \ell(x|\theta)$ are linearly independent. This means that we can construct a vector space by defining \cite{AmarisLectureNotes}
 \begin{equation}
 	T_\theta^{(1)} = \{A(x) | A(x) = A_i \partial_i \ell(x|\theta)\}.
 \end{equation}
-We do this because there is a natural isomorphism between the tangent space $T_\theta$ and this space $T_\theta^{(1)}$ through 
+We do this because there is a natural isomorphism between the tangent space $T_\theta$ and this space $T_\theta^{(1)}$ through \cite{AmarisLectureNotes}
 \begin{equation}
 	\partial_i \in T_\theta \leftrightarrow \partial_i \ell(x|\theta) \in T_\theta^{(1)}.
 \end{equation}
-We will call $T_\theta{(1)}$ the "\textbf{1-representation}" of our tangent space for the statistical models. We will now use this vector to define an inner product on the tangent space and it's 1-representation.\\
-\subsection{Riemannian metric and Fisher Information}
-When the inner product of the tangent spaces $T_p$ is defined, the manifold is called a \textbf{Riemannian manifold}.\\
+We will call $T_\theta^{(1)}$ the \textbf{1-representation} of our tangent space for the statistical models \cite{AmarisLectureNotes}. We will now use this vector to define an inner product on the tangent space and its 1-representation.
+\subsection{Riemannian metric and Fisher information}\label{sec:RiemannianMetricAndFI}
+When the inner product of the tangent spaces $T_p$ is defined, the manifold is called a \textbf{Riemannian manifold} \cite{AmarisLectureNotes}.\\
 Let's first consider the inner product of the 1-representation space. Let $A(x)$ and $B(x)$ be 1-representations of $A$ and $B \in T_\theta$. It is intuitive to define the inner product as 
 \begin{equation}
 	\langle A(x), B(x) \rangle = \underset{x\in X}{E} \Big[A(x) B(x)\Big],
 \end{equation}
-with the expectation value $E[\cdot]$. Since the tangent space is isomorphic to its 1-representation, the inner product also translates via 
+with the expectation value $E[\cdot]$ \cite{AmarisLectureNotes}. Since the tangent space is isomorphic to its 1-representation, the inner product also translates via 
 \begin{equation}
 	\langle A, B \rangle = \langle A(x),B(x) \rangle.
 \end{equation}
-This also means that we can calculate the inner product of the basis vectors as 
+This also means that we can calculate the inner product of the basis vectors as \cite{AmarisLectureNotes}
 \begin{equation}
 	\begin{split}
-		g_{ij}(\theta) \vcentcolon= \langle \partial_i, \partial_j\rangle = \langle \partial_i\ell(x|\theta), \partial_j\ell(x|\theta)\rangle \\
+		g_{ij}(\theta) = \langle \partial_i, \partial_j\rangle = \langle \partial_i\ell(x|\theta), \partial_j\ell(x|\theta)\rangle \\
 		= \underset{x \in X}{E} \Big[\partial_i\ell(x|\theta), \partial_j\ell(x|\theta)\Big].
 	\end{split}
 \end{equation}
-The resulting object $g_{ij}(\theta)$ is called the \textbf{Riemannian metric tensor} of the manifold. We can see that the Riemannian metric tensor for the statistical model is equivalent to the Fisher Information. It might be of interest to note here that we assume that $\ell$ only depends explicitly on $\theta$. If we denote these as implicit dependencies, we have to replace the partial derivatives with absolute ones.\\
-The inner product of two vectors can now be expressed with the metric tensor as
+The resulting object $g_{ij}(\theta)$ is called the \textbf{Riemannian metric tensor} of the manifold \cite{AmarisLectureNotes}. We can see that the Riemannian metric tensor for the statistical model is equivalent to the Fisher information. It might be of interest to note here that we assume that $\ell$ only depends explicitly on $\theta$. If we denote these as implicit dependencies, we have to replace the partial derivatives with absolute ones.\\
+The inner product of two vectors can now be expressed with the metric tensor as \cite{AmarisLectureNotes}
 \begin{equation}
 	\langle A,B \rangle = \sum_{i,j} A_iB_jg_{ij}(\theta)
 \end{equation}
-in the component form. \\
-Using this representation of the inner product, we can define various things. For example, the length of a vector $A$ is defined as $|A|^2 = \sum_{i,j} A_iA_j g_{ij}$, the orthogonality of two vectors when their inner product is zero, and the distance between two points $\theta^{(0)}$ and $\theta^{(1)}$ along the curve $c$ is defined by 
+in the component form.\\
+Using this representation of the inner product, we can define various things. For example, the length of a vector $A$ is defined as $|A|^2 = \sum_{i,j} A_iA_j g_{ij}$, the orthogonality of two vectors as their inner product being zero, and the distance between two points $\theta^{(0)}$ and $\theta^{(1)}$ along the curve $c$ as \cite{AmarisLectureNotes}
 \begin{equation}
 	s = \int_{t_0}^{t_1} \sum_{i,j} \sqrt{g_{ij}\tAbl{\theta_i}{t}\tAbl{\theta_j}{t}} \mathrm{d}t. 
 \end{equation}
 This also introduces the concept of \textbf{Riemannian geodesics}. These are the curves that connect two points via the minimal distance between the two.\\
-Another representation of the metric tensor or the FI is 
+Another representation of the metric tensor or the FI is \cite{AmarisLectureNotes} 
 \begin{equation}\label{eq:SecondRepresentationOfFisherInfo}
 	g_{ij}(\theta) = - \underset{x\in X}{E} \Big[ \partial_i \partial_j \ell(x|\theta) \Big].
 \end{equation}
 A proof of this is denoted in \cref{sec:ProofForeq:SecondRepresentationOfFisherInfo}.
 
-\subsection{Scalar curvature and Christoffel symbols}
-Here we will only give the definitions needed to compute the scalar curvature of a statistical manifold. A full understanding requires much more mathematics than we will go over here. If you are interested in this, please see \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook}.\\
-We will use Einstein notation for these equations. First we define the Christoffel-symbols which can be calculated from the Riemannian metric via
+\subsection{Scalar curvature and Christoffel symbols}\label{sec:Curvature}
+Here, we will only give the definitions needed to compute the scalar curvature of a statistical manifold along with brief explanations. A full understanding requires much more mathematics than we will go over here. We will refer the interested reader to \cite{AmarisLectureNotes} and \cite{GeneralRelativityBook} for further details.\\
+Note that we don't use covariant and contravariant indices, since we don't need them in the scope of this thesis. The notation of uppercase or lowercase indices is just to be consistent with the notation from general relativity and should be of no further concern for our experiments. The parameters with lowercase indices defined previously translate directly to the ones with uppercase indices here. We will also use Einstein notation for these equations.\\
+First we define the Christoffel symbols which can be calculated from the Riemannian metric via \cite{GeneralRelativityBook}
 \begin{equation}
-	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta_l} + \pAbl{g_{ml}}{\theta_k} - \pAbl{g_{kl}}{\theta_m}\right),
+	\Gamma^{i}_{jk} = \frac{1}{2}g^{im} \left(\pAbl{g_{mk}}{\theta^l} + \pAbl{g_{ml}}{\theta^k} - \pAbl{g_{kl}}{\theta^m}\right),
 \end{equation} 
-where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric.
-From those we can define the Riemannian curvature tensure as 
+where $g^{ij} = (g^{-1})_{ij}$ are the components of the inverse of the metric. They originally arise from the formula $\partial_k \vec{e}_j = \Gamma^i_{jk} \vec{e}_k$, where they describe how basis vectors change when moving in the parameter space \cite{GeneralRelativityBook}.
+From these, we can define the Riemannian curvature tensor as \cite{GeneralRelativityBook}
 \begin{equation}
 	R^{i}_{jkl} = \partial_k \Gamma^i_{jl} - \partial_l \Gamma^i_{jk} + \Gamma^i_{mk}\Gamma^m_{jl} - \Gamma^i_{ml}\Gamma^m_{jk}.
 \end{equation}
-Now we can finally state the scalar Ricci curvature as 
+The Riemannian curvature tensor is the full description of curvature on a manifold. It generalizes the well known concept of curvature on a curve to multidimensional, abstract manifolds. We can compress its information down into a single scalar number by defining the Ricci scalar curvature as \cite{GeneralRelativityBook}
 \begin{equation}
 	R = g^{ij} R^m_{imj}.
 \end{equation}
+The scalar curvature can be viewed as a measure of how much the manifold at the point of computation differs from flat space. For euclidean spaces, the scalar curvature is 0 \cite{GeneralRelativityBook}. To give more intuition about the curvature we can refer to its interpretation in general relativity. It considers the physical space to be a curved manifold with the coordinate of time added to the 3 spatial dimensions. Curvature results from objects with mass in space \cite{GeneralRelativityBook}. The concept of curvature here can be imagined similar to how a ball placed on an elastic surface will curve it around the ball. When viewed from the top, the space seems flat, but when moving towards the ball on the surface, the distance traveled on the elastic band gets larger compared to the distance traveled in the top down perspective, the closer we come to the ball. This results from the ball stretching the manifold represented by the elastic band. Similarly for neural networks, the distance from the top down view is represented by the distance in the coordinate frame. The actual distance moved on the elastic band is described by the distance between points in the manifold, which in our case means how much the loss functions at those coordinates differ from each other. How exactly this translates to neural networks is explained in \cref{sec:ApplicationOfFIToNeuralNetworks}.
+
+\subsection{Application to neural networks}\label{sec:ApplicationOfFIToNeuralNetworks}
+Now that we've laid down the mathematical fundamentals of how the FI can be considered the metric of a statistical manifold, we can apply this to our neural network optimization by introducing a way of viewing them as statistical models.\\
+Let's first define the statistical model by the probability $p_\theta(\mathbf{x}_i,\mathbf{y}_i) = e^{-\ell_\theta(\mathbf{x}_i,\mathbf{y}_i)}$, where $\ell$ is the subloss function defined in \cref{eq:Loss_longform}. You can think of this as a kind of probability that the network characterized by the parameters $\theta$ and the subloss function $\ell$ can generate the outputs $\mathbf{y}_i$ from the inputs $\mathbf{x}_i$. In reality, of course, it's not a probability that the network reproduces the output, since that would be either true or false. It's rather a measure of how close the network's prediction is to the actual target. We can think of it and use it as a probability because of the exponential function, which results in a probability of 1 if the network output matches the target (which means $\ell = 0$) and shrinks towards 0 for larger discrepancies.\\
+Now we can also see that the definitions of two different $\ell$ don't interfere with each other. In the context of a statistical model, $\ell$ is defined as the logarithm of $f(x|\theta)$, in the context of neural network training, $\ell$ is defined as the subloss (see \cref{eq:Loss_longform}) that we used for the probability above. This means that in the case of a statistical manifold of neural network training, the negative subloss $-\ell_\theta(\mathbf{x}_i \mathbf{y}_i)$ is equal to the logarithm of the statistical model $\ell(\mathbf{x}_i, \mathbf{y}_i|\theta)$. Since we will only use $\ell$ to calculate the FI, where the two minus signs cancel, we can think of the $\ell$ in the definition of the FI in \cref{eq:FIDefinition} as being the subloss of a network defined in \cref{eq:Loss_longform}. How the components of the resulting matrix can be interpreted will be discussed at the end of \cref{sec:FisherInterpretation}.
