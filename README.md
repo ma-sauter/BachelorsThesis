@@ -1,11 +1,11 @@
-# Investigating the Evolution of Fisher Information for Neural Network Dynamics
-# A bachelor's thesis by Marc Sauter
-----
+# Investigating the Evolution of Fisher Information for Neural Network Dynamics - A bachelor's thesis by Marc Sauter
+
+## How to compile the thesis
 This repository contains all files needed to compile my bachelors thesis with LuaLatex.
 Compile the titlepage.tex file seperately first, then compile the main.tex to produce the 
 full thesis in "main.pdf".
-----
 
+## Where you can find the plots
 All files needed to create the explanatory plots can be found in the text subfolder,
 where the .tex files of the textpassages are located as well.
 The files needed to create the plots from the second part of the results section are
