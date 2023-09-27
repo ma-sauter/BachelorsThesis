@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/example/1080p60/partial_movie_files/BasicExample/1413466013_2344505713_223132457.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/example/1080p60/partial_movie_files/BasicExample/1672018281_1652868507_3421215153.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/example/1080p60/partial_movie_files/BasicExample/1672018281_1365930510_2358810818.mp4'
