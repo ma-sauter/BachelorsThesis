@@ -1,0 +1,34 @@
+{
+  "slides": [
+    {
+      "type": "slide",
+      "start_animation": 0,
+      "end_animation": 1,
+      "number": 1
+    },
+    {
+      "type": "slide",
+      "start_animation": 1,
+      "end_animation": 4,
+      "number": 2
+    },
+    {
+      "type": "last",
+      "start_animation": 4,
+      "end_animation": 5,
+      "number": 3
+    }
+  ],
+  "files": [
+    "slides\\files\\NTKExplanation\\4103355148_3442197794_223132457.mp4",
+    "slides\\files\\NTKExplanation\\596973503_2415857594_3760716601.mp4",
+    "slides\\files\\NTKExplanation\\3446637597_564221646_223132457.mp4",
+    "slides\\files\\NTKExplanation\\1361893732_3931201982_1241259167.mp4",
+    "slides\\files\\NTKExplanation\\1936816513_2268923095_1180308704.mp4"
+  ],
+  "resolution": [
+    1920,
+    1080
+  ],
+  "background_color": "black"
+}

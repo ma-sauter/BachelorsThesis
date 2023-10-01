@@ -1,0 +1,33 @@
+{
+  "slides": [
+    {
+      "type": "slide",
+      "start_animation": 0,
+      "end_animation": 1,
+      "number": 1
+    },
+    {
+      "type": "slide",
+      "start_animation": 1,
+      "end_animation": 2,
+      "number": 2
+    },
+    {
+      "type": "last",
+      "start_animation": 2,
+      "end_animation": 4,
+      "number": 3
+    }
+  ],
+  "files": [
+    "slides\\files\\Presentation\\1413466013_2344505713_223132457.mp4",
+    "slides\\files\\Presentation\\1672018281_1652868507_3421215153.mp4",
+    "slides\\files\\Presentation\\1672018281_3792755725_2358810818.mp4",
+    "slides\\files\\Presentation\\1672018281_3442197794_223132457.mp4"
+  ],
+  "resolution": [
+    1920,
+    1080
+  ],
+  "background_color": "black"
+}

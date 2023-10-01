@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/NTKExplanation/1080p60/partial_movie_files/NTKExplanation/4103355148_3442197794_223132457.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/NTKExplanation/1080p60/partial_movie_files/NTKExplanation/596973503_2415857594_3760716601.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/NTKExplanation/1080p60/partial_movie_files/NTKExplanation/3446637597_564221646_223132457.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/NTKExplanation/1080p60/partial_movie_files/NTKExplanation/1361893732_3931201982_1241259167.mp4'
+file 'file:C:/Users/Admin/Uni/Bachelorarbeit/thesis/Presentation/media/videos/NTKExplanation/1080p60/partial_movie_files/NTKExplanation/1936816513_2268923095_1180308704.mp4'
