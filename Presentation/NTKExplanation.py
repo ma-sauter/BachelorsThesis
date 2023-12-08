@@ -104,17 +104,22 @@ class NTKExplanation(ThreeDSlide):
         # surface.add_updater(update_curve)
 
         self.play(FadeIn(axes, surface))
+        self.next_slide()
+        hinweis = Arrow3D(
+            start=axes.c2p(d1x[0] + 0.5, d1y[0] + 0.5, d1z[0] + 1),
+            end=axes.c2p(d1x[0], d1y[0], d1z[0]),
+            color=GREEN,
+        )
+        startpunkt = Sphere(
+            center=axes.c2p(d1x[0], d1y[0], d1z[0]), radius=0.1, resolution=20
+        ).set_color(GREEN)
+        self.play(Create(hinweis), run_time=0.3)
+        self.play(GrowFromCenter(startpunkt), run_time=0.1)
+        self.play(FadeOut(hinweis), run_time=0.2)
 
-        self.begin_ambient_camera_rotation()
-
-        self.wait(3)
         self.next_slide()
 
-        sphere_list = VGroup(
-            Sphere(
-                center=axes.c2p(d1x[0], d1y[0], d1z[0]), radius=0.1, resolution=10
-            ).set_color(GREEN)
-        )
+        sphere_list = VGroup()
         for i in range(len(d1x) - 1):
             sphere_list.add(
                 Line3D(
@@ -122,13 +127,6 @@ class NTKExplanation(ThreeDSlide):
                     end=axes.c2p(d1x[i + 1], d1y[i + 1], d1z[i + 1]),
                     color=GREEN,
                 )
-            )
-            sphere_list.add(
-                Sphere(
-                    center=axes.c2p(d1x[i + 1], d1y[i + 1], d1z[i + 1]),
-                    radius=0.1,
-                    resolution=10,
-                ).set_color(GREEN)
             )
 
         self.play(LaggedStart(Create(sphere_list), lag_ratio=0.3))
