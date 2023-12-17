@@ -19,6 +19,13 @@ def create_animation(lossname):
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
+    # add axis labels
+    ax.set_xlabel(r"$\theta_1$")
+    ax.set_ylabel(r"$\theta_2$")
+    ax.set_zlabel(r"$R$")
+    # lock the label rotation to 0 degrees
+    ax.xaxis.set_rotate_label(False)
+    ax.yaxis.set_rotate_label(False)
 
     # Create the initial plot
     plot = ax.plot_surface(X, Y, Z, cmap="magma")
@@ -104,6 +111,18 @@ def create_trace_animation(lossname):
     # add title of traces
     ax_Fisher.set_title("Fisher Trace")
     ax_NTK.set_title("NTK Trace")
+    # add axis labels
+    ax_Fisher.set_xlabel(r"$\theta_1$")
+    ax_Fisher.set_ylabel(r"$\theta_2$")
+    # lock the label rotation to 0 degrees
+    ax_Fisher.xaxis.set_rotate_label(False)
+    ax_Fisher.yaxis.set_rotate_label(False)
+    # Do the same for NTK
+    ax_NTK.set_xlabel(r"$\theta_1$")
+    ax_NTK.set_ylabel(r"$\theta_2$")
+    # lock the label rotation to 0 degrees
+    ax_NTK.xaxis.set_rotate_label(False)
+    ax_NTK.yaxis.set_rotate_label(False)
 
     def update(frame):
         # Rotate the plot around the Z-axis
